@@ -1,0 +1,480 @@
+{
+  "section": {
+    "id": "section-04",
+    "name": "Full Day Experience",
+    "type": "course-experience-timeline",
+    "reference": "final-approved-section-04",
+
+    "purpose": "Show what happens during the 6-hour private workshop as a clear four-step journey from the student's initial idea to a real live website.",
+
+    "design_system": {
+      "source": "DESIGN_SYSTEM.md",
+      "inherit_global_tokens": true,
+      "container": "container.default",
+      "theme": "orange",
+      "background": "accent-primary",
+      "accent_color": "#FA5001"
+    },
+
+    "implementation_priority": [
+      "alternating-two-column-layout",
+      "four-step-storytelling",
+      "visual-text-balance",
+      "vertical-rhythm",
+      "step-number-hierarchy",
+      "large-visual-placeholders",
+      "clear-start-to-live-progression",
+      "whitespace"
+    ],
+
+    "visual_phase": {
+      "current_phase": "direct-design",
+      "use_real_images": true,
+      "use_real_icons": true,
+      "use_final_graphics": true,
+      "use_animation": false,
+      "placeholder_required_for_missing_visual_assets": true,
+      "viewport_qa": "desktop-first"
+    },
+
+    "overall_layout": {
+      "direction": "vertical",
+      "alignment": "center",
+      "composition": "alternating-editorial-timeline",
+      "content_density": "medium",
+      "section_behavior": "content-driven-height",
+      "full_viewport_height": false,
+
+      "story_flow": [
+        "section-label",
+        "section-headline",
+        "step-01-start",
+        "step-02-design",
+        "step-03-build-fix",
+        "step-04-live"
+      ],
+
+      "notes": [
+        "This section is intentionally long and should extend beyond one viewport.",
+        "The four steps should feel like one continuous learning journey.",
+        "Alternate text and visual positions between rows to create rhythm.",
+        "Do not compress the four steps into cards."
+      ]
+    },
+
+    "section_header": {
+      "id": "section-04-label",
+      "component": "SectionLabel",
+      "position": "top-center",
+      "alignment": "center",
+
+      "content": {
+        "number": "04",
+        "label": "WHAT HAPPENS IN 6 HOURS"
+      },
+
+      "variant": "orange-background",
+
+      "decorative_accent": {
+        "type": "hand-drawn-underline",
+        "position": "under-label",
+        "placeholder_behavior": "simple-line-placeholder"
+      }
+    },
+
+    "headline_block": {
+      "id": "experience-headline",
+      "position": "below-section-label",
+      "alignment": "center",
+      "max_width": "content.medium",
+
+      "content": [
+        {
+          "order": 1,
+          "text": "6 ชั่วโมงนี้",
+          "style_role": "inverse-primary"
+        },
+        {
+          "order": 2,
+          "text": "เราจะทำอะไรกันบ้าง?",
+          "style_role": "dark-emphasis"
+        }
+      ],
+
+      "typography": {
+        "token": "type.h2"
+      },
+
+      "line_break": "intentional-two-line",
+
+      "decorative_elements": [
+        {
+          "type": "hand-drawn-underline",
+          "target": "เราจะทำอะไรกันบ้าง?"
+        },
+        {
+          "type": "doodle-star",
+          "position": "left"
+        },
+        {
+          "type": "doodle-emphasis-lines",
+          "position": "right"
+        }
+      ],
+
+      "direct_design_notes": "Use supplied approved decorative assets. When they are not supplied, keep only the underline if needed for layout and omit other doodles."
+    },
+
+    "experience_timeline": {
+      "id": "four-step-experience",
+      "position": "below-headline",
+      "layout": "four-stacked-rows",
+      "relative_width": "full-container",
+
+      "shared_row_structure": {
+        "layout": "two-column",
+        "columns": 2,
+        "grid_ratio": "1:1",
+        "vertical_alignment": "center",
+        "separator": "subtle-horizontal-divider",
+        "minimum_visual_balance": "approximately-equal"
+      },
+
+      "steps": [
+        {
+          "id": "step-01-start",
+          "number": "01",
+          "phase": "PART 1 — DESIGN",
+          "title": "START",
+          "subtitle": "เริ่มจากไอเดียของคุณ",
+
+          "layout": {
+            "text_column": "left",
+            "visual_column": "right",
+            "text_grid_span": 6,
+            "visual_grid_span": 6
+          },
+
+          "content": {
+            "description": "คุยโจทย์ เป้าหมาย กลุ่มเป้าหมาย และหา Reference ที่ใช่",
+
+            "checklist": [
+              "คุยความต้องการ",
+              "กำหนดเป้าหมาย",
+              "รวบรวม Reference",
+              "วาง Direction"
+            ]
+          },
+
+          "visual": {
+            "type": "final-composite-image",
+            "asset": "assets/experience/01-start-reference.png",
+            "alt": "ภาพตัวอย่างขั้นตอนตั้งต้นจากไอเดีย Reference และ Direction",
+            "direct_design_notes": "Use the supplied composite directly. Do not rebuild its internal reference board, brief or direction layers."
+          }
+        },
+
+        {
+          "id": "step-02-design",
+          "number": "02",
+          "phase": "PART 1 — DESIGN",
+          "title": "DESIGN",
+          "subtitle": "ออกแบบให้เห็นภาพ",
+
+          "layout": {
+            "visual_column": "left",
+            "text_column": "right",
+            "visual_grid_span": 6,
+            "text_grid_span": 6
+          },
+
+          "content": {
+            "description": "วางโครงสร้างข้อมูล ออกแบบหน้าตา และเลือกองค์ประกอบที่เหมาะสม",
+
+            "checklist": [
+              "Information Architecture",
+              "Wireframe / Layout",
+              "UI Design",
+              "Review & Feedback"
+            ]
+          },
+
+          "visual": {
+            "type": "final-composite-image",
+            "asset": "assets/experience/02-design-workspace.png",
+            "alt": "ภาพตัวอย่างพื้นที่ออกแบบเว็บไซต์พร้อมเครื่องมือ สี และ Typography",
+            "direct_design_notes": "Use the supplied composite directly. Do not rebuild its internal design workspace layers."
+          }
+        },
+
+        {
+          "id": "step-03-build-fix",
+          "number": "03",
+          "phase": "PART 2 — BUILD",
+          "title": "BUILD & FIX",
+          "subtitle": "สร้างและแก้ด้วย AI",
+
+          "layout": {
+            "text_column": "left",
+            "visual_column": "right",
+            "text_grid_span": 6,
+            "visual_grid_span": 6
+          },
+
+          "content": {
+            "description": "เปลี่ยน Design เป็นเว็บไซต์จริง เจอปัญหาก็แก้ไปด้วยกันแบบเรียลไทม์",
+
+            "checklist": [
+              "สร้างเว็บไซต์ด้วย AI + Tools",
+              "ปรับแก้ / แก้บั๊ก / ทำ Responsive",
+              "เชื่อมต่อสิ่งที่จำเป็น",
+              "ทดสอบการใช้งาน"
+            ]
+          },
+
+          "visual": {
+            "type": "final-composite-image",
+            "asset": "assets/experience/03-build-fix.png",
+            "alt": "ภาพตัวอย่างการสร้างเว็บไซต์ด้วย AI และการตรวจหน้าจอ Desktop Tablet Mobile",
+            "direct_design_notes": "Use the supplied composite directly. Do not rebuild its internal AI output, assistant or responsive preview layers."
+          }
+        },
+
+        {
+          "id": "step-04-live",
+          "number": "04",
+          "phase": "PART 2 — BUILD",
+          "title": "LIVE",
+          "subtitle": "ออนไลน์จริง",
+
+          "layout": {
+            "visual_column": "left",
+            "text_column": "right",
+            "visual_grid_span": 6,
+            "text_grid_span": 6
+          },
+
+          "content": {
+            "description": "ตรวจความเรียบร้อยรอบสุดท้าย และพาเว็บไซต์ของคุณขึ้นออนไลน์",
+
+            "checklist": [
+              "ตรวจสอบทุกอุปกรณ์",
+              "ตั้งค่า Domain / Hosting",
+              "นำเว็บไซต์ขึ้นออนไลน์จริง",
+              "ส่งมอบและแนะนำขั้นตอนต่อไป"
+            ]
+          },
+
+          "visual": {
+            "type": "final-composite-image",
+            "asset": "assets/experience/04-live-website.png",
+            "alt": "ภาพตัวอย่างเว็บไซต์ที่พร้อมใช้งานออนไลน์จริง",
+            "direct_design_notes": "Use the supplied composite directly. Do not rebuild its internal browser chrome, live status or success check."
+          },
+
+          "closing_annotation": {
+            "type": "handwritten-statement",
+            "content": [
+              {
+                "text": "จบ 6 ชั่วโมง",
+                "style_role": "dark"
+              },
+              {
+                "text": "คุณได้เว็บไซต์ของคุณเอง!",
+                "style_role": "inverse-primary"
+              }
+            ],
+            "position": "bottom-right-near-content",
+
+            "placeholder_behavior": "text-only"
+          }
+        }
+      ]
+    },
+
+    "part_structure": {
+      "part_01": {
+        "label": "PART 1 — DESIGN",
+        "duration": "3 HOURS",
+        "contains": [
+          "step-01-start",
+          "step-02-design"
+        ]
+      },
+
+      "break": {
+        "duration": "1 HOUR",
+        "type": "lunch-rest-break",
+        "display_in_section": false,
+        "notes": "The break exists in the workshop schedule but does not need to interrupt the four-step visual story unless added later."
+      },
+
+      "part_02": {
+        "label": "PART 2 — BUILD",
+        "duration": "3 HOURS",
+        "contains": [
+          "step-03-build-fix",
+          "step-04-live"
+        ]
+      }
+    },
+
+    "alternating_pattern": [
+      {
+        "step": "01",
+        "left": "text",
+        "right": "visual"
+      },
+      {
+        "step": "02",
+        "left": "visual",
+        "right": "text"
+      },
+      {
+        "step": "03",
+        "left": "text",
+        "right": "visual"
+      },
+      {
+        "step": "04",
+        "left": "visual",
+        "right": "text"
+      }
+    ],
+
+    "relative_spacing": {
+      "section_label_to_headline": "medium",
+      "headline_to_timeline": "extra-large",
+      "inside_each_step": "large",
+      "between_steps": "none-use-row-divider-and-row-padding",
+      "timeline_to_section_end": "normal"
+    },
+
+    "desktop_structure": {
+      "container": "container.default",
+      "section_label": "centered",
+      "headline": "centered",
+      "timeline": "four-full-width-stacked-rows",
+      "row_grid": "6/6",
+      "row_01": "text-left-visual-right",
+      "row_02": "visual-left-text-right",
+      "row_03": "text-left-visual-right",
+      "row_04": "visual-left-text-right"
+    },
+
+    "responsive_intent": {
+      "tablet": {
+        "timeline": "retain-alternating-two-column-layout-when-readable",
+        "visuals": "simplify-overlay-elements",
+        "decorative_doodles": "reduce"
+      },
+
+      "mobile": {
+        "timeline": "single-column",
+
+        "step_structure": {
+          "order_within_each_step": [
+            "step-number",
+            "title",
+            "subtitle",
+            "description",
+            "checklist",
+            "visual"
+          ]
+        },
+
+        "important_rule": "Do not preserve desktop alternating order on mobile if it damages reading flow.",
+
+        "visuals": {
+          "width": "full-available-width",
+          "simplify_overlays": true,
+          "retain_main_visual": true
+        },
+
+        "decorative_elements": "minimal"
+      }
+    },
+
+    "missing_asset_placeholder_system": {
+      "reference_board": {
+        "render": "neutral-landscape-placeholder",
+        "show_label": true
+      },
+
+      "website_design": {
+        "render": "neutral-landscape-placeholder",
+        "show_label": true
+      },
+
+      "ai_code": {
+        "render": "neutral-landscape-placeholder",
+        "show_label": true
+      },
+
+      "responsive_preview": {
+        "render": "three-simple-device-placeholders",
+        "show_label": true
+      },
+
+      "live_website": {
+        "render": "neutral-landscape-placeholder",
+        "show_label": true
+      },
+
+      "icons": {
+        "render": "simple-outline-placeholder"
+      },
+
+      "decorative_doodles": {
+        "render": "omit-unless-layout-relevant"
+      }
+    },
+
+    "content_updates_from_reference": [
+      {
+        "reference_content": "WHAT HAPPENS IN 4 HOURS",
+        "current_content": "WHAT HAPPENS IN 6 HOURS",
+        "reason": "Workshop duration has been updated to 6 teaching hours."
+      },
+      {
+        "reference_content": "4 ชั่วโมงนี้",
+        "current_content": "6 ชั่วโมงนี้",
+        "reason": "Workshop duration has been updated."
+      },
+      {
+        "reference_content": "จบ 4 ชั่วโมง",
+        "current_content": "จบ 6 ชั่วโมง",
+        "reason": "Workshop duration has been updated."
+      }
+    ],
+
+    "codex_constraints": [
+      "DESIGN_SYSTEM.md is the global styling source of truth.",
+      "Use the global 1280px container.",
+      "Use Noto Sans Thai from the global typography system.",
+      "Normal body copy uses font-weight 300.",
+      "Use #FA5001 as the full section background through the global accent token.",
+      "This is a full orange section.",
+      "Do not convert the four steps into cards.",
+      "Do not place all four steps into a single horizontal row.",
+      "Use four vertically stacked full-width rows.",
+      "Preserve the alternating text/visual pattern on desktop.",
+      "Step 01: text left, visual right.",
+      "Step 02: visual left, text right.",
+      "Step 03: text left, visual right.",
+      "Step 04: visual left, text right.",
+      "Each row should feel spacious and editorial.",
+      "Use subtle structural divider lines between rows if required.",
+      "Do not use white card containers behind each step.",
+      "The orange background must remain visible throughout the entire section.",
+      "Do not force this section into 100vh.",
+      "Use real approved text and supplied visual assets during direct implementation.",
+      "Use placeholders for website screenshots, reference boards, UI screenshots and icons only when their approved assets are missing.",
+      "Use approved final artwork when supplied; do not invent artwork that has not been approved.",
+      "Treat desktop as the current primary target; defer responsive QA until requested.",
+      "Do not invent additional curriculum items.",
+      "Do not revert any 6-hour copy back to 4 hours.",
+      "Do not invent section-specific typography, spacing, colors, radii or breakpoints when DESIGN_SYSTEM.md already defines them."
+    ]
+  }
+}

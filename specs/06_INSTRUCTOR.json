@@ -1,0 +1,267 @@
+{
+  "section_id": "instructor",
+  "section_number": "06",
+  "section_name": "INSTRUCTOR / WHY TRUST ME",
+  "status": "wireframe_spec",
+  "purpose": "Introduce the instructor, establish credibility, explain relevant expertise, show selected work, and communicate the teaching philosophy.",
+  "inherit": {
+    "design_system": "DESIGN_SYSTEM.md",
+    "rules": "CODEX_RULES.md",
+    "required_skill": "Taste Design"
+  },
+  "reference": {
+    "reference_image": "attached_reference_image",
+    "role": "Primary visual composition reference",
+    "instruction": "Match the composition, hierarchy, relative sizing, whitespace, and visual balance of the supplied reference. Do not redesign into a generic profile/about section."
+  },
+  "section_style": {
+    "background": "light",
+    "background_token": "#F4F1EE",
+    "text_color": "#111111",
+    "accent_color": "#FA5001",
+    "container": "1280px",
+    "desktop_padding_y": "140px",
+    "visual_character": [
+      "editorial",
+      "creative studio",
+      "personal brand",
+      "clean",
+      "minimal",
+      "design portfolio",
+      "hand-drawn accents"
+    ]
+  },
+  "layout": {
+    "desktop": {
+      "type": "editorial_grid",
+      "columns": 12,
+      "top_area": {
+        "columns": {
+          "intro": "4/12",
+          "expertise": "3/12",
+          "visual": "5/12"
+        },
+        "alignment": "start",
+        "visual_area_can_overlap": true
+      },
+      "bottom_area": {
+        "stats": "full_width",
+        "tools": "full_width"
+      }
+    },
+    "tablet": {
+      "type": "two_stage_layout",
+      "intro_and_visual": "2 columns",
+      "expertise": "2 columns below",
+      "stats": "horizontal scroll or 2-column grid",
+      "tools": "wrapping row"
+    },
+    "mobile": {
+      "type": "single_column",
+      "order": [
+        "section_label",
+        "intro",
+        "instructor_visual",
+        "belief_quote",
+        "expertise",
+        "stats",
+        "tools"
+      ],
+      "horizontal_padding": "20-24px"
+    }
+  },
+  "section_label": {
+    "number": "06",
+    "text": "INSTRUCTOR / WHY TRUST ME",
+    "alignment": "left",
+    "style": "global_section_label",
+    "number_background": "#FA5001"
+  },
+  "intro": {
+    "type": "instructor_intro",
+    "alignment": "left",
+    "headline": {
+      "lines": [
+        {
+          "text": "ผมอยู่ตรงนี้",
+          "accent": false
+        },
+        {
+          "text": "เพื่อช่วยให้คุณ",
+          "accent": false
+        },
+        {
+          "text": "ไปไกลกว่าเดิม",
+          "accent": true
+        }
+      ],
+      "style": "large_editorial_heading",
+      "max_width": "420px"
+    },
+    "description": {
+      "text": "ไม่ว่าคุณจะเริ่มจาก 0 หรือมีพื้นฐานมาก่อน\nผมจะพาคุณสร้างเว็บไซต์เป็นของตัวเอง\nและใช้ AI เป็นผู้ช่วยที่ทรงพลังที่สุด",
+      "style": "body_large",
+      "max_width": "420px"
+    },
+    "signature": {
+      "text": "Captain XI",
+      "style": "handwritten",
+      "color": "#FA5001",
+      "wireframe_behavior": "Use normal text if handwritten font/asset is not yet available."
+    },
+    "role": {
+      "text": "UX/UI Designer & Web Developer"
+    },
+    "experience": {
+      "text": "ประสบการณ์กว่า 8 ปี",
+      "status": "approved"
+    }
+  },
+  "expertise": {
+    "type": "expertise_grid",
+    "columns": {
+      "desktop": 2,
+      "mobile": 1
+    },
+    "rows": 3,
+    "style": {
+      "card_style": "none",
+      "use_dividers": true,
+      "divider_color": "#E2DFDB",
+      "icon_color": "#FA5001",
+      "icon_position": "top_left",
+      "alignment": "left"
+    },
+    "items": [
+      {
+        "id": "ux-ui-design",
+        "icon": {
+          "type": "placeholder",
+          "label": "[UX/UI ICON]"
+        },
+        "title": "UX/UI DESIGN",
+        "description": "ออกแบบประสบการณ์ผู้ใช้ที่สวย ใช้งานง่าย และตอบโจทย์ธุรกิจอย่างแท้จริง"
+      },
+      {
+        "id": "web-design-dev",
+        "icon": {
+          "type": "placeholder",
+          "label": "[WEB DEV ICON]"
+        },
+        "title": "WEB DESIGN & DEV",
+        "description": "สร้างเว็บไซต์ด้วย Next.js และระบบที่ยืดหยุ่น รองรับการเติบโต"
+      },
+      {
+        "id": "ai-workflow",
+        "icon": {
+          "type": "placeholder",
+          "label": "[AI ICON]"
+        },
+        "title": "AI WORKFLOW",
+        "description": "ใช้ AI ช่วยออกแบบ เขียนโค้ด และแก้ปัญหาได้เร็วขึ้นอย่างมีระบบ"
+      },
+      {
+        "id": "product-thinking",
+        "icon": {
+          "type": "placeholder",
+          "label": "[PRODUCT ICON]"
+        },
+        "title": "PRODUCT THINKING",
+        "description": "มองภาพรวมของโปรเจกต์ วางโครงสร้างให้ตอบโจทย์เป้าหมายและผู้ใช้งาน"
+      },
+      {
+        "id": "mentor-teacher",
+        "icon": {
+          "type": "placeholder",
+          "label": "[MENTOR ICON]"
+        },
+        "title": "MENTOR & TEACHER",
+        "description": "สอนจากประสบการณ์จริง เน้นเข้าใจ นำไปใช้ได้จริง ไม่ทิ้งผู้เรียนไว้ข้างหลัง"
+      },
+      {
+        "id": "real-project-experience",
+        "icon": {
+          "type": "placeholder",
+          "label": "[PROJECT ICON]"
+        },
+        "title": "REAL PROJECT EXPERIENCE",
+        "description": "ทำโปรเจกต์จริงกับลูกค้าหลากหลายธุรกิจ มากกว่า 50+ โปรเจกต์"
+      }
+    ]
+  },
+  "instructor_visual": {
+    "type": "layered_editorial_composition",
+    "position": "right",
+    "relative_importance": "primary_visual",
+    "image_path": "assets/sec6/ChatGPT Image 1 ก.ย. 2569 17_42_00.png"
+  },
+  "belief_quote": {
+    "type": "editorial_quote_panel",
+    "position": "overlap_bottom_of_instructor_visual",
+    "background": "#FFFFFF",
+    "style": "brush_edge_or_soft_editorial_panel",
+    "quote_mark": {
+      "color": "#FA5001",
+      "size": "large"
+    },
+    "title": "สิ่งที่ผมเชื่อมาตลอด",
+    "body": "คือ การออกแบบที่ดี + เครื่องมือที่ถูกต้อง จะเปลี่ยนไอเดียธรรมดา ให้กลายเป็นผลลัพธ์ที่ยิ่งใหญ่ได้ และผมอยากส่งต่อสิ่งนี้ ให้กับคุณ",
+    "signature": "Captain XI"
+  },
+  "stats": {
+    "type": "horizontal_stat_strip",
+    "background": "#FFFFFF",
+    "border": "1px solid #E2DFDB",
+    "radius": "16px",
+    "items": [
+      {
+        "icon": "[EXPERIENCE ICON]",
+        "value": "8+",
+        "label": "YEARS",
+        "description": "ประสบการณ์ทำงานสาย UX/UI & Digital Product"
+      },
+      {
+        "icon": "[PROJECT ICON]",
+        "value": "50+",
+        "label": "PROJECTS",
+        "description": "โปรเจกต์ที่ดูแลตั้งแต่ออกแบบจนถึงพัฒนาและส่งมอบจริง"
+      },
+      {
+        "icon": "[BUSINESS ICON]",
+        "value": "20+",
+        "label": "BUSINESSES",
+        "description": "ธุรกิจหลากหลายประเภทที่ไว้วางใจและร่วมงานอย่างต่อเนื่อง"
+      },
+      {
+        "icon": "[GOAL ICON]",
+        "value": "1 GOAL",
+        "label": "เป้าหมายเดียว",
+        "description": "คือช่วยให้คุณสร้างเว็บไซต์ที่ใช้งานได้จริง และเติบโตได้"
+      },
+      {
+        "icon": "[PRACTICAL ICON]",
+        "value": "100%",
+        "label": "PRACTICAL",
+        "description": "สอนจากของจริง ทำตามได้ทันทีหลังจบคอร์ส"
+      }
+    ]
+  },
+  "tools": {
+    "type": "technology_strip",
+    "background": "#FFFFFF",
+    "border": "1px solid #E2DFDB",
+    "radius": "16px",
+    "label": "TOOLS & TECHNOLOGIES",
+    "items": [
+      "Figma",
+      "Framer",
+      "Next.js",
+      "Tailwind CSS",
+      "TypeScript",
+      "Supabase",
+      "GSAP",
+      "Vercel",
+      "OpenAI"
+    ]
+  }
+}

@@ -1,0 +1,560 @@
+{
+  "section": {
+    "id": "section-06",
+    "name": "Price & Booking",
+    "type": "pricing-booking",
+    "reference": "final-approved-section-06",
+
+    "purpose": "Present the full-day private workshop offer, clearly compare SOLO and BUDDY pricing, communicate the workshop format and flexible-location policy, and provide the final booking actions.",
+
+    "design_system": {
+      "source": "DESIGN_SYSTEM.md",
+      "inherit_global_tokens": true,
+      "container": "container.default",
+      "theme": "dark",
+      "background": "#0A0A0A",
+      "accent": "#FA5001"
+    },
+
+    "implementation_priority": [
+      "dark-section-composition",
+      "intro-and-quick-info-layout",
+      "pricing-hierarchy",
+      "two-package-comparison",
+      "large-price-readability",
+      "booking-cta-visibility",
+      "location-information",
+      "vertical-flow",
+      "whitespace"
+    ],
+
+    "visual_phase": {
+      "current_phase": "direct-design",
+      "use_real_images": true,
+      "use_real_icons": true,
+      "use_final_graphics": true,
+      "use_animation": false,
+      "placeholder_required_for_missing_visual_assets": true,
+      "viewport_qa": "desktop-first"
+    },
+
+    "overall_layout": {
+      "direction": "vertical",
+      "alignment": "center",
+      "composition": "minimal-dark-pricing-section",
+      "content_density": "medium",
+      "section_behavior": "content-driven-height",
+      "full_viewport_height": false,
+
+      "story_flow": [
+        "section-label",
+        "intro-and-quick-info",
+        "pricing-grid",
+        "location-information",
+        "closing-note"
+      ],
+
+      "notes": [
+        "This is the final section of the page.",
+        "Do not force all content into one viewport.",
+        "Keep the layout minimal and spacious.",
+        "The pricing area is the primary conversion point."
+      ]
+    },
+
+    "section_header": {
+      "id": "section-06-label",
+      "component": "SectionLabel",
+      "position": "top-center",
+      "alignment": "center",
+
+      "content": {
+        "number": "06",
+        "label": "PRICE & BOOKING"
+      },
+
+      "variant": "dark-background",
+
+      "notes": "The reference image shows 07, but implementation must use 06 because this is the sixth and final section."
+    },
+
+    "offer_overview": {
+      "id": "offer-overview",
+      "position": "below-section-label",
+      "layout": "two-column",
+      "relative_width": "full-container",
+      "vertical_alignment": "center",
+
+      "left": {
+        "id": "offer-intro",
+        "grid_span": 5,
+        "alignment": "left",
+
+        "headline": {
+          "content": [
+            {
+              "text": "เรียน 1 วัน",
+              "style_role": "inverse-primary"
+            },
+            {
+              "text": "ทำเว็บเป็นของตัวเอง",
+              "style_role": "mixed",
+              "highlight_text": "ทำเว็บ"
+            }
+          ],
+
+          "typography": {
+            "token": "type.h2"
+          },
+
+          "line_break": "intentional-two-line"
+        },
+
+        "journey": {
+          "type": "inline-process",
+          "items": [
+            "ออกแบบ",
+            "สร้าง",
+            "ขึ้นออนไลน์"
+          ],
+
+          "connector": "arrow-right",
+          "connector_style": "accent"
+        },
+
+        "decorative_elements": [
+          {
+            "type": "hand-drawn-underline",
+            "target": "ทำเว็บ"
+          },
+          {
+            "type": "doodle-emphasis",
+            "position": "left"
+          },
+          {
+            "type": "doodle-star",
+            "position": "right"
+          }
+        ]
+      },
+
+      "right": {
+        "id": "quick-info",
+        "grid_span": 7,
+        "layout": "four-column-grid",
+
+        "items": [
+          {
+            "id": "info-duration",
+            "icon": {
+              "type": "icon-placeholder",
+              "future_icon": "clock"
+            },
+            "title": "6 HOURS",
+            "description": [
+              "แบ่งเป็น 2 Part",
+              "(3 ชม. + 3 ชม.)"
+            ]
+          },
+          {
+            "id": "info-people",
+            "icon": {
+              "type": "icon-placeholder",
+              "future_icon": "users"
+            },
+            "title": "1–2 PEOPLE",
+            "description": [
+              "Private",
+              "Workshop"
+            ]
+          },
+          {
+            "id": "info-snack",
+            "icon": {
+              "type": "icon-placeholder",
+              "future_icon": "coffee"
+            },
+            "title": "FREE DRINK & SNACK",
+            "description": [
+              "น้ำ + ขนม",
+              "ระหว่างเรียน"
+            ]
+          },
+          {
+            "id": "info-location",
+            "icon": {
+              "type": "icon-placeholder",
+              "future_icon": "map-pin"
+            },
+            "title": "FLEXIBLE LOCATION",
+            "description": [
+              "เรียนได้มากกว่า",
+              "ที่คิด"
+            ]
+          }
+        ],
+
+        "item_style": {
+          "component": "InfoCard",
+          "layout": "vertical",
+          "alignment": "center",
+          "equal_height": true,
+          "background": "dark-elevated",
+          "border": "subtle-dark-border",
+          "icon_role": "accent"
+        },
+
+        "notes": "These are compact information cards, not primary feature cards. Keep them smaller than the pricing cards."
+      }
+    },
+
+    "pricing_grid": {
+      "id": "pricing-grid",
+      "position": "below-offer-overview",
+      "layout": "two-column",
+      "columns": 2,
+      "relative_width": "full-container",
+
+      "packages": [
+        {
+          "id": "package-solo",
+          "name": "SOLO",
+          "people": "1 คน",
+          "price": "3,999.-",
+          "variant": "standard",
+
+          "layout": {
+            "type": "horizontal-card",
+            "media": "left",
+            "content": "right",
+            "grid_ratio": "approximately-40-60"
+          },
+
+          "media": {
+            "type": "image-placeholder",
+            "label": "IMAGE",
+            "aspect_ratio": "portrait",
+            "purpose": "Future workshop, student, project or course-related visual."
+          },
+
+          "content": {
+            "features": [
+              "เรียนแบบ Private 1:1",
+              "Workshop เต็มวัน 6 ชั่วโมง",
+              "ออกแบบ + สร้าง + ขึ้นออนไลน์",
+              "ปรึกษาและตอบทุกปัญหา",
+              "น้ำ + ขนม ระหว่างเรียน"
+            ],
+
+            "cta": {
+              "component": "Button.Primary",
+              "text": "จอง SOLO",
+              "trailing_icon": "arrow-right"
+            }
+          }
+        },
+
+        {
+          "id": "package-buddy",
+          "name": "BUDDY",
+          "people": "2 คน",
+          "price": "5,999.-",
+          "price_note": "เฉลี่ยเพียง 2,999.50 บาท/คน",
+          "variant": "featured",
+
+          "layout": {
+            "type": "horizontal-card",
+            "media": "left",
+            "content": "right",
+            "grid_ratio": "approximately-40-60"
+          },
+
+          "media": {
+            "type": "image-placeholder",
+            "label": "IMAGE",
+            "aspect_ratio": "portrait",
+            "purpose": "Future workshop, two-student, project or course-related visual."
+          },
+
+          "content": {
+            "features": [
+              "ทุกอย่างเหมือน SOLO",
+              "มา 2 คน ใน Session เดียวกัน",
+              "ช่วยกันคิด ช่วยกันทำ ได้ผลงานไวขึ้น",
+              "ปรึกษาและตอบทุกปัญหา",
+              "น้ำ + ขนม ระหว่างเรียน"
+            ],
+
+            "cta": {
+              "component": "Button.Primary",
+              "text": "จอง BUDDY",
+              "trailing_icon": "arrow-right"
+            }
+          }
+        }
+      ],
+
+      "shared_card_structure": {
+        "component": "PricingCard",
+        "equal_height": true,
+        "content_alignment": "stretch",
+
+        "content_order": [
+          "media",
+          "package-name",
+          "people",
+          "price",
+          "price-note-if-present",
+          "features",
+          "cta"
+        ],
+
+        "feature_icon": {
+          "type": "check",
+          "style_role": "accent"
+        }
+      },
+
+      "variants": {
+        "standard": {
+          "background": "dark",
+          "border": "neutral-visible",
+          "price": "accent-primary"
+        },
+
+        "featured": {
+          "background": "dark",
+          "border": "accent-primary",
+          "package_name": "accent-primary",
+          "price": "accent-primary"
+        }
+      },
+
+      "notes": [
+        "SOLO and BUDDY must have equal visual weight and equal card height.",
+        "BUDDY receives an orange border to indicate the featured option.",
+        "Do not make BUDDY physically much larger than SOLO.",
+        "Prices must be among the strongest typography elements in the entire section.",
+        "Keep CTA aligned toward the bottom of both cards."
+      ]
+    },
+
+    "location_information": {
+      "id": "location-information",
+      "position": "below-pricing-grid",
+      "layout": "three-column-horizontal-panel",
+      "relative_width": "full-container",
+
+      "items": [
+        {
+          "id": "location-flexible",
+          "icon": {
+            "type": "icon-placeholder",
+            "future_icon": "map-pin"
+          },
+          "title": "เรียนได้มากกว่าที่คิด",
+          "description": "เลือกสถานที่ที่สะดวกกับคุณได้"
+        },
+
+        {
+          "id": "location-standard-zone",
+          "icon": {
+            "type": "icon-placeholder",
+            "future_icon": "home"
+          },
+          "title": "ในพื้นที่มาตรฐาน",
+          "highlight": "ไม่มีค่าเดินทางเพิ่ม",
+          "description": "พื้นที่มาตรฐานตามพื้นที่ให้บริการ"
+        },
+
+        {
+          "id": "location-outside-zone",
+          "icon": {
+            "type": "icon-placeholder",
+            "future_icon": "car"
+          },
+          "title": "นอกพื้นที่",
+          "highlight": "สามารถไปสอนได้",
+          "description": "พื้นที่นอกโซนบริการอาจมีค่าเดินทางเพิ่มเติม โดยจะแจ้งและยืนยันก่อนการชำระเงิน"
+        }
+      ],
+
+      "item_structure": {
+        "layout": "icon-left-content-right",
+        "icon_role": "accent",
+        "title": "strong",
+        "description": "body-small-light"
+      },
+
+      "notes": [
+        "The three location items belong to one unified horizontal panel.",
+        "Do not create three large independent cards.",
+        "Use subtle vertical separators between items."
+      ]
+    },
+
+    "closing_note": {
+      "id": "booking-closing-note",
+      "position": "below-location-information",
+      "alignment": "center",
+
+      "icon": {
+        "type": "icon-placeholder",
+        "future_icon": "shield-check"
+      },
+
+      "text": "1 วัน 1 Session เท่านั้น เพื่อคุณภาพและเวลาเต็มที่ในการเรียนรู้",
+
+      "typography": {
+        "token": "type.body"
+      },
+
+      "importance": "secondary"
+    },
+
+    "vertical_flow": [
+      "section-label",
+      "offer-overview",
+      "pricing-grid",
+      "location-information",
+      "closing-note"
+    ],
+
+    "relative_spacing": {
+      "section_label_to_offer_overview": "large",
+      "offer_overview_to_pricing": "large",
+      "pricing_to_location": "medium",
+      "location_to_closing_note": "medium",
+      "closing_note_to_section_end": "normal"
+    },
+
+    "desktop_structure": {
+      "container": "container.default",
+      "section_label": "centered",
+
+      "offer_overview": {
+        "layout": "two-column",
+        "left": "headline-and-process",
+        "right": "four-quick-info-cards"
+      },
+
+      "pricing": {
+        "layout": "two-equal-columns",
+        "solo": "left",
+        "buddy": "right"
+      },
+
+      "location_information": "three-column-horizontal-panel",
+      "closing_note": "centered"
+    },
+
+    "responsive_intent": {
+      "tablet": {
+        "offer_overview": "stack-or-4/8-layout-based-on-readable-width",
+        "quick_info": "two-by-two-grid",
+        "pricing": "two-columns-if-readable-otherwise-stack",
+        "location_information": "three-columns-or-controlled-stack"
+      },
+
+      "mobile": {
+        "offer_overview": {
+          "layout": "single-column",
+          "order": [
+            "offer-intro",
+            "quick-info"
+          ]
+        },
+
+        "quick_info": {
+          "layout": "two-column-grid"
+        },
+
+        "pricing": {
+          "layout": "single-column",
+          "order": [
+            "package-solo",
+            "package-buddy"
+          ]
+        },
+
+        "pricing_card": {
+          "layout": "vertical",
+          "media": "top",
+          "content": "bottom",
+          "cta": "full-width"
+        },
+
+        "location_information": {
+          "layout": "single-column",
+          "use_horizontal_dividers": true
+        },
+
+        "closing_note": {
+          "alignment": "center"
+        }
+      }
+    },
+
+    "missing_asset_placeholder_system": {
+      "pricing_images": {
+        "render": "neutral-dark-placeholder",
+        "show_label": true,
+        "label": "IMAGE"
+      },
+
+      "quick_info_icons": {
+        "render": "simple-outline-placeholder",
+        "show_label": false
+      },
+
+      "location_icons": {
+        "render": "simple-outline-placeholder",
+        "show_label": false
+      },
+
+      "decorative_graphics": {
+        "render": "omit-unless-layout-relevant"
+      }
+    },
+
+    "content_status": {
+      "price": "locked",
+      "solo_price": 3999,
+      "buddy_price": 5999,
+      "duration": "6 teaching hours",
+      "session_capacity": "1-2 people",
+      "location_policy": "flexible",
+      "standard_service_area": "exact boundaries still require final definition"
+    },
+
+    "codex_constraints": [
+      "This is Section 06, not Section 07.",
+      "This is the final section of the landing page.",
+      "DESIGN_SYSTEM.md is the global styling source of truth.",
+      "Use the global 1280px container.",
+      "Use Noto Sans Thai from the global typography system.",
+      "Normal body copy uses font-weight 300.",
+      "Use #FA5001 through the global accent token.",
+      "Use a near-black background for the entire section.",
+      "Do not force the section into one viewport.",
+      "Keep the section minimal and spacious.",
+      "Do not compress content just to reduce section height.",
+      "Top content uses intro on the left and four compact information cards on the right.",
+      "Pricing uses two equal-width cards on desktop.",
+      "SOLO price is 3,999 THB.",
+      "BUDDY price is 5,999 THB total for two people.",
+      "Do not invent regular prices, discounts or crossed-out prices.",
+      "Do not add fake scarcity or countdown timers.",
+      "BUDDY may use an orange border but should not overwhelm SOLO.",
+      "Both pricing cards use an image placeholder until an approved image asset is supplied.",
+      "Do not generate or invent final images that have not been approved.",
+      "Treat desktop as the current primary target; defer responsive QA until requested.",
+      "Keep location information below pricing as one unified horizontal panel.",
+      "Do not invent exact standard service-area boundaries.",
+      "For outside service areas, communicate that additional travel cost may apply and must be confirmed before payment.",
+      "Do not add an FAQ section after this section.",
+      "Do not add another final CTA section after this section.",
+      "Do not invent section-specific typography, spacing, colors, radii or breakpoints when DESIGN_SYSTEM.md already defines them."
+    ]
+  }
+}

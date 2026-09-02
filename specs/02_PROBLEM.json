@@ -1,0 +1,430 @@
+{
+  "section": {
+    "id": "section-02",
+    "name": "The Problem",
+    "type": "problem-awareness",
+    "reference": "final-approved-section-02",
+
+    "purpose": "Show the gap between having access to AI, prompts and tutorials versus being able to diagnose and solve problems inside the student's own real project.",
+
+    "design_system": {
+      "source": "DESIGN_SYSTEM.md",
+      "inherit_global_tokens": true,
+      "section_spacing": "section.default",
+      "container": "container.default",
+      "theme": "light"
+    },
+
+    "implementation_priority": [
+      "vertical_storytelling",
+      "headline_hierarchy",
+      "two-column-problem-demonstration",
+      "visual-annotation-composition",
+      "conclusion-emphasis",
+      "whitespace"
+    ],
+
+    "visual_phase": {
+      "current_phase": "direct-design",
+      "use_real_images": true,
+      "use_real_icons": true,
+      "use_final_graphics": true,
+      "use_animation": false,
+      "placeholder_required_for_missing_visual_assets": true,
+      "viewport_qa": "desktop-first"
+    },
+
+    "overall_layout": {
+      "direction": "vertical",
+      "alignment": "center",
+      "composition": "editorial-storytelling",
+      "content_density": "medium-low",
+      "section_behavior": "content-driven-height",
+      "full_viewport_height": false,
+
+      "story_flow": [
+        "section-header",
+        "problem-headline",
+        "problem-demonstration",
+        "conclusion-card",
+        "primary-cta"
+      ],
+
+      "notes": "Preserve generous vertical whitespace. Do not compress the section to fit within one viewport."
+    },
+
+    "section_header": {
+      "id": "section-02-label",
+      "type": "section-label",
+      "component": "SectionLabel",
+      "position": "top-center",
+
+      "content": {
+        "number": "02",
+        "label": "THE PROBLEM"
+      },
+
+      "alignment": "center",
+
+      "notes": "Use the global reusable SectionLabel component. Do not redesign this label specifically for Section 02."
+    },
+
+    "headline_block": {
+      "id": "problem-headline",
+      "position": "below-section-label",
+      "alignment": "center",
+      "max_width": "content.medium",
+
+      "content": [
+        {
+          "order": 1,
+          "text": "AI สร้างเว็บให้คุณได้",
+          "type": "headline-line",
+          "style_role": "primary"
+        },
+        {
+          "order": 2,
+          "text": "แต่พอมันไม่เป็นอย่างที่คิดล่ะ?",
+          "type": "headline-line",
+          "style_role": "accent",
+          "emphasis": "strong"
+        }
+      ],
+
+      "typography": {
+        "token": "type.h2",
+        "line_break": "intentional-two-line"
+      },
+
+      "decorative_accent": {
+        "type": "brush-underline",
+        "target": "second headline line",
+        "placeholder_behavior": "omit-or-simple-line-placeholder"
+      },
+
+      "notes": "The second line is the emotional hook and must carry stronger visual emphasis than the first line."
+    },
+
+    "problem_demonstration": {
+      "id": "problem-demo",
+      "position": "below-headline",
+      "layout": "two-column",
+      "alignment": "center",
+      "relative_width": "full-container",
+
+      "columns": {
+        "left": {
+          "id": "problem-copy",
+          "type": "content-column",
+          "grid_span": 5,
+          "vertical_alignment": "center",
+
+          "checklist": [
+            {
+              "icon": {
+                "type": "icon-placeholder",
+                "future_icon": "check-circle"
+              },
+              "text": "Tutorial มีให้ดู"
+            },
+            {
+              "icon": {
+                "type": "icon-placeholder",
+                "future_icon": "check-circle"
+              },
+              "text": "Prompt ก็หาได้"
+            },
+            {
+              "icon": {
+                "type": "icon-placeholder",
+                "future_icon": "check-circle"
+              },
+              "text": "AI ก็ถามได้ตลอด"
+            }
+          ],
+
+          "supporting_copy": {
+            "type": "body-large",
+            "content": [
+              {
+                "text": "แต่พอเป็น Project ของคุณเอง",
+                "style_role": "primary"
+              },
+              {
+                "text": "ปัญหามันไม่ได้เหมือนใน Tutorial",
+                "style_role": "mixed",
+                "highlight_text": "ไม่ได้"
+              }
+            ]
+          },
+
+          "hierarchy": {
+            "checklist": "primary",
+            "supporting_copy": "secondary-but-emphasized"
+          }
+        },
+
+        "right": {
+          "id": "broken-project-visual",
+          "type": "single-image-composite",
+          "grid_span": 7,
+          "position": "right",
+          "relative_size": "large",
+          "asset": {
+            "path": "assets/problem-ai-debug.png",
+            "type": "approved-final-composite-image",
+            "render": "single-image",
+            "object_fit": "contain"
+          },
+
+          "purpose": "Visually demonstrate multiple realistic problems appearing in the student's own website project.",
+
+          "main_layer": {
+            "id": "desktop-website",
+            "type": "final-composite-image",
+            "label": "BROKEN WEBSITE / DESKTOP",
+            "aspect_ratio": "approximately 16:9",
+            "relative_size": "largest",
+            "position": "center-right"
+          },
+
+          "overlay_layers": [
+            {
+              "id": "mobile-broken-preview",
+              "type": "embedded-in-final-composite",
+              "label": "BROKEN MOBILE",
+              "position": "left-front overlapping desktop",
+              "aspect_ratio": "portrait-phone",
+              "relative_size": "small-medium"
+            },
+            {
+              "id": "ai-response",
+              "type": "embedded-in-final-composite",
+              "label": "AI RESPONSE",
+              "position": "right-front overlapping desktop",
+              "relative_size": "small"
+            }
+          ],
+
+          "problem_annotations": [
+            {
+              "id": "annotation-reference",
+              "type": "embedded-in-final-composite",
+              "label": "NOT LIKE REFERENCE",
+              "position": "top-right"
+            },
+            {
+              "id": "annotation-spacing",
+              "type": "embedded-in-final-composite",
+              "label": "WRONG SPACING",
+              "position": "right-middle"
+            },
+            {
+              "id": "annotation-mobile",
+              "type": "embedded-in-final-composite",
+              "label": "MOBILE BROKEN",
+              "position": "left-bottom"
+            },
+            {
+              "id": "annotation-image",
+              "type": "embedded-in-final-composite",
+              "label": "IMAGE ISSUE",
+              "position": "bottom-center"
+            },
+            {
+              "id": "annotation-distance",
+              "type": "embedded-in-final-composite",
+              "label": "SPACING ISSUE",
+              "position": "bottom-right"
+            }
+          ],
+
+          "debug_overlays": [
+            {
+              "type": "embedded-in-final-composite",
+              "position": "inside desktop website"
+            },
+            {
+              "type": "embedded-in-final-composite",
+              "position": "problematic content area"
+            },
+            {
+              "type": "embedded-in-final-composite",
+              "position": "desktop website"
+            },
+            {
+              "type": "embedded-in-final-composite",
+              "position": "between annotations and problem areas"
+            }
+          ],
+
+          "direct_design_notes": "Use assets/problem-ai-debug.png as one approved composite image. Do not rebuild its desktop website, mobile preview, AI response or annotations as separate DOM layers."
+        }
+      }
+    },
+
+    "conclusion_block": {
+      "id": "problem-conclusion",
+      "position": "below-problem-demonstration",
+      "alignment": "center",
+      "type": "statement-panel",
+      "relative_width": "medium-large",
+
+      "content": [
+        {
+          "order": 1,
+          "text": "Tutorial สอนคุณทำตามได้",
+          "style_role": "primary"
+        },
+        {
+          "order": 2,
+          "text": "แต่ไม่มี Tutorial ไหนรู้ว่า",
+          "style_role": "primary"
+        },
+        {
+          "order": 3,
+          "text": "“ตอนนี้คุณติดอยู่ตรงไหน”",
+          "style_role": "accent",
+          "importance": "highest"
+        }
+      ],
+
+      "layout": {
+        "direction": "vertical",
+        "alignment": "center"
+      },
+
+      "visual_style": {
+        "container": "subtle-panel",
+        "border": "global-subtle-border",
+        "background": "light-elevated",
+        "shadow": "subtle"
+      },
+
+      "decorative_elements": [
+        {
+          "type": "corner-marker",
+          "position": "top-left"
+        },
+        {
+          "type": "corner-marker",
+          "position": "top-right"
+        },
+        {
+          "type": "corner-marker",
+          "position": "bottom-left"
+        },
+        {
+          "type": "corner-marker",
+          "position": "bottom-right"
+        },
+        {
+          "type": "brush-underline",
+          "target": "final statement"
+        },
+        {
+          "type": "cursor-placeholder",
+          "position": "bottom-right-near-statement"
+        }
+      ],
+
+      "direct_design_notes": "This is the payoff of the entire section. Keep it visually isolated with generous whitespace before and after."
+    },
+
+    "primary_cta": {
+      "id": "problem-booking-cta",
+      "position": "below-conclusion",
+      "alignment": "center",
+      "component": "Button.Primary",
+      "text": "ดูรอบว่าง / จองเลย",
+      "trailing_icon": "arrow-right",
+      "importance": "high"
+    },
+
+    "relative_spacing": {
+      "section_label_to_headline": "medium",
+      "headline_to_problem_demo": "extra-large",
+      "problem_demo_to_conclusion": "extra-large",
+      "conclusion_to_cta": "large",
+      "cta_to_section_end": "normal"
+    },
+
+    "desktop_structure": {
+      "section_header": "centered",
+      "headline": "centered",
+      "problem_demo": "5/7 two-column composition",
+      "problem_copy": "left",
+      "problem_visual": "right",
+      "conclusion": "centered statement panel",
+      "cta": "centered"
+    },
+
+    "responsive_intent": {
+      "tablet": {
+        "headline": "centered",
+        "problem_demo": "maintain two columns when space allows; otherwise stack",
+        "problem_visual": "preserve desktop browser as anchor",
+        "annotations": "reduce non-essential annotations",
+        "conclusion": "near-full container width"
+      },
+
+      "mobile": {
+        "section_header": "centered or left-aligned based on global mobile SectionLabel rule",
+        "headline": "centered with intentional line breaks",
+        "problem_demo": "single-column",
+        "content_order": [
+          "problem-copy",
+          "broken-project-visual"
+        ],
+        "problem_visual": "simplified composite",
+        "mobile_preview": "retain because mobile failure is part of the story",
+        "ai_response": "retain if readable",
+        "annotations": "show only 2-3 most important annotations",
+        "conclusion": "full available width",
+        "cta": "full-width or near-full-width"
+      }
+    },
+
+    "missing_asset_placeholder_system": {
+      "desktop_website": {
+        "label": "BROKEN WEBSITE",
+        "render": "neutral-placeholder"
+      },
+      "mobile": {
+        "label": "MOBILE BROKEN",
+        "render": "neutral-placeholder"
+      },
+      "ai_response": {
+        "label": "AI RESPONSE",
+        "render": "neutral-placeholder"
+      },
+      "annotations": {
+        "render": "simple-labeled-boxes"
+      },
+      "icons": {
+        "render": "simple-icon-placeholder"
+      },
+      "decorative_graphics": {
+        "render": "omit-unless-layout-relevant"
+      }
+    },
+
+    "codex_constraints": [
+      "DESIGN_SYSTEM.md remains the styling source of truth.",
+      "Do not turn the problem demonstration into multiple independent cards.",
+      "Preserve the 5/7 desktop relationship between text and visual.",
+      "The right-side broken website composition must be visually larger than the left checklist.",
+      "Desktop website must remain the anchor of the problem visual.",
+      "Mobile preview and AI response must overlap the desktop website.",
+      "Annotations must feel attached to specific website problems.",
+      "Do not replace annotations with generic feature icons.",
+      "Keep generous whitespace between headline, demonstration and conclusion.",
+      "Do not force this section into 100vh.",
+      "Do not add statistics, testimonials, features or additional marketing copy.",
+      "Use real approved text and supplied visual assets during direct implementation.",
+      "Use placeholders only for intended visual assets that have not been supplied.",
+      "Treat desktop as the current primary target; defer responsive QA until requested.",
+      "Do not invent new typography, spacing, color or radius values outside DESIGN_SYSTEM.md."
+    ]
+  }
+}

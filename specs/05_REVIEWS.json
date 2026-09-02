@@ -1,0 +1,458 @@
+{
+  "section": {
+    "id": "section-05",
+    "name": "Student Reviews",
+    "type": "testimonial-carousel",
+    "reference": "final-approved-section-05",
+
+    "purpose": "Build trust through real student experiences while keeping the section compact by presenting testimonials inside a horizontal carousel instead of a long testimonial grid.",
+
+    "design_system": {
+      "source": "DESIGN_SYSTEM.md",
+      "inherit_global_tokens": true,
+      "container": "container.default",
+      "theme": "light"
+    },
+
+    "implementation_priority": [
+      "compact-section-height",
+      "testimonial-carousel",
+      "four-card-desktop-composition",
+      "headline-hierarchy",
+      "card-readability",
+      "carousel-navigation",
+      "whitespace"
+    ],
+
+    "visual_phase": {
+      "current_phase": "direct-design",
+      "use_real_images": true,
+      "use_real_icons": true,
+      "use_final_graphics": true,
+      "use_animation": false,
+      "placeholder_required_for_missing_visual_assets": true,
+      "viewport_qa": "desktop-first"
+    },
+
+    "overall_layout": {
+      "direction": "vertical",
+      "alignment": "center",
+      "composition": "compact-editorial-testimonial-carousel",
+      "content_density": "medium",
+      "section_behavior": "content-driven-height",
+      "full_viewport_height": false,
+
+      "story_flow": [
+        "section-label",
+        "headline",
+        "supporting-copy",
+        "testimonial-carousel",
+        "carousel-pagination"
+      ],
+
+      "notes": [
+        "This section should be significantly shorter than the previous testimonial grid concept.",
+        "Do not display all testimonials vertically.",
+        "The carousel is the main interaction and content area.",
+        "Keep generous whitespace around the carousel without making the section unnecessarily tall."
+      ]
+    },
+
+    "section_header": {
+      "id": "section-05-label",
+      "component": "SectionLabel",
+      "position": "top-center",
+      "alignment": "center",
+
+      "content": {
+        "number": "05",
+        "label": "REVIEW FROM OUR STUDENTS"
+      },
+
+      "decorative_accent": {
+        "type": "hand-drawn-underline",
+        "position": "below-label",
+        "placeholder_behavior": "simple-line-placeholder"
+      }
+    },
+
+    "headline_block": {
+      "id": "reviews-headline",
+      "position": "below-section-label",
+      "alignment": "center",
+      "max_width": "content.medium",
+
+      "headline": {
+        "content": [
+          {
+            "text": "คนที่เคย “ติด”",
+            "style_role": "primary"
+          },
+          {
+            "text": "ตอนนี้ไปต่อได้แล้ว!",
+            "style_role": "accent"
+          }
+        ],
+
+        "typography": {
+          "token": "type.h2"
+        },
+
+        "line_break": "single-line-on-wide-desktop"
+      },
+
+      "supporting_copy": {
+        "content": [
+          {
+            "text": "ประสบการณ์จริงจากผู้เรียน ที่เปลี่ยน",
+            "style_role": "secondary"
+          },
+          {
+            "text": "6 ชั่วโมง",
+            "style_role": "accent"
+          },
+          {
+            "text": "ให้เป็นจุดเริ่มต้นของสิ่งใหม่",
+            "style_role": "secondary"
+          }
+        ],
+
+        "typography": {
+          "token": "type.body-large"
+        }
+      },
+
+      "decorative_elements": [
+        {
+          "type": "doodle-emphasis-lines",
+          "position": "left-of-headline"
+        },
+        {
+          "type": "doodle-star",
+          "position": "right-of-headline"
+        }
+      ],
+
+      "direct_design_notes": "Use supplied decorative doodles directly. Omit them only when their approved assets are still missing."
+    },
+
+    "testimonial_carousel": {
+      "id": "student-review-carousel",
+      "position": "below-headline",
+      "relative_width": "full-container",
+
+      "behavior": {
+        "type": "horizontal-carousel",
+        "drag": true,
+        "swipe": true,
+        "keyboard_navigation": true,
+        "arrow_navigation": true,
+        "pagination": true,
+        "autoplay": false,
+        "infinite_loop": false,
+        "snap": "card"
+      },
+
+      "desktop": {
+        "visible_cards": 4,
+        "cards_per_scroll": 1,
+        "layout": "single-horizontal-row",
+        "equal_card_height": true
+      },
+
+      "cards": [
+        {
+          "id": "review-01",
+          "variant": "light",
+
+          "quote": {
+            "headline": "จากคนที่ทำเว็บไม่เป็นเลย ตอนนี้มีเว็บของตัวเองออนไลน์แล้ว!",
+            "body": "อธิบายเข้าใจง่ายมาก สอนทีละขั้นตอน ทำตามได้จริง"
+          },
+
+          "rating": {
+            "value": 5,
+            "max": 5
+          },
+
+          "student": {
+            "avatar": {
+              "type": "avatar-placeholder",
+              "label": "STUDENT AVATAR"
+            },
+            "name": "[STUDENT NAME]",
+            "role": "[STUDENT ROLE]"
+          }
+        },
+
+        {
+          "id": "review-02",
+          "variant": "accent",
+
+          "quote": {
+            "headline": "ชอบตรงที่ได้แก้ปัญหาจริง ไม่ใช่แค่ทำตาม Tutorial",
+            "body": "พอเจอปัญหาของตัวเองในโปรเจกต์ ก็ได้เห็นเหตุผลและวิธีแก้ ทำให้เข้าใจมากขึ้น"
+          },
+
+          "rating": {
+            "value": 5,
+            "max": 5
+          },
+
+          "student": {
+            "avatar": {
+              "type": "avatar-placeholder",
+              "label": "STUDENT AVATAR"
+            },
+            "name": "[STUDENT NAME]",
+            "role": "[STUDENT ROLE]"
+          }
+        },
+
+        {
+          "id": "review-03",
+          "variant": "light",
+
+          "quote": {
+            "headline": "6 ชั่วโมงที่คุ้มค่ามาก!",
+            "body": "ได้เรียนรู้ตั้งแต่แนวคิด ออกแบบ ใช้ AI ช่วยเขียนโค้ด แก้บั๊ก และขึ้นเว็บจริง ครบจบในคลาสเดียว"
+          },
+
+          "rating": {
+            "value": 5,
+            "max": 5
+          },
+
+          "student": {
+            "avatar": {
+              "type": "avatar-placeholder",
+              "label": "STUDENT AVATAR"
+            },
+            "name": "[STUDENT NAME]",
+            "role": "[STUDENT ROLE]"
+          }
+        },
+
+        {
+          "id": "review-04",
+          "variant": "light",
+
+          "quote": {
+            "headline": "ได้มากกว่าแค่เว็บ คือความมั่นใจและทักษะที่ติดตัวไป",
+            "body": "ตอนเริ่มยังงงมาก แต่พอได้ลงมือทำจริง ตั้งแต่คุยงาน ออกแบบ ไปจนถึงส่งงาน ทำให้เห็นภาพทั้งกระบวนการ"
+          },
+
+          "rating": {
+            "value": 5,
+            "max": 5
+          },
+
+          "student": {
+            "avatar": {
+              "type": "avatar-placeholder",
+              "label": "STUDENT AVATAR"
+            },
+            "name": "[STUDENT NAME]",
+            "role": "[STUDENT ROLE]"
+          }
+        }
+      ],
+
+      "card_structure": {
+        "component": "TestimonialCard",
+        "layout": "vertical",
+        "height": "equal-within-carousel",
+
+        "content_order": [
+          "quote-mark",
+          "quote-headline",
+          "quote-body",
+          "flex-spacer",
+          "rating",
+          "student-profile"
+        ],
+
+        "quote_mark": {
+          "type": "decorative-quote-icon",
+          "position": "top-left",
+          "placeholder_behavior": "simple-icon-placeholder"
+        },
+
+        "student_profile": {
+          "layout": "horizontal",
+          "avatar_position": "left",
+          "information_position": "right"
+        },
+
+        "notes": [
+          "Review headline should carry most of the visual weight.",
+          "Body copy should remain light using the global body weight.",
+          "Student identity stays anchored near the bottom of each card.",
+          "Cards within the visible carousel should have consistent height."
+        ]
+      },
+
+      "variants": {
+        "light": {
+          "background": "light-elevated",
+          "text": "text-primary",
+          "accent": "accent-primary"
+        },
+
+        "accent": {
+          "background": "accent-primary",
+          "text": "text-inverse",
+          "accent": "text-inverse"
+        }
+      },
+
+      "featured_card_rule": {
+        "enabled": true,
+        "desktop_featured_index": 1,
+        "visual_treatment": "accent-background",
+        "notes": "One visible card may use the orange accent treatment to break visual repetition. Do not make every card orange."
+      },
+
+      "navigation": {
+        "previous": {
+          "type": "circular-arrow-button",
+          "position": "outside-left-edge",
+          "icon": "chevron-left",
+          "aria_label": "Previous reviews"
+        },
+
+        "next": {
+          "type": "circular-arrow-button",
+          "position": "outside-right-edge",
+          "icon": "chevron-right",
+          "aria_label": "Next reviews"
+        }
+      },
+
+      "pagination": {
+        "type": "dot-indicators",
+        "position": "below-carousel",
+        "alignment": "center",
+        "active_state": "accent-primary",
+        "inactive_state": "neutral"
+      }
+    },
+
+    "relative_spacing": {
+      "section_label_to_headline": "large",
+      "headline_to_supporting_copy": "small",
+      "supporting_copy_to_carousel": "large",
+      "carousel_to_pagination": "medium",
+      "pagination_to_section_end": "normal"
+    },
+
+    "desktop_structure": {
+      "container": "container.default",
+      "section_label": "centered",
+      "headline": "centered",
+      "supporting_copy": "centered",
+      "carousel": "four-visible-cards",
+      "carousel_navigation": "outside-left-and-right",
+      "pagination": "centered"
+    },
+
+    "responsive_intent": {
+      "tablet": {
+        "visible_cards": 2.2,
+        "cards_per_scroll": 1,
+        "show_partial_next_card": true,
+        "arrow_navigation": true,
+        "swipe": true
+      },
+
+      "mobile": {
+        "section_header": "compact",
+        "headline": "allow-controlled-multi-line",
+        "supporting_copy": "short-readable-width",
+
+        "carousel": {
+          "visible_cards": 1.1,
+          "cards_per_scroll": 1,
+          "show_partial_next_card": true,
+          "swipe": true,
+          "drag": true
+        },
+
+        "navigation": {
+          "arrow_buttons": "optional-hide",
+          "pagination": "retain"
+        },
+
+        "card": {
+          "width": "approximately-85-to-90-percent-of-viewport",
+          "equal_height": true
+        }
+      }
+    },
+
+    "missing_asset_placeholder_system": {
+      "student_avatar": {
+        "render": "neutral-circle-placeholder",
+        "show_label": false
+      },
+
+      "quote_icon": {
+        "render": "simple-symbol-placeholder"
+      },
+
+      "rating": {
+        "render": "five-simple-star-placeholders"
+      },
+
+      "decorative_doodles": {
+        "render": "omit-unless-layout-relevant"
+      }
+    },
+
+    "content_policy": {
+      "testimonial_status": "placeholder-until-real-student-reviews-are-available",
+
+      "rules": [
+        "Do not publish invented student names.",
+        "Do not publish invented student occupations.",
+        "Do not use generated student portraits as if they were real students.",
+        "Do not present placeholder testimonial copy as verified real student feedback.",
+        "Replace placeholders with real student reviews before production publication."
+      ]
+    },
+
+    "content_updates_from_reference": [
+      {
+        "reference_content": "4 ชั่วโมง",
+        "current_content": "6 ชั่วโมง",
+        "reason": "Current workshop duration is 6 teaching hours."
+      }
+    ],
+
+    "codex_constraints": [
+      "DESIGN_SYSTEM.md is the global styling source of truth.",
+      "Use the global 1280px container.",
+      "Use the global 140px section spacing.",
+      "Use Noto Sans Thai from the global typography system.",
+      "Normal body copy uses font-weight 300.",
+      "Use #FA5001 through the global accent token.",
+      "This section must remain compact.",
+      "Use a horizontal carousel instead of a large testimonial grid.",
+      "Desktop should show approximately four testimonial cards at once.",
+      "Do not stack all testimonials vertically on desktop.",
+      "Keep testimonial cards in one horizontal carousel track.",
+      "One visible card may use the orange accent variant.",
+      "Do not make every testimonial card orange.",
+      "Maintain consistent card height.",
+      "Keep carousel arrows outside the card content where sufficient space exists.",
+      "Keep pagination centered below the carousel.",
+      "Do not add a large CTA below this section unless explicitly requested.",
+      "Do not add student statistics such as 100+ students.",
+      "Do not invent student names, occupations, photos or review claims.",
+      "Use real student photography only when approved and supplied; otherwise retain avatar placeholders.",
+      "Treat desktop as the current primary target; defer responsive QA until requested.",
+      "Do not force this section into 100vh.",
+      "Do not invent section-specific typography, spacing, colors, radii or breakpoints when DESIGN_SYSTEM.md already defines them."
+    ]
+  }
+}

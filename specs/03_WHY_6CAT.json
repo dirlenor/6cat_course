@@ -1,0 +1,541 @@
+{
+  "section": {
+    "id": "section-03",
+    "name": "Why 6CAT Academy",
+    "type": "value-proposition",
+    "reference": "final-approved-section-03",
+
+    "purpose": "Explain why the workshop is different from prompt-based tutorials by focusing on practical skills, structured thinking, real project execution, live guidance and the ability to continue independently after the workshop.",
+
+    "design_system": {
+      "source": "DESIGN_SYSTEM.md",
+      "inherit_global_tokens": true,
+      "container": "container.default",
+      "theme": "light"
+    },
+
+    "implementation_priority": [
+      "headline hierarchy",
+      "benefit readability",
+      "two-column benefit grid",
+      "icon-to-content relationship",
+      "vertical storytelling",
+      "closing statement",
+      "whitespace"
+    ],
+
+    "visual_phase": {
+      "current_phase": "direct-design",
+      "use_real_images": true,
+      "use_real_icons": true,
+      "use_final_graphics": true,
+      "use_animation": false,
+      "placeholder_required_for_missing_visual_assets": true,
+      "viewport_qa": "desktop-first"
+    },
+
+    "overall_layout": {
+      "direction": "vertical",
+      "alignment": "center",
+      "composition": "editorial-benefit-section",
+      "content_density": "medium",
+      "section_behavior": "content-driven-height",
+      "full_viewport_height": false,
+
+      "story_flow": [
+        "section-label",
+        "main-headline",
+        "benefits-heading",
+        "benefits-grid",
+        "closing-statement",
+        "primary-cta"
+      ],
+
+      "notes": "The section should feel open and editorial rather than like a SaaS feature grid. Benefits are structured information but should not become six individual floating cards."
+    },
+
+    "section_header": {
+      "id": "section-03-label",
+      "component": "SectionLabel",
+      "position": "top-center",
+      "alignment": "center",
+
+      "content": {
+        "number": "03",
+        "label": "WHY 6CAT ACADEMY"
+      },
+
+      "decorative_accent": {
+        "type": "hand-drawn-underline",
+        "position": "under-section-label",
+        "placeholder_behavior": "simple-line-placeholder"
+      }
+    },
+
+    "headline_block": {
+      "id": "why-6cat-headline",
+      "position": "below-section-label",
+      "alignment": "center",
+      "max_width": "content.medium",
+
+      "content": [
+        {
+          "order": 1,
+          "text": "เพราะแบบนั้น",
+          "style_role": "primary"
+        },
+        {
+          "order": 2,
+          "text": "เราเลยไม่ได้สอนให้คุณจำ Prompt.",
+          "style_role": "accent",
+          "importance": "highest"
+        }
+      ],
+
+      "typography": {
+        "token": "type.h2"
+      },
+
+      "line_break": "intentional-two-line",
+
+      "decorative_accent": {
+        "type": "hand-drawn-underline",
+        "target": "beginning-of-second-line",
+        "placeholder_behavior": "simple-line-placeholder"
+      },
+
+      "notes": "The second line is the key positioning statement. It should visually dominate through accent treatment while the first line acts as setup."
+    },
+
+    "benefits_block": {
+      "id": "why-6cat-benefits",
+      "position": "below-main-headline",
+      "relative_width": "large",
+
+      "header": {
+        "alignment": "center",
+
+        "content": [
+          {
+            "text": "สิ่งที่คุณจะได้รับจาก",
+            "style_role": "primary"
+          },
+          {
+            "text": "6CAT ACADEMY",
+            "style_role": "accent"
+          }
+        ],
+
+        "typography": {
+          "token": "type.h3"
+        },
+
+        "decorative_accents": [
+          {
+            "type": "underline",
+            "target": "สิ่งที่คุณจะได้รับจาก"
+          },
+          {
+            "type": "underline",
+            "target": "6CAT ACADEMY"
+          }
+        ]
+      },
+
+      "grid": {
+        "layout": "two-column-three-row",
+        "columns": 2,
+        "rows": 3,
+        "alignment": "stretch",
+
+        "desktop_grid": {
+          "left_column_span": 6,
+          "right_column_span": 6
+        },
+
+        "dividers": {
+          "vertical_center_divider": true,
+          "horizontal_row_dividers": true,
+          "style": "subtle-dashed-or-light-border"
+        },
+
+        "items": [
+          {
+            "id": "benefit-01",
+            "position": {
+              "column": 1,
+              "row": 1
+            },
+
+            "icon": {
+              "type": "image",
+              "asset": "assets/benefits/01-build-real.png",
+              "icon_concept": "target",
+              "position": "left"
+            },
+
+            "content": {
+              "title": "ทำเว็บไซต์ได้จริง",
+              "description": [
+                "จาก 0 → LIVE พร้อมใช้งานจริง",
+                "และต่อยอดได้ด้วยตัวเอง"
+              ]
+            }
+          },
+
+          {
+            "id": "benefit-02",
+            "position": {
+              "column": 2,
+              "row": 1
+            },
+
+            "icon": {
+              "type": "image",
+              "asset": "assets/benefits/02-understand-principles.png",
+              "icon_concept": "brain",
+              "position": "left"
+            },
+
+            "content": {
+              "title": "เข้าใจหลักการ ไม่ใช่แค่ทำตาม",
+              "description": [
+                "รู้ว่าทำไมต้องทำแบบนี้",
+                "จึงปรับใช้และแก้ปัญหาได้เอง"
+              ]
+            }
+          },
+
+          {
+            "id": "benefit-03",
+            "position": {
+              "column": 1,
+              "row": 2
+            },
+
+            "icon": {
+              "type": "image",
+              "asset": "assets/benefits/03-framework-workflow.png",
+              "icon_concept": "workflow-checklist",
+              "position": "left"
+            },
+
+            "content": {
+              "title": "มี Framework และ Workflow",
+              "description": [
+                "ที่ออกแบบมาให้ทำงานง่าย",
+                "เป็นระบบ ไม่หลงทาง"
+              ]
+            }
+          },
+
+          {
+            "id": "benefit-04",
+            "position": {
+              "column": 2,
+              "row": 2
+            },
+
+            "icon": {
+              "type": "image",
+              "asset": "assets/benefits/04-live-one-to-one.png",
+              "icon_concept": "live-one-to-one",
+              "position": "left"
+            },
+
+            "content": {
+              "title": "เรียนแบบตัวต่อตัว (Live 1:1)",
+              "description": [
+                "ถามได้ ตอบทันที แก้ปัญหาไปด้วยกัน",
+                "เหมือนมีโค้ชส่วนตัว"
+              ]
+            }
+          },
+
+          {
+            "id": "benefit-05",
+            "position": {
+              "column": 1,
+              "row": 3
+            },
+
+            "icon": {
+              "type": "image",
+              "asset": "assets/benefits/05-keep-learning.png",
+              "icon_concept": "infinity-learning",
+              "position": "left"
+            },
+
+            "content": {
+              "title": "อัปเดตเทคนิคใหม่ตลอด",
+              "description": [
+                "ปรับตัวได้ทันโลก ใช้เครื่องมือใหม่",
+                "ได้ก่อนใคร"
+              ]
+            }
+          },
+
+          {
+            "id": "benefit-06",
+            "position": {
+              "column": 2,
+              "row": 3
+            },
+
+            "icon": {
+              "type": "image",
+              "asset": "assets/benefits/06-ongoing-support.png",
+              "icon_concept": "star-support",
+              "position": "left"
+            },
+
+            "content": {
+              "title": "จบคอร์สยังไปต่อได้",
+              "description": [
+                "มี Community, Support",
+                "และแหล่งความรู้ให้คุณไม่หยุดพัฒนา"
+              ],
+
+              "content_status": "requires-final-verification",
+              "rendering": "visible-unverified-placeholder",
+              "placeholder_text": "[รายละเอียดหลังจบคอร์ส รอยืนยัน]",
+              "notes": "Community has not yet been confirmed as an actual course benefit. Verify or rewrite before production."
+            }
+          }
+        ],
+
+        "item_structure": {
+          "layout": "icon-plus-content",
+          "icon_position": "left",
+          "content_position": "right",
+          "vertical_alignment": "center",
+
+          "content_hierarchy": [
+            "title",
+            "description"
+          ],
+
+          "typography": {
+            "title": "type.h4",
+            "description": "type.body"
+          }
+        },
+
+        "notes": [
+          "Do not render each benefit as a separate rounded card.",
+          "Benefits should visually belong to one unified 2-column information grid.",
+          "Use whitespace and subtle divider lines to create structure.",
+          "Icons should have consistent dimensions and visual weight."
+        ]
+      }
+    },
+
+    "closing_statement": {
+      "id": "why-6cat-closing",
+      "position": "below-benefits-grid",
+      "alignment": "center",
+      "type": "editorial-statement-panel",
+      "relative_width": "large",
+
+      "content": [
+        {
+          "order": 1,
+          "text": "เราจะนั่งไปกับคุณ",
+          "style_role": "primary",
+          "importance": "medium"
+        },
+        {
+          "order": 2,
+          "text": "ตั้งแต่ก้าวแรก จนกดปุ่ม",
+          "style_role": "secondary"
+        },
+        {
+          "order": 3,
+          "text": "LIVE",
+          "style_role": "accent-display",
+          "importance": "highest"
+        },
+        {
+          "order": 4,
+          "text": "ด้วยตัวคุณเอง",
+          "style_role": "primary"
+        }
+      ],
+
+      "layout": {
+        "direction": "vertical",
+        "alignment": "center"
+      },
+
+      "visual_style": {
+        "container": "outlined-statement-panel",
+        "background": "transparent-or-light",
+        "border": "accent-subtle"
+      },
+
+      "decorative_elements": [
+        {
+          "type": "corner-marker",
+          "position": "top-left"
+        },
+        {
+          "type": "corner-marker",
+          "position": "top-right"
+        },
+        {
+          "type": "corner-marker",
+          "position": "bottom-left"
+        },
+        {
+          "type": "corner-marker",
+          "position": "bottom-right"
+        },
+        {
+          "type": "handwritten-display-treatment",
+          "target": "LIVE"
+        },
+        {
+          "type": "underline",
+          "target": "LIVE"
+        }
+      ],
+
+      "direct_design_notes": "Keep this block visually separate from the benefit grid. LIVE is the focal word and should be significantly more expressive than surrounding text."
+    },
+
+    "primary_cta": {
+      "id": "why-6cat-booking-cta",
+      "position": "below-closing-statement",
+      "alignment": "center",
+      "component": "Button.Primary",
+      "text": "ดูรอบว่าง / จองเลย",
+      "trailing_icon": "arrow-right",
+      "importance": "high"
+    },
+
+    "vertical_flow": [
+      "section-label",
+      "main-headline",
+      "benefits-heading",
+      "benefits-grid",
+      "closing-statement",
+      "primary-cta"
+    ],
+
+    "relative_spacing": {
+      "section_label_to_headline": "medium",
+      "headline_to_benefits_heading": "extra-large",
+      "benefits_heading_to_grid": "large",
+      "benefit_rows": "medium",
+      "benefits_grid_to_closing_statement": "extra-large",
+      "closing_statement_to_cta": "large",
+      "cta_to_section_end": "normal"
+    },
+
+    "desktop_structure": {
+      "container": "container.default",
+      "section_label": "centered",
+      "headline": "centered",
+      "benefits_heading": "centered",
+      "benefits_grid": "two-columns-three-rows",
+      "closing_statement": "centered-wide",
+      "cta": "centered"
+    },
+
+    "responsive_intent": {
+      "tablet": {
+        "section_header": "centered",
+        "headline": "centered",
+        "benefits_grid": "two-columns-if-readable-otherwise-single-column",
+        "closing_statement": "near-full-container"
+      },
+
+      "mobile": {
+        "headline": {
+          "alignment": "left-or-center-based-on-final-mobile-composition",
+          "preserve_emphasis": "เราเลยไม่ได้สอนให้คุณจำ Prompt."
+        },
+
+        "benefits_header": "left-aligned-or-center",
+
+        "benefits_grid": {
+          "columns": 1,
+          "rows": 6,
+          "remove_vertical_divider": true,
+          "retain_row_dividers": true,
+          "order": [
+            "benefit-01",
+            "benefit-02",
+            "benefit-03",
+            "benefit-04",
+            "benefit-05",
+            "benefit-06"
+          ]
+        },
+
+        "benefit_item": {
+          "layout": "icon-plus-content",
+          "icon": "fixed-small-column",
+          "content": "flexible-column"
+        },
+
+        "closing_statement": "full-available-width",
+
+        "cta": "full-width-or-near-full-width"
+      }
+    },
+
+    "missing_asset_placeholder_system": {
+      "benefit_icons": {
+        "render": "simple-circular-placeholder",
+        "show_label": true,
+        "preserve_consistent-size": true
+      },
+
+      "decorative_underlines": {
+        "render": "simple-line-or-omit"
+      },
+
+      "corner_markers": {
+        "render": "simple-corner-lines"
+      },
+
+      "handwritten_live": {
+        "render": "text-only-until-approved-treatment-is-supplied"
+      }
+    },
+
+    "content_review_flags": [
+      {
+        "target": "benefit-06",
+        "issue": "Community is mentioned in the visual reference but has not been confirmed as an actual course offering.",
+        "action": "Verify before production. Do not create or imply a community feature unless explicitly confirmed."
+      }
+    ],
+
+    "codex_constraints": [
+      "DESIGN_SYSTEM.md is the global styling source of truth.",
+      "Use the global 1280px container.",
+      "Use the global 140px section spacing.",
+      "Use Noto Sans Thai from the global typography system.",
+      "Normal body copy uses font-weight 300.",
+      "Use #FA5001 through the global accent token.",
+      "Do not convert the six benefits into six floating SaaS-style cards.",
+      "Benefits must remain one unified two-column three-row information grid on desktop.",
+      "Maintain the visual relationship between icon and benefit copy.",
+      "Use subtle dividers rather than heavy containers.",
+      "Preserve generous whitespace around the headline and closing statement.",
+      "The phrase 'เราเลยไม่ได้สอนให้คุณจำ Prompt.' is the main positioning statement.",
+      "The word LIVE in the closing statement is the main visual emphasis of the closing panel.",
+      "Do not add photos to this section.",
+      "Do not add statistics, testimonials or additional features.",
+      "Do not invent new marketing claims.",
+      "Do not implement an actual Community feature based solely on the current placeholder copy.",
+      "Use supplied icon artwork directly and placeholders only for missing icons.",
+      "Use supplied decorative artwork directly and placeholders only for missing decorative assets.",
+      "Treat desktop as the current primary target; defer responsive QA until requested.",
+      "Do not force the section into 100vh.",
+      "Do not invent section-specific typography, spacing, colors, radii or breakpoints when DESIGN_SYSTEM.md already defines them."
+    ]
+  }
+}

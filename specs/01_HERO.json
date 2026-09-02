@@ -1,0 +1,533 @@
+{
+  "section": {
+    "id": "section-01",
+    "name": "Hero - Zero to Live",
+    "type": "hero",
+    "reference": "final-approved-section-01",
+
+    "purpose": "Introduce the AI Website workshop, communicate the transformation from ZERO to LIVE, show the complete learning workflow, and establish the main visual language of the website.",
+
+    "design_system": {
+      "source": "DESIGN_SYSTEM.md",
+      "inherit_global_tokens": true,
+      "container": "container.default",
+      "theme": "light",
+      "font": "Noto Sans Thai",
+      "body_weight": 300,
+      "accent_color": "#FA5001"
+    },
+
+    "implementation_priority": [
+      "overall composition",
+      "vertical storytelling",
+      "content hierarchy",
+      "relative positioning",
+      "visual proportion",
+      "approved supplied visual assets",
+      "workflow readability",
+      "whitespace"
+    ],
+
+    "visual_phase": {
+      "current_phase": "direct-design",
+      "use_real_images": true,
+      "use_real_icons": true,
+      "use_final_graphics": true,
+      "use_animation": false,
+      "placeholder_required_for_missing_visual_assets": true,
+      "viewport_qa": "desktop-first"
+    },
+
+    "overall_layout": {
+      "direction": "vertical",
+      "alignment": "center",
+      "composition": "single-column-editorial-hero",
+      "content_density": "medium",
+      "section_behavior": "content-driven-height",
+      "full_viewport_height": false,
+
+      "story_flow": [
+        "navbar",
+        "hero-intro",
+        "hero-main-visual",
+        "workflow",
+        "closing-message",
+        "primary-cta"
+      ],
+
+      "notes": "This is a long-form hero. Do not compress all hero content into 100vh. Preserve generous vertical breathing room."
+    },
+
+    "navbar": {
+      "id": "main-navbar",
+      "position": "top",
+      "layout": "horizontal",
+      "container": "container.default",
+
+      "structure": {
+        "left": {
+          "type": "logo-placeholder",
+          "label": "6CAT ACADEMY",
+          "alignment": "left"
+        },
+
+        "right": {
+          "layout": "horizontal",
+          "alignment": "right",
+
+          "navigation": {
+            "type": "navigation-links",
+            "items": [
+              "WORKSHOP",
+              "LOCATION",
+              "ABOUT",
+              "FAQ"
+            ]
+          },
+
+          "cta": {
+            "component": "Button.Primary",
+            "text": "จองรอบเรียน",
+            "trailing_icon": "arrow-right"
+          }
+        }
+      },
+
+      "hierarchy": {
+        "logo": "primary-brand",
+        "navigation": "secondary",
+        "cta": "primary-action"
+      },
+
+      "notes": "Navbar should remain visually lightweight. It must not compete with the ZERO → LIVE hero statement."
+    },
+
+    "hero_intro": {
+      "id": "hero-intro",
+      "position": "below-navbar",
+      "alignment": "center",
+      "max_width": "content.medium",
+
+      "headline": {
+        "id": "hero-title",
+        "type": "display-heading",
+        "layout": "single-line",
+        "alignment": "center",
+
+        "content": [
+          {
+            "text": "ZERO",
+            "style_role": "primary"
+          },
+          {
+            "text": "→",
+            "style_role": "connector"
+          },
+          {
+            "text": "LIVE",
+            "style_role": "accent"
+          }
+        ],
+
+        "typography": {
+          "token": "type.display-xl",
+          "character": "handwritten-brush-display"
+        },
+
+        "importance": "highest"
+      },
+
+      "subtitle": {
+        "id": "hero-subtitle",
+        "type": "supporting-text",
+        "alignment": "center",
+
+        "content": [
+          {
+            "text": "6 ชั่วโมง",
+            "style_role": "accent"
+          },
+          {
+            "text": "พาคุณสร้างเว็บไซต์ ตั้งแต่ต้นจนออนไลน์จริง",
+            "style_role": "primary"
+          }
+        ],
+
+        "typography": {
+          "token": "type.body-large"
+        }
+      }
+    },
+
+    "hero_visual": {
+      "id": "hero-main-visual",
+      "position": "below-hero-intro",
+      "alignment": "center",
+      "type": "single-image-composite",
+      "relative_width": "large",
+      "importance": "primary-visual",
+      "asset": {
+        "path": "assets/hero-zero-to-live.png",
+        "type": "approved-final-composite-image",
+        "render": "single-image",
+        "object_fit": "contain"
+      },
+
+      "purpose": "Represent the process of using AI, design tools and responsive development to transform an idea into a live website.",
+
+      "main_layer": {
+        "id": "desktop-browser",
+        "type": "final-composite-image",
+        "label": "MAIN WEBSITE / DESKTOP BROWSER",
+        "position": "center",
+        "relative_size": "largest",
+        "aspect_ratio": "approximately-16:9",
+        "z_index_role": "base"
+      },
+
+      "overlay_layers": [
+        {
+          "id": "ai-prompt-card",
+          "type": "embedded-in-final-composite",
+          "label": "AI PROMPT",
+          "position": "left-middle",
+          "overlap_target": "desktop-browser",
+          "relative_size": "small",
+          "z_index_role": "foreground"
+        },
+        {
+          "id": "ai-output-card",
+          "type": "embedded-in-final-composite",
+          "label": "AI OUTPUT / CODE",
+          "position": "bottom-left",
+          "overlap_target": "desktop-browser",
+          "relative_size": "small-medium",
+          "z_index_role": "foreground"
+        },
+        {
+          "id": "mobile-preview",
+          "type": "embedded-in-final-composite",
+          "label": "MOBILE WEBSITE PREVIEW",
+          "position": "bottom-right",
+          "overlap_target": "desktop-browser",
+          "relative_size": "medium",
+          "aspect_ratio": "portrait-phone",
+          "z_index_role": "foreground"
+        },
+        {
+          "id": "design-toolbar",
+          "type": "embedded-in-final-composite",
+          "label": "DESIGN TOOLBAR",
+          "position": "right-middle",
+          "overlap_target": "desktop-browser",
+          "orientation": "vertical",
+          "relative_size": "small",
+          "z_index_role": "foreground"
+        },
+        {
+          "id": "mobile-optimized-label",
+          "type": "embedded-in-final-composite",
+          "label": "MOBILE OPTIMIZED",
+          "position": "right-of-mobile-preview",
+          "relative_size": "small"
+        }
+      ],
+
+      "interface_details": [
+        {
+          "type": "browser-chrome",
+          "target": "desktop-browser"
+        },
+        {
+          "type": "selection-box",
+          "target": "desktop-browser-content"
+        },
+        {
+          "type": "resize-handles",
+          "target": "selection-box"
+        },
+        {
+          "type": "embedded-in-final-composite",
+          "position": "right-side"
+        },
+        {
+          "type": "live-status",
+          "label": "LIVE",
+          "position": "browser-top-right"
+        },
+        {
+          "type": "hero-section-label",
+          "label": "HERO SECTION",
+          "position": "browser-top-left"
+        }
+      ],
+
+      "direct_design_notes": [
+        "Use assets/hero-zero-to-live.png as the approved Hero visual.",
+        "Render the supplied composite as one image and preserve its complete aspect ratio.",
+        "Do not rebuild the composite's internal browser, prompt, output, mobile or toolbar layers in the DOM."
+      ]
+    },
+
+    "workflow": {
+      "id": "zero-to-live-workflow",
+      "position": "below-hero-main-visual",
+      "alignment": "center",
+      "layout": "horizontal-five-step-flow",
+      "relative_width": "large",
+
+      "steps": [
+        {
+          "number": "01",
+          "title": "REF",
+          "icon": {
+            "type": "image",
+            "asset": "assets/workflow/01-ref.png",
+            "label": "REFERENCE ICON"
+          },
+          "description": [
+            "หา Reference",
+            "กำหนดทิศทาง"
+          ]
+        },
+        {
+          "number": "02",
+          "title": "DESIGN",
+          "icon": {
+            "type": "image",
+            "asset": "assets/workflow/02-design.png",
+            "label": "DESIGN ICON"
+          },
+          "description": [
+            "ออกแบบ",
+            "เว็บไซต์ของคุณ"
+          ]
+        },
+        {
+          "number": "03",
+          "title": "BUILD",
+          "icon": {
+            "type": "image",
+            "asset": "assets/workflow/03-build.png",
+            "label": "BUILD ICON"
+          },
+          "description": [
+            "สร้างเว็บไซต์",
+            "ด้วย AI"
+          ]
+        },
+        {
+          "number": "04",
+          "title": "FIX",
+          "icon": {
+            "type": "image",
+            "asset": "assets/workflow/04-fix.png",
+            "label": "FIX ICON"
+          },
+          "description": [
+            "ตรวจ แก้ไข",
+            "ให้ทุกอย่างสมบูรณ์"
+          ]
+        },
+        {
+          "number": "05",
+          "title": "LIVE",
+          "icon": {
+            "type": "image",
+            "asset": "assets/workflow/05-live.png",
+            "label": "LIVE ICON"
+          },
+          "description": [
+            "นำเว็บไซต์",
+            "ขึ้นออนไลน์จริง"
+          ]
+        }
+      ],
+
+      "connectors": {
+        "type": "arrow",
+        "placement": "between-every-step",
+        "direction": "left-to-right",
+        "placeholder_only": false
+      },
+
+      "hierarchy": {
+        "number": "accent-small",
+        "title": "bold-medium",
+        "icon": "primary-step-visual",
+        "description": "body-small-light"
+      },
+
+      "desktop_behavior": {
+        "columns": 5,
+        "keep_single_row": true,
+        "equal_distribution": true
+      },
+
+      "notes": "The workflow must visually communicate one continuous journey: REF → DESIGN → BUILD → FIX → LIVE."
+    },
+
+    "closing_message": {
+      "id": "hero-closing-message",
+      "position": "below-workflow",
+      "alignment": "center",
+      "type": "editorial-highlight-banner",
+      "relative_width": "large",
+
+      "background_visual": {
+        "type": "brush-placeholder",
+        "label": "BLACK BRUSH STROKE",
+        "asset_status": "missing-use-placeholder",
+        "placeholder_behavior": "simple-horizontal-placeholder"
+      },
+
+      "content": [
+        {
+          "text": "ไม่ใช่แค่เรียนรู้....",
+          "style_role": "inverse-primary"
+        },
+        {
+          "text": "แต่คุณจะได้ทำมันจริง",
+          "style_role": "accent"
+        },
+        {
+          "text": "ไปพร้อมกัน",
+          "style_role": "inverse-primary"
+        }
+      ],
+
+      "typography": {
+        "token": "type.h4"
+      },
+
+      "notes": "This statement should visually bridge the educational workflow into the booking CTA."
+    },
+
+    "primary_cta": {
+      "id": "hero-booking-cta",
+      "position": "below-closing-message",
+      "alignment": "center",
+      "component": "Button.Primary",
+      "text": "ดูรอบว่าง / จองเลย",
+      "trailing_icon": "arrow-right",
+      "importance": "high"
+    },
+
+    "vertical_flow": [
+      "navbar",
+      "hero-intro",
+      "hero-main-visual",
+      "zero-to-live-workflow",
+      "hero-closing-message",
+      "hero-booking-cta"
+    ],
+
+    "relative_spacing": {
+      "navbar_to_intro": "large",
+      "headline_to_subtitle": "small",
+      "intro_to_main_visual": "large",
+      "main_visual_to_workflow": "large",
+      "workflow_to_closing_message": "extra-large",
+      "closing_message_to_cta": "medium",
+      "cta_to_section_end": "normal"
+    },
+
+    "desktop_structure": {
+      "container": "1280px-global-container",
+      "navbar": "horizontal",
+      "hero_intro": "centered",
+      "hero_visual": "large-centered-single-image-composition",
+      "workflow": "five-column-horizontal",
+      "closing_message": "centered-wide",
+      "cta": "centered"
+    },
+
+    "responsive_intent": {
+      "current_phase": "deferred-desktop-first",
+      "current_target": "desktop",
+      "tablet": {
+        "navbar": "reduce-navigation-density",
+        "hero_intro": "centered",
+        "hero_visual": "scale-composition-while-preserving-layer-hierarchy",
+        "workflow": "compact-horizontal-or-controlled-wrap",
+        "closing_message": "near-full-container"
+      },
+
+      "mobile": {
+        "navbar": "compact-navigation",
+        "hero_intro": "centered",
+
+        "headline": {
+          "preserve_phrase": "ZERO → LIVE",
+          "avoid_unnecessary_fragmentation": true
+        },
+
+        "hero_visual": {
+          "strategy": "simplify-not-shrink",
+          "desktop_browser": "retain-as-anchor",
+          "mobile_preview": "retain",
+          "ai_prompt": "retain",
+          "ai_output": "optional-if-space-constrained",
+          "design_toolbar": "optional-if-space-constrained",
+          "annotations": "reduce"
+        },
+
+        "workflow": {
+          "strategy": "horizontal-scroll-or-vertical-sequence",
+          "preserve_order": true
+        },
+
+        "closing_message": "full-available-width",
+        "cta": "full-width-or-near-full-width"
+      }
+    },
+
+    "missing_asset_placeholder_system": {
+      "images": {
+        "render": "neutral-labeled-placeholder",
+        "show_label": true,
+        "preserve_aspect_ratio": true
+      },
+
+      "icons": {
+        "render": "simple-consistent-placeholder",
+        "show_label": true
+      },
+
+      "ui_cards": {
+        "render": "neutral-placeholder-card",
+        "show_label": true
+      },
+
+      "decorative_graphics": {
+        "render": "omit-unless-layout-relevant"
+      }
+    },
+
+    "codex_constraints": [
+      "DESIGN_SYSTEM.md is the styling source of truth.",
+      "Use the global 1280px container.",
+      "Use #FA5001 only through the global accent token.",
+      "Use Noto Sans Thai through the global typography system.",
+      "Normal body copy uses font-weight 300.",
+      "Respect the global 140px section spacing system where applicable.",
+      "Do not force the Hero into 100vh.",
+      "Do not convert the Hero into a left-text / right-image two-column layout.",
+      "ZERO → LIVE must remain centered above the main visual.",
+      "Desktop browser must remain the dominant hero visual.",
+      "AI Prompt, AI Output, mobile preview and design toolbar must remain separate DOM layers.",
+      "Preserve intentional overlap between hero visual layers.",
+      "Keep REF → DESIGN → BUILD → FIX → LIVE as one clearly understandable journey.",
+      "Do not replace the workflow with generic feature cards.",
+      "Do not add statistics, testimonials, badges or additional marketing content.",
+      "Do not invent new copy.",
+      "Use real approved text during direct implementation.",
+      "Use supplied final images, icons and graphical assets directly.",
+      "Use placeholders only for intended assets that have not been supplied.",
+      "Render the approved Hero composite as a single image rather than independent DOM layers.",
+      "Treat desktop as the current primary target; defer responsive QA until requested.",
+      "Preserve generous whitespace.",
+      "Do not invent section-specific spacing, typography, colors, radii or breakpoints when DESIGN_SYSTEM.md already defines them."
+    ]
+  }
+}
