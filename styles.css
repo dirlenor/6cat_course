@@ -230,8 +230,40 @@ select {
 }
 
 .button--primary {
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+  border: 1px solid transparent;
   background: var(--color-accent);
   color: var(--color-text-inverse);
+  isolation: isolate;
+  transition: border-color 480ms ease, color 360ms ease;
+}
+
+.button--primary::before {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--button-hover-surface, var(--color-bg-primary));
+  content: "";
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 480ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.button--primary:hover,
+.button--primary:focus-visible {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.button--primary:hover::before,
+.button--primary:focus-visible::before {
+  transform: scaleX(1);
+}
+
+.pricing-section .button--primary {
+  --button-hover-surface: var(--color-bg-dark);
 }
 
 .button--nav {
