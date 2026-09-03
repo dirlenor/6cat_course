@@ -119,6 +119,10 @@ body {
   gap: var(--space-2);
 }
 
+.floating-social-menu {
+  display: contents;
+}
+
 .floating-action {
   display: inline-flex;
   min-height: 46px;
@@ -164,6 +168,13 @@ body {
   cursor: pointer;
 }
 
+.floating-action--menu-toggle {
+  display: none;
+  width: 46px;
+  padding: 0;
+  cursor: pointer;
+}
+
 .floating-action--top svg {
   width: 21px;
   height: 21px;
@@ -177,6 +188,51 @@ body {
 .floating-action:focus-visible {
   outline: 3px solid var(--color-accent);
   outline-offset: 3px;
+}
+
+@media (max-width: 767px) {
+  .floating-actions {
+    right: max(var(--space-3), env(safe-area-inset-right));
+    bottom: max(var(--space-3), env(safe-area-inset-bottom));
+    gap: var(--space-2);
+  }
+
+  .floating-social-menu {
+    display: grid;
+    justify-items: end;
+    gap: var(--space-2);
+  }
+
+  .floating-action--facebook,
+  .floating-action--line {
+    width: 46px;
+    padding: 0;
+    gap: 0;
+  }
+
+  .floating-action--facebook span,
+  .floating-action--line span {
+    display: none;
+  }
+
+  .floating-action--menu-toggle {
+    display: inline-flex;
+  }
+
+  .floating-action--menu-toggle svg {
+    transition: transform 180ms ease;
+  }
+
+  .floating-actions--open .floating-action--menu-toggle svg {
+    transform: rotate(45deg);
+  }
+
+  .floating-actions:not(.floating-actions--open) .floating-social-menu .floating-action {
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(12px) scale(0.92);
+  }
 }
 
 /* Keep the expressive display face for headings only. */
