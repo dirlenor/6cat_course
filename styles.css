@@ -1626,6 +1626,8 @@ select {
 .pricing-package__content {
   display: flex;
   min-width: 0;
+  width: 100%;
+  flex: 1 1 auto;
   flex-direction: column;
 }
 
@@ -1714,7 +1716,7 @@ select {
 
 .pricing-package__cta {
   width: 100%;
-  margin-top: var(--space-6);
+  margin-top: auto;
 }
 
 @media (max-width: 1199px) {
@@ -1729,6 +1731,7 @@ select {
   .pricing-package--buddy {
     transform: none;
   }
+
 }
 
 .pricing-location {
@@ -2597,6 +2600,21 @@ select {
 
   .pricing-package--buddy {
     transform: none;
+  }
+
+  .pricing-package__content {
+    align-items: stretch;
+    text-align: center;
+  }
+
+  .pricing-package__heading {
+    justify-content: center;
+  }
+
+  .pricing-package__features li {
+    width: fit-content;
+    margin-inline: auto;
+    text-align: left;
   }
 
   .pricing-package__name {
