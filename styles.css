@@ -108,6 +108,77 @@ body {
   letter-spacing: 0.035em;
 }
 
+.floating-actions {
+  position: fixed;
+  right: max(var(--space-6), env(safe-area-inset-right));
+  bottom: max(var(--space-6), env(safe-area-inset-bottom));
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-2);
+}
+
+.floating-action {
+  display: inline-flex;
+  min-height: 46px;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  border: 1px solid var(--color-text-primary);
+  border-radius: 999px;
+  padding: 0 16px;
+  background: var(--color-bg-white);
+  box-shadow: 4px 4px 0 var(--color-text-primary);
+  color: var(--color-text-primary);
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1;
+  text-decoration: none;
+  transition: background-color 180ms ease, box-shadow 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+.floating-action svg {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+}
+
+.floating-action--facebook {
+  border-color: #1877f2;
+  background: #1877f2;
+  box-shadow: 4px 4px 0 #0d4f9f;
+  color: #fff;
+}
+
+.floating-action--line {
+  border-color: #06c755;
+  background: #06c755;
+  box-shadow: 4px 4px 0 #05873a;
+  color: #fff;
+}
+
+.floating-action--top {
+  width: 46px;
+  padding: 0;
+  cursor: pointer;
+}
+
+.floating-action--top svg {
+  width: 21px;
+  height: 21px;
+}
+
+.floating-action:hover {
+  box-shadow: 1px 1px 0 currentColor;
+  transform: translate(3px, 3px);
+}
+
+.floating-action:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
 /* Keep the expressive display face for headings only. */
 p .english-display,
 .problem-checklist .english-display,
