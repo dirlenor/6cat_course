@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="จองคอร์สสร้างเว็บไซต์กับ 6CAT Academy" />
+    <title>จองรอบเรียน | 6CAT Academy</title>
+    <link rel="stylesheet" href="./booking.css" />
+  </head>
+  <body data-checkout-endpoint="">
+    <main class="booking-page">
+      <header class="booking-header">
+        <a class="booking-brand" href="./index.html" aria-label="กลับไปหน้า 6CAT Academy">
+          <span class="booking-brand__main"><span class="booking-brand__six">6</span><span class="booking-brand__cat">CAT</span></span><small>ACADEMY</small>
+        </a>
+        <a class="booking-back" href="./index.html">กลับหน้าคอร์ส</a>
+      </header>
+
+      <div class="booking-layout">
+        <div class="booking-flow">
+          <section class="booking-intro" aria-labelledby="booking-title">
+            <h1 id="booking-title">BOOK YOUR SESSION</h1>
+            <p>มาจองวันที่เราจะสร้างเว็บไซต์ของคุณให้ LIVE กัน</p>
+          </section>
+
+          <form id="booking-form" class="booking-form" novalidate>
+          <fieldset class="booking-section booking-section--packages">
+            <legend>มาเรียนแบบไหน?</legend>
+            <p class="booking-section__help">เลือกแพ็กเกจที่เหมาะกับเป้าหมายของคุณ</p>
+            <div class="package-options" role="radiogroup" aria-label="เลือกแพ็กเกจเรียน">
+              <label class="package-option">
+                <input type="radio" name="package" value="online-course" />
+                <span class="package-option__content"><strong>ONLINE COURSE</strong><small>เรียนด้วยตัวเอง</small></span>
+                <span class="package-option__features"><span>เรียนได้ทุกที่ ทุกเวลา</span><span>เข้าเรียนได้ตลอด 24 ชั่วโมง</span><span>เหมาะสำหรับผู้เริ่มต้น</span></span>
+                <span class="package-option__price">990.-</span>
+              </label>
+              <label class="package-option">
+                <input type="radio" name="package" value="live-online" />
+                <span class="package-option__content"><strong>PRIVATE LIVE ONLINE</strong><small>1 คน · เลือกเวลาเรียนได้</small></span>
+                <span class="package-option__features"><span>เรียนสดผ่าน Meet / Zoom</span><span>รวม 4 ชั่วโมง แบ่ง 2 ครั้ง</span><span>ถาม-ตอบได้แบบใกล้ชิด</span></span>
+                <span class="package-option__price">2,999.-</span>
+              </label>
+              <label class="package-option">
+                <input type="radio" name="package" value="solo" />
+                <img class="package-option__character package-option__character--solo" src="./assets/booking-icons/solo.png" alt="" />
+                <span class="package-option__content"><strong>SOLO</strong><small>1 คน · Private Workshop</small></span>
+                <span class="package-option__features"><span>เรียนแบบตัวต่อตัว 1:1</span><span>ทำเว็บของคุณจริงในคลาส</span><span>ผลงานเป็นของคุณ 100%</span></span>
+                <span class="package-option__price">3,999.-</span>
+              </label>
+              <label class="package-option">
+                <input type="radio" name="package" value="buddy" />
+                <img class="package-option__character package-option__character--buddy" src="./assets/booking-icons/buddy.png" alt="" />
+                <span class="package-option__content"><strong>BUDDY <em>คุ้มสุด</em></strong><small>2 คน · เรียนพร้อมกัน</small></span>
+                <span class="package-option__features"><span>มาเรียนกับเพื่อน / คนรู้ใจ</span><span>ช่วยกันคิด ทำเว็บด้วยกัน</span><span>หารกันแล้วคุ้มกว่า</span></span>
+                <span class="package-option__price">5,999.-</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <section class="booking-section" aria-labelledby="schedule-title">
+            <h2 id="schedule-title">รายละเอียดการเรียน</h2>
+            <p class="booking-section__help" data-schedule-help>เลือกรอบที่คุณสะดวกจากรอบว่างที่เปิดรับ</p>
+            <div class="form-grid form-grid--schedule" data-schedule-fields>
+              <div class="field">
+                <label for="slot">รอบเรียน</label>
+                <select id="slot" name="slot" required>
+                  <option value="">เลือกรอบเรียน</option>
+                </select>
+                <p class="field__help">รอบว่างจริงจะดึงจากระบบเมื่อเชื่อม Supabase</p>
+              </div>
+              <div class="field" data-location-field>
+                <label for="location">สถานที่เรียน</label>
+                <select id="location" name="location" required>
+                  <option value="">เลือกสถานที่เรียน</option>
+                </select>
+                <p class="field__help">ค่าเดินทางจะแสดงก่อนชำระเงิน</p>
+              </div>
+            </div>
+            <p class="booking-notice" data-online-notice hidden><img src="./assets/booking-icons/lightbulb.png" alt="" />คอร์สนี้เรียนได้ทันทีหลังชำระเงิน ระบบจะส่งสิทธิ์เข้าเรียนไปยังอีเมลที่ระบุ</p>
+          </section>
+
+          <fieldset class="booking-section">
+            <legend>ข้อมูลผู้จอง</legend>
+            <div class="form-grid">
+              <div class="field">
+                <label for="full-name">ชื่อ-นามสกุล</label>
+                <input id="full-name" name="fullName" autocomplete="name" required />
+              </div>
+              <div class="field">
+                <label for="phone">เบอร์โทรศัพท์</label>
+                <input id="phone" name="phone" inputmode="tel" autocomplete="tel" required />
+              </div>
+              <div class="field">
+                <label for="email">อีเมล</label>
+                <input id="email" name="email" type="email" autocomplete="email" required />
+              </div>
+              <div class="field">
+                <label for="line-id">LINE ID</label>
+                <input id="line-id" name="lineId" autocomplete="off" />
+              </div>
+              <div class="field field--full" data-buddy-field hidden>
+                <label for="buddy-name">ชื่อเพื่อนที่มาเรียนด้วย</label>
+                <input id="buddy-name" name="buddyName" autocomplete="name" />
+              </div>
+              <div class="field field--full">
+                <label for="note">หมายเหตุเพิ่มเติม</label>
+                <textarea id="note" name="note" rows="3"></textarea>
+              </div>
+            </div>
+          </fieldset>
+
+          <label class="consent">
+            <input type="checkbox" name="consent" required />
+            <span>ฉันยอมรับให้ 6CAT ใช้ข้อมูลนี้เพื่อติดต่อและดำเนินการจองคอร์ส</span>
+          </label>
+
+            <p id="booking-status" class="booking-status" aria-live="polite"></p>
+          </form>
+        </div>
+
+        <aside class="booking-summary" aria-labelledby="summary-title">
+          <div class="booking-summary__inner">
+            <div class="booking-summary__heading"><img src="./assets/booking-icons/your-session.png" alt="Your Session" /><img class="booking-summary__star" src="./assets/booking-icons/star.png" alt="" /></div>
+            <h2 id="summary-title" data-summary-name>เลือกแพ็กเกจ</h2>
+            <p class="booking-summary__detail" data-summary-detail>กรุณาเลือกแพ็กเกจที่ต้องการเรียน</p>
+            <dl class="booking-summary__rows">
+              <div><dt><img src="./assets/booking-icons/person.png" alt="" />PACKAGE</dt><dd data-summary-format>-</dd></div>
+              <div><dt><img src="./assets/booking-icons/clock.png" alt="" />DURATION</dt><dd data-summary-duration>-</dd></div>
+              <div data-summary-slot-row><dt><img src="./assets/booking-icons/calendar.png" alt="" />DATE</dt><dd data-summary-slot>ยังไม่ได้เลือก</dd></div>
+              <div data-summary-location-row><dt><img src="./assets/booking-icons/location.png" alt="" />PLACE</dt><dd data-summary-location>ยังไม่ได้เลือก</dd></div>
+            </dl>
+            <div class="booking-summary__total"><span>TOTAL</span><strong data-summary-total>0 บาท</strong></div>
+            <button class="booking-pay" type="submit" form="booking-form">ชำระเงินด้วย Stripe</button>
+            <p class="booking-summary__secure">Stripe Checkout จะเปิดหลังจากตรวจสอบข้อมูลการจอง</p>
+            <a class="booking-help" href="https://line.me/R/ti/p/@6catacademy" target="_blank" rel="noreferrer"><img src="./assets/booking-icons/line.png" alt="" /><span>มีคำถาม?</span>ทัก LINE หาเราได้เลย <b>→</b></a>
+          </div>
+        </aside>
+      </div>
+    </main>
+    <script src="./booking.js"></script>
+  </body>
+</html>

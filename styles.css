@@ -1640,7 +1640,7 @@ select {
 }
 
 .pricing-package--buddy .pricing-package__name {
-  color: var(--color-accent);
+  color: var(--color-text-inverse);
 }
 
 .pricing-package__people,
