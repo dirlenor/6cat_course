@@ -868,69 +868,24 @@
             .from(".closing-message__banner", { autoAlpha: 0, y: 24 }, "intro+=0.82")
             .from("#hero-booking-cta", { autoAlpha: 0, y: 20 }, "intro+=1.02");
 
-          gsap.timeline({
-            defaults: { duration: 0.52, ease: "power3.out" },
-            scrollTrigger: { trigger: "#problem", start: "top 78%", once: true }
-          })
-            .from(".problem-section__header > *", { autoAlpha: 0, x: -34, stagger: 0.07 })
-            .from(".problem-checklist li", { autoAlpha: 0, x: -24, stagger: 0.07 }, "-=0.3")
-            .from(".problem-visual", { autoAlpha: 0, y: 34, scale: 0.94, rotation: 1.5 }, "<0.1")
-            .from(".problem-conclusion, .problem-cta", { autoAlpha: 0, y: 28, stagger: 0.07 }, "-=0.24");
+          document.querySelectorAll("main > section").forEach((section) => {
+            const container = section.querySelector(":scope > .container");
+            const targets = container ? Array.from(container.children) : [section];
 
-          gsap.timeline({
-            defaults: { duration: 0.5, ease: "power4.out" },
-            scrollTrigger: { trigger: "#why-6cat", start: "top 78%", once: true }
-          })
-            .from(".why-6cat-section__header > *", { autoAlpha: 0, y: 34, stagger: 0.07 })
-            .from(".why-benefits__title", { autoAlpha: 0, y: 24 }, "-=0.28")
-            .from(".why-benefit", {
+            gsap.from(targets, {
               autoAlpha: 0,
-              y: 42,
-              scale: 0.9,
-              rotation: (index) => (index % 2 ? 1.5 : -1.5),
-              transformOrigin: "50% 100%",
-              stagger: 0.09,
-              ease: "back.out(1.45)"
-            }, "-=0.2")
-            .from(".why-closing, .why-6cat-cta", { autoAlpha: 0, y: 28, stagger: 0.07 }, "-=0.2");
-
-          document.querySelectorAll(".experience-step").forEach((step) => {
-            const content = step.querySelector(".experience-step__content");
-            const visual = step.querySelector(".experience-visual");
-
-            gsap.timeline({
-              defaults: { duration: 0.5, ease: "power3.out" },
-              scrollTrigger: { trigger: step, start: "top 80%", once: true }
-            })
-              .from(Array.from(content.children), { autoAlpha: 0, x: 30, stagger: 0.06 })
-              .from(visual, { autoAlpha: 0, y: 34, scale: 0.94, rotation: step.classList.contains("experience-step--visual-left") ? -1.5 : 1.5 }, "<0.08");
+              y: 56,
+              duration: 1,
+              ease: "power3.out",
+              stagger: 0.16,
+              overwrite: "auto",
+              scrollTrigger: {
+                trigger: section,
+                start: "top 64%",
+                toggleActions: "play none none reverse"
+              }
+            });
           });
-
-          gsap.timeline({
-            defaults: { duration: 0.52, ease: "power3.out" },
-            scrollTrigger: { trigger: "#reviews", start: "top 78%", once: true }
-          })
-            .from(".reviews-section__header > *", { autoAlpha: 0, y: 30, stagger: 0.07 })
-            .from(".reviews-carousel", { autoAlpha: 0, y: 34, scale: 0.97 }, "-=0.2");
-
-          gsap.timeline({
-            defaults: { duration: 0.52, ease: "power3.out" },
-            scrollTrigger: { trigger: "#instructor", start: "top 78%", once: true }
-          })
-            .from(".instructor-section__header > *", { autoAlpha: 0, x: -30 })
-            .from(".instructor-intro > *", { autoAlpha: 0, x: -34, stagger: 0.07 }, "-=0.32")
-            .from(".instructor-visual", { autoAlpha: 0, y: 34, scale: 0.94, rotation: 1.5 }, "<0.12")
-            .from(".tool-badge", { autoAlpha: 0, y: 16, scale: 0.86, stagger: 0.04, ease: "back.out(1.6)" }, "-=0.24");
-
-          gsap.timeline({
-            defaults: { duration: 0.5, ease: "power3.out" },
-            scrollTrigger: { trigger: "#pricing", start: "top 78%", once: true }
-          })
-            .from(".pricing-section__header > *", { autoAlpha: 0, y: 28 })
-            .from(".pricing-overview__intro > *", { autoAlpha: 0, x: -30, stagger: 0.07 }, "-=0.24")
-            .from(".pricing-quick-info__card", { autoAlpha: 0, y: 32, scale: 0.9, stagger: 0.09, ease: "back.out(1.4)" }, "-=0.2")
-            .from(".pricing-package", { autoAlpha: 0, y: 42, scale: 0.96, stagger: 0.1 }, "-=0.32")
-            .from(".pricing-location__item", { autoAlpha: 0, y: 22, stagger: 0.07 }, "-=0.22");
         });
 
         const refreshScrollTriggers = () => ScrollTrigger.refresh();
