@@ -1282,11 +1282,13 @@ select {
 }
 
 .review-card__avatar {
+  display: block;
   width: 56px;
   height: 56px;
   flex: 0 0 56px;
-  border-radius: var(--radius-pill);
+  border-radius: 50%;
   background: var(--color-border-light);
+  object-fit: cover;
 }
 
 .review-card--accent .review-card__avatar {
@@ -2061,42 +2063,69 @@ select {
 
 /* Tools Strip */
 .instructor-tools-strip {
-  display: flex;
-  align-items: center;
-  gap: var(--space-6);
-  background: #FFFFFF;
-  border: 1px solid #E2DFDB;
-  border-radius: var(--radius-lg);
-  padding: var(--space-5) var(--space-8);
+  overflow: hidden;
+  padding: var(--space-3) 0;
   margin-top: var(--space-16);
-  box-shadow: 0 8px 24px rgba(17, 17, 17, 0.04);
-}
-
-.tools-strip__title {
-  font-family: "Noto Sans Thai", sans-serif;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--color-accent);
-  letter-spacing: 0.02em;
-  white-space: nowrap;
-  flex: 0 0 auto;
 }
 
 .tools-strip__list {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  flex: 1 1 auto;
+  width: max-content;
+  flex: 0 0 auto;
+  gap: var(--space-10);
   padding: 0;
+  padding-right: var(--space-10);
   margin: 0;
   list-style: none;
 }
 
+.tools-strip__marquee {
+  min-width: 0;
+  flex: 1 1 auto;
+  overflow: hidden;
+}
+
+.tools-strip__marquee-track {
+  display: flex;
+  width: max-content;
+  animation: tools-strip-scroll 28s linear infinite;
+  will-change: transform;
+}
+
+.tools-strip__marquee:hover .tools-strip__marquee-track,
+.tools-strip__marquee:focus-within .tools-strip__marquee-track {
+  animation-play-state: paused;
+}
+
 .tool-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
   font-size: 16px;
   font-weight: 600;
   color: var(--color-text-primary);
   letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.tool-badge img {
+  display: block;
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+@keyframes tools-strip-scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tools-strip__marquee-track {
+    animation: none;
+  }
 }
 
 @media (max-width: 1024px) {
@@ -2112,7 +2141,6 @@ select {
   }
 
   .tools-strip__list {
-    flex-wrap: wrap;
     gap: var(--space-4);
   }
 }
@@ -2147,16 +2175,21 @@ select {
   }
 
   .instructor-tools-strip {
-    align-items: center;
-    flex-direction: column;
-    padding: var(--space-5);
+    padding: var(--space-3) 0;
     margin-top: var(--space-12);
-    text-align: center;
+  }
+
+  .tools-strip__marquee {
+    width: 100%;
   }
 
   .tools-strip__list {
-    justify-content: center;
-    gap: var(--space-3) var(--space-5);
+    gap: var(--space-6);
+    padding-right: var(--space-6);
+  }
+
+  .tool-badge {
+    font-size: 15px;
   }
 }
 
@@ -2441,14 +2474,68 @@ select {
   }
 
   .reviews-carousel__track > li {
-    /* Keep one readable review card plus a preview of the next one on mobile. */
-    min-width: calc((100% - var(--space-4)) / 1.5);
-    flex: 0 0 calc((100% - var(--space-4)) / 1.5);
+    /* A wider card prevents the Thai copy from wrapping into an overly tall panel. */
+    min-width: calc((100% - var(--space-4)) / 1.15);
+    flex: 0 0 calc((100% - var(--space-4)) / 1.15);
   }
 
   .review-card {
+    height: 420px;
     min-height: 0;
-    padding: var(--space-6);
+    padding: var(--space-5);
+  }
+
+  .review-card--accent {
+    transform: scale(1.015);
+  }
+
+  .review-card__quote-mark {
+    font-size: 50px;
+  }
+
+  .review-card__headline {
+    margin-top: var(--space-4);
+    font-size: 22px;
+    line-height: 1.28;
+  }
+
+  .review-card__body {
+    display: -webkit-box;
+    margin-top: var(--space-3);
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    font-size: 15px;
+    line-height: 1.55;
+  }
+
+  .review-card__footer {
+    margin-top: auto;
+    padding-top: var(--space-4);
+  }
+
+  .review-card__rating {
+    font-size: 22px;
+  }
+
+  .review-card__student {
+    gap: var(--space-3);
+    margin-top: var(--space-4);
+  }
+
+  .review-card__avatar {
+    width: 48px;
+    height: 48px;
+    flex-basis: 48px;
+  }
+
+  .review-card__student strong {
+    font-size: 17px;
+  }
+
+  .review-card__student p span {
+    font-size: 12px;
+    line-height: 1.45;
   }
 
   .reviews-carousel__arrow {
