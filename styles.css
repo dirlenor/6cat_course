@@ -1220,6 +1220,35 @@ select {
   transform: scale(1.055);
 }
 
+.review-card.review-card--proof {
+  display: block;
+  min-height: 0;
+  aspect-ratio: auto;
+  height: auto;
+  padding: 0;
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  transition: none;
+}
+
+.review-card--proof > img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.review-card.review-card--proof.review-card--accent {
+  z-index: auto;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  color: inherit;
+  transform: none;
+}
+
 .review-card__quote {
   margin: 0;
 }
@@ -1544,25 +1573,34 @@ select {
 
 .pricing-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: var(--space-4);
   margin-top: var(--space-20);
+  align-items: stretch;
 }
 
 .pricing-package {
   position: relative;
-  display: grid;
-  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
-  gap: var(--space-8);
-  min-height: calc(var(--space-30) + var(--space-30) + var(--space-30) + var(--space-30));
-  padding: var(--space-8) var(--space-8) var(--space-16);
-  border: 1px dashed rgb(255 255 255 / 0.32);
+  display: flex;
+  min-width: 0;
+  min-height: 490px;
+  padding: var(--space-6);
+  border: 1px solid rgb(255 255 255 / 0.16);
   border-radius: var(--radius-lg);
-  background: var(--color-bg-dark);
+  background: var(--color-bg-dark-soft);
 }
 
 .pricing-package--buddy {
   border-color: var(--color-accent);
+  background: #24211f;
+  box-shadow: 0 20px 42px rgb(0 0 0 / 0.2);
+  transform: translateY(-12px);
+}
+
+.pricing-package--online-course,
+.pricing-package--live-online {
+  border-color: rgb(255 255 255 / 0.16);
+  background: var(--color-bg-dark-soft);
 }
 
 .pricing-package__heading {
@@ -1585,40 +1623,6 @@ select {
   white-space: nowrap;
 }
 
-.pricing-package__media {
-  display: flex;
-  min-height: 0;
-  align-self: start;
-  aspect-ratio: 4 / 3;
-  margin: 0;
-}
-
-.pricing-package__photo {
-  width: 100%;
-  height: 100%;
-  border-radius: var(--radius-md);
-  display: block;
-  object-fit: cover;
-  object-position: center 42%;
-}
-
-.pricing-media-placeholder {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-  width: 100%;
-  min-height: 0;
-  height: 100%;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid var(--color-border-dark);
-  border-radius: var(--radius-md);
-  background: var(--color-bg-dark-soft);
-  color: var(--color-text-inverse-secondary);
-  font-size: 16px;
-  font-weight: 600;
-}
-
 .pricing-package__content {
   display: flex;
   min-width: 0;
@@ -1628,7 +1632,7 @@ select {
 .pricing-package__name {
   margin: 0;
   color: var(--color-text-inverse);
-  font-size: 32px;
+  font-size: clamp(25px, 2.15vw, 32px);
   font-weight: 600;
   line-height: 1.25;
 }
@@ -1646,7 +1650,7 @@ select {
 .pricing-package__people {
   margin-top: var(--space-1);
   color: var(--color-text-inverse);
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
   line-height: 1.3;
 }
@@ -1654,7 +1658,7 @@ select {
 .pricing-package__price {
   margin-top: var(--space-3);
   color: var(--color-accent);
-  font-size: 64px;
+  font-size: clamp(44px, 4vw, 60px);
   font-weight: 800;
   letter-spacing: -0.02em;
   line-height: 1.1;
@@ -1663,7 +1667,7 @@ select {
 .pricing-package__price-note {
   margin-top: var(--space-1);
   color: var(--color-text-inverse-secondary);
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 300;
   line-height: 1.75;
 }
@@ -1686,7 +1690,7 @@ select {
   display: grid;
   gap: var(--space-2);
   padding: 0;
-  margin: var(--space-6) 0 0;
+  margin: var(--space-5) 0 0;
   list-style: none;
 }
 
@@ -1695,7 +1699,7 @@ select {
   align-items: flex-start;
   gap: var(--space-2);
   color: var(--color-text-inverse-secondary);
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 300;
   line-height: 1.75;
 }
@@ -1710,7 +1714,21 @@ select {
 
 .pricing-package__cta {
   width: 100%;
-  margin-top: auto;
+  margin-top: var(--space-6);
+}
+
+@media (max-width: 1199px) {
+  .pricing-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .pricing-package {
+    min-height: 450px;
+  }
+
+  .pricing-package--buddy {
+    transform: none;
+  }
 }
 
 .pricing-location {
@@ -2573,15 +2591,12 @@ select {
   }
 
   .pricing-package {
-    grid-template-columns: 1fr;
-    gap: var(--space-6);
     min-height: 0;
     padding: var(--space-6);
   }
 
-  .pricing-package__media {
-    min-height: 0;
-    aspect-ratio: 4 / 3;
+  .pricing-package--buddy {
+    transform: none;
   }
 
   .pricing-package__name {
