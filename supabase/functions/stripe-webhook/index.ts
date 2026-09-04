@@ -100,8 +100,15 @@ export default {
           await sendCustomerConfirmation(ctx.supabaseAdmin, bookingId);
         } else if (event.type === "checkout.session.async_payment_failed" || event.type === "checkout.session.expired") {
           const status = event.type === "checkout.session.expired" ? "expired" : "payment_failed";
-          const { error } = await ctx.supabaseAdmin.from("bookings").update({ status, updated_at: new Date().toISOString() }).eq("id", bookingId).neq("status", "paid");
+          const { data: cancelledBooking, error } = await ctx.supabaseAdmin
+            .from("bookings")
+            .update({ status, updated_at: new Date().toISOString() })
+            .eq("id", bookingId)
+            .eq("status", "pending_payment")
+            .select("course_slot_id")
+            .maybeSingle();
           if (error) return new Response("Could not update booking", { status: 500 });
+          if (cancelledBooking?.course_slot_id) await ctx.supabaseAdmin.rpc("release_course_slot", { p_slot_id: cancelledBooking.course_slot_id });
         }
       }
     }

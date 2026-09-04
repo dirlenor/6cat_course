@@ -42,6 +42,26 @@ button, input, select, textarea { font: inherit; }
 .field textarea { resize: vertical; }
 .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--orange); box-shadow: 0 0 0 3px rgb(250 80 1 / .13); }
 .field__help { margin: 7px 0 0; color: var(--muted); font-size: 12px; line-height: 1.5; }
+.course-slot-picker { display: grid; gap: 14px; }
+.course-slot-picker__heading { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; }
+.course-slot-picker__heading strong { font-size: 15px; }
+.course-slot-picker__heading span, .course-slot-loading { margin: 0; color: var(--muted); font-size: 12px; }
+.course-slot-days { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 8px; }
+.course-slot-day { display: grid; justify-items: center; gap: 3px; min-height: 104px; padding: 11px 5px; border: 1px solid var(--line); border-radius: 12px; background: var(--color-bg-white); color: var(--ink); cursor: pointer; transition: transform 180ms ease, border-color 180ms ease, background 180ms ease; }
+.course-slot-day:hover:not(:disabled), .course-slot-day:focus-visible, .course-slot-day.is-selected { border-color: var(--orange); background: #fff3ec; outline: 0; transform: translateY(-2px); }
+.course-slot-day strong { color: var(--muted); font-size: 11px; }
+.course-slot-day span { font-size: 22px; font-weight: 800; line-height: 1; }
+.course-slot-day small { color: #16824f; font-size: 10px; font-weight: 800; }
+.course-slot-day.is-unavailable { cursor: not-allowed; background: #f5f2ef; color: #aaa39c; opacity: .8; }
+.course-slot-day.is-unavailable small { color: #a15b45; }
+.course-slot-times { padding: 16px; border: 1px solid var(--line); border-radius: 12px; background: rgb(255 255 255 / .5); }
+.course-slot-times > strong { display: block; margin-bottom: 10px; font-size: 14px; }
+.course-slot-times > div { display: flex; flex-wrap: wrap; gap: 9px; }
+.course-slot-time { min-width: 124px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 9px; background: white; color: var(--ink); cursor: pointer; font-weight: 800; text-align: left; }
+.course-slot-time small { display: block; margin-top: 3px; color: var(--muted); font-size: 10px; font-weight: 600; }
+.course-slot-time:hover:not(:disabled), .course-slot-time:focus-visible, .course-slot-time.is-selected { border-color: var(--orange); background: var(--orange); color: #fff; outline: 0; }
+.course-slot-time.is-selected small { color: #fff3ec; }
+.course-slot-time.is-unavailable { cursor: not-allowed; opacity: .45; text-decoration: line-through; }
 .booking-notice { display: flex; align-items: center; gap: 10px; padding: 14px 16px; margin: 20px 0 0; border-left: 3px solid var(--orange); background: var(--color-bg-white); color: var(--muted); font-size: 14px; line-height: 1.6; }
 .booking-notice img { width: 28px; height: 28px; object-fit: contain; }
 .consent { display: flex; gap: 12px; align-items: flex-start; color: var(--muted); font-size: 13px; line-height: 1.55; }
@@ -80,4 +100,5 @@ button, input, select, textarea { font: inherit; }
 
 @media (max-width: 920px) { .booking-layout { grid-template-columns: minmax(0, 1fr) 330px; gap: 32px; } .package-options { grid-template-columns: 1fr; } .package-option { min-height: 230px; } }
 @media (max-width: 767px) { .booking-page { width: calc(100% - 48px); padding-top: 18px; } .booking-header { min-height: 68px; } .booking-brand__logo { width: 106px; } .booking-back { font-size: 13px; } .booking-back::before { font-size: 22px; } .booking-layout { grid-template-columns: 1fr; padding-top: 0; } .booking-summary { position: static; grid-row: 2; } .booking-flow { grid-row: 1; } .booking-intro { padding-top: 48px; } .booking-section:not(.booking-section--packages) { padding-top: 30px; } .booking-form { gap: 34px; } }
-@media (max-width: 479px) { .booking-page { width: calc(100% - 40px); } .booking-intro h1 { font-size: clamp(51px, 16vw, 76px); } .booking-intro h1::after { height: 4px; margin-top: 18px; } .booking-intro p { margin-top: 18px; font-size: 16px; } .package-option { min-height: 250px; padding: 21px; } .package-option:has(input:checked) { padding: 20px; } .package-option strong { font-size: 32px; } .form-grid { grid-template-columns: 1fr; } .field--full { grid-column: auto; } .booking-summary__inner { padding: 26px 22px; } }
+@media (max-width: 620px) { .course-slot-days { grid-template-columns: repeat(4, minmax(0, 1fr)); } .course-slot-picker__heading { align-items: flex-start; flex-direction: column; gap: 4px; } }
+@media (max-width: 479px) { .booking-page { width: calc(100% - 40px); } .booking-intro h1 { font-size: clamp(51px, 16vw, 76px); } .booking-intro h1::after { height: 4px; margin-top: 18px; } .booking-intro p { margin-top: 18px; font-size: 16px; } .package-option { min-height: 250px; padding: 21px; } .package-option:has(input:checked) { padding: 20px; } .package-option strong { font-size: 32px; } .form-grid { grid-template-columns: 1fr; } .field--full { grid-column: auto; } .booking-summary__inner { padding: 26px 22px; } .course-slot-days { grid-template-columns: repeat(3, minmax(0, 1fr)); } }

@@ -113,6 +113,18 @@
       .calendar-toolbar h2 { margin: 0; font-size: 1.1rem; }
       .calendar-toolbar__controls { display: flex; gap: 8px; }
       .calendar-toolbar button { border: 1px solid #ddd5ce; border-radius: 8px; background: #fff; cursor: pointer; padding: 7px 10px; font: inherit; font-weight: 800; }
+      .slot-manager { margin-top: 18px; }
+      .slot-manager__form { display: grid; grid-template-columns: 1.15fr 1fr .8fr 1.4fr .65fr auto; gap: 10px; align-items: end; }
+      .slot-manager__form label { display: grid; gap: 6px; color: #625c56; font-size: .74rem; font-weight: 800; }
+      .slot-manager__form input, .slot-manager__form select { min-width: 0; border: 1px solid #e1dad3; border-radius: 9px; background: #fff; padding: 10px; font: inherit; }
+      .slot-manager__form .admin-button { min-height: 41px; white-space: nowrap; }
+      .slot-manager__list { display: grid; gap: 8px; margin-top: 16px; }
+      .slot-manager__row { display: grid; grid-template-columns: minmax(130px, 1fr) minmax(120px, 1fr) minmax(0, 1.5fr) auto; gap: 12px; align-items: center; padding: 11px 12px; border: 1px solid #ebe5df; border-radius: 10px; background: #fff; font-size: .84rem; }
+      .slot-manager__row small { display: block; margin-top: 2px; color: #7b746e; font-size: .76rem; }
+      .slot-manager__row.is-closed { opacity: .58; }
+      .slot-manager__state { display: inline-block; margin-left: 6px; border-radius: 999px; background: #dcfce7; color: #166534; padding: 3px 7px; font-size: .68rem; font-weight: 800; }
+      .slot-manager__state.is-closed { background: #eee9e4; color: #6e665f; }
+      .slot-manager__toggle { border: 1px solid #d9d1c8; border-radius: 8px; background: #fffdfa; color: #171513; cursor: pointer; padding: 7px 9px; font: inherit; font-size: .76rem; font-weight: 800; }
       .admin-shell--dashboard .admin-controls { grid-template-columns: minmax(0, 1fr) minmax(180px, 220px) auto; margin: 0 0 16px; }
       .admin-shell--dashboard .admin-filter { border-color: #e1dad3; border-radius: 10px; background: #fff; }
       .admin-shell--dashboard .admin-table-wrap { border-color: #e5ded7; border-radius: 12px; }
@@ -120,7 +132,8 @@
       .admin-shell--dashboard .admin-message { margin: 12px 0 0; }
       @media (max-width: 820px) { .admin-login { grid-template-columns: 1fr; min-height: auto; border-width: 12px; border-radius: 24px; } .admin-auth__visual { min-height: 235px; } .admin-auth__visual img { min-height: 235px; object-position: 50% 32%; } .admin-auth__form { padding: 34px 26px 40px; border-radius: 12px; } .admin-auth__logo { width: min(174px, 60%); margin-bottom: 34px; } .admin-login h1 { font-size: clamp(2.35rem, 12vw, 3.7rem); } }
       @media (max-width: 1020px) { .admin-shell--dashboard .admin-dashboard { grid-template-columns: 1fr; } .dashboard-sidebar { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 18px; padding: 18px 24px; border-right: 0; border-bottom: 1px solid #e4dfd9; } .dashboard-nav { display: flex; flex-wrap: wrap; justify-content: center; } .dashboard-sidebar__footer { display: none; } .dashboard-logout { width: auto; } .admin-shell--dashboard .admin-summary { grid-template-columns: repeat(2, 1fr); } }
-      @media (max-width: 720px) { .admin-shell { width: min(100% - 28px, 1180px); padding-top: 14px; } .admin-top { align-items: flex-start; flex-direction: column; } .admin-controls, .admin-summary { grid-template-columns: 1fr; } .admin-card { padding: 20px; } .admin-login { padding: 0; } .dashboard-sidebar { grid-template-columns: 1fr auto; padding: 16px 18px; } .dashboard-sidebar__brand img { width: 126px; } .dashboard-nav { grid-column: 1 / -1; justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; } .dashboard-nav a { min-width: max-content; } .dashboard-main { padding: 28px 18px 42px; } .dashboard-topbar { display: grid; gap: 16px; margin-bottom: 24px; } .dashboard-site-link { justify-self: start; } .admin-shell--dashboard .admin-summary { grid-template-columns: 1fr 1fr; gap: 10px; } .admin-shell--dashboard .admin-stat { min-height: 88px; padding: 16px; } .dashboard-insights { grid-template-columns: 1fr; gap: 12px; } .dashboard-card { padding: 18px; } .dashboard-revenue { min-height: 238px; } .dashboard-bars { gap: 6px; height: 162px; } .dashboard-recent, .dashboard-bookings { grid-column: auto; } .admin-shell--dashboard .admin-controls { grid-template-columns: 1fr; } }
+      @media (max-width: 900px) { .slot-manager__form { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+      @media (max-width: 720px) { .admin-shell { width: min(100% - 28px, 1180px); padding-top: 14px; } .admin-top { align-items: flex-start; flex-direction: column; } .admin-controls, .admin-summary { grid-template-columns: 1fr; } .admin-card { padding: 20px; } .admin-login { padding: 0; } .dashboard-sidebar { grid-template-columns: 1fr auto; padding: 16px 18px; } .dashboard-sidebar__brand img { width: 126px; } .dashboard-nav { grid-column: 1 / -1; justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; } .dashboard-nav a { min-width: max-content; } .dashboard-main { padding: 28px 18px 42px; } .dashboard-topbar { display: grid; gap: 16px; margin-bottom: 24px; } .dashboard-site-link { justify-self: start; } .admin-shell--dashboard .admin-summary { grid-template-columns: 1fr 1fr; gap: 10px; } .admin-shell--dashboard .admin-stat { min-height: 88px; padding: 16px; } .dashboard-insights { grid-template-columns: 1fr; gap: 12px; } .dashboard-card { padding: 18px; } .dashboard-revenue { min-height: 238px; } .dashboard-bars { gap: 6px; height: 162px; } .dashboard-recent, .dashboard-bookings { grid-column: auto; } .admin-shell--dashboard .admin-controls { grid-template-columns: 1fr; } .slot-manager__form { grid-template-columns: 1fr; } .slot-manager__row { grid-template-columns: 1fr auto; } }
     </style>
   </head>
   <body>
@@ -191,6 +204,19 @@
               <p class="admin-subtitle">แสดงเฉพาะรายการชำระเงินแล้วที่ลูกค้าเลือกวันและเวลาเรียน</p>
               <div class="dashboard-calendar" data-course-calendar></div>
             </section>
+            <section class="dashboard-card slot-manager">
+              <div class="dashboard-card__heading"><div><h2>จัดการรอบเรียน</h2><span>เปิดหรือปิดรอบเพื่อให้แสดงบนหน้าจองใน 7 วันข้างหน้า</span></div></div>
+              <form class="slot-manager__form" data-slot-manager-form>
+                <label>แพ็กเกจ<select name="packageCode"><option value="live-online">Private Live Online</option><option value="solo">Solo</option><option value="buddy">Buddy</option></select></label>
+                <label>วันที่เรียน<input name="courseDate" type="date" required /></label>
+                <label>เวลา<select name="startTime"><option value="10:00">10:00 น.</option><option value="13:00">13:00 น.</option><option value="16:00">16:00 น.</option></select></label>
+                <label>สถานที่ / ช่องทาง<input name="location" value="Online — Google Meet / Zoom" maxlength="160" required /></label>
+                <label>รับได้<input name="capacity" type="number" min="1" max="20" value="1" required /></label>
+                <button class="admin-button" type="submit">เปิดรอบ</button>
+              </form>
+              <p class="admin-message" data-slot-manager-message aria-live="polite"></p>
+              <div class="slot-manager__list" data-slot-manager-list></div>
+            </section>
           </section>
         </main>
       </section>
@@ -208,8 +234,12 @@
       const bookingsBody = document.querySelector("[data-bookings]");
       const searchInput = document.querySelector("[data-search]");
       const packageFilter = document.querySelector("[data-package-filter]");
+      const slotManagerForm = document.querySelector("[data-slot-manager-form]");
+      const slotManagerMessage = document.querySelector("[data-slot-manager-message]");
+      const slotManagerList = document.querySelector("[data-slot-manager-list]");
       let accessToken = "";
       let bookings = [];
+      let courseSlots = [];
       let calendarMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
 
       const money = (amount) => new Intl.NumberFormat("th-TH", { style: "currency", currency: "THB", maximumFractionDigits: 0 }).format(amount || 0);
@@ -217,6 +247,9 @@
       const escapeHtml = (value) => String(value || "-").replace(/[&<>'\"]/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", "\"": "&quot;" })[char]);
       const packageLabel = (code) => ({ "online-course": "Online Course", "live-online": "Private Live Online", solo: "Solo", buddy: "Buddy" }[code] || String(code || "-").replaceAll("-", " "));
       const shortDate = (value) => value ? new Intl.DateTimeFormat("th-TH", { day: "numeric", month: "short" }).format(new Date(value)) : "-";
+      const localDate = (date = new Date()) => [date.getFullYear(), String(date.getMonth() + 1).padStart(2, "0"), String(date.getDate()).padStart(2, "0")].join("-");
+      slotManagerForm.elements.courseDate.min = localDate();
+      slotManagerForm.elements.courseDate.value = localDate();
 
       async function auth(path, body) {
         const response = await fetch(`${supabaseUrl}/auth/v1/${path}`, { method: "POST", headers: { apikey: supabaseKey, "Content-Type": "application/json" }, body: JSON.stringify(body) });
@@ -254,6 +287,37 @@
         calendar.innerHTML = weekday + cells;
       }
 
+      function renderCourseSlots() {
+        slotManagerList.innerHTML = courseSlots.map((slot) => `<div class="slot-manager__row${slot.is_open ? "" : " is-closed"}"><div><strong>${escapeHtml(packageLabel(slot.package_code))}</strong><small>${escapeHtml(slot.course_date)} · ${escapeHtml(String(slot.start_time).slice(0, 5))} น.</small></div><div><strong>${escapeHtml(slot.location)}</strong><small>จองแล้ว ${escapeHtml(slot.reserved_count)}/${escapeHtml(slot.capacity)} <span class="slot-manager__state${slot.is_open ? "" : " is-closed"}">${slot.is_open ? "เปิดรับ" : "ปิด"}</span></small></div><div><small>${Number(slot.reserved_count) >= Number(slot.capacity) ? "เต็มแล้ว — จะไม่รับการจองเพิ่ม" : "ยังมีที่ว่างสำหรับการจอง"}</small></div><button class="slot-manager__toggle" type="button" data-slot-toggle="${escapeHtml(slot.id)}">${slot.is_open ? "ปิดรอบ" : "เปิดรอบ"}</button></div>`).join("") || "<span class=\"admin-detail\">ยังไม่มีรอบเรียนที่ตั้งไว้ — เปิดรอบแรกด้วยฟอร์มด้านบน</span>";
+      }
+
+      async function courseSlotRequest(path, options = {}) {
+        const response = await fetch(`${supabaseUrl}/rest/v1/course_slots${path}`, {
+          ...options,
+          headers: { apikey: supabaseKey, Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json", ...(options.headers || {}) },
+        });
+        if (!response.ok) {
+          const result = await response.json().catch(() => ({}));
+          throw new Error(result.message || "ไม่สามารถจัดการรอบเรียนได้");
+        }
+        return response.status === 204 ? null : response.json().catch(() => null);
+      }
+
+      async function loadCourseSlots() {
+        const query = new URLSearchParams({ select: "id,package_code,course_date,start_time,location,capacity,reserved_count,is_open", course_date: `gte.${localDate()}`, order: "course_date.asc,start_time.asc" });
+        courseSlots = await courseSlotRequest(`?${query}`);
+        renderCourseSlots();
+      }
+
+      function syncSlotLocation() {
+        const packageCode = slotManagerForm.elements.packageCode.value;
+        const location = slotManagerForm.elements.location;
+        const isOnline = packageCode === "live-online";
+        location.readOnly = isOnline;
+        if (isOnline) location.value = "Online — Google Meet / Zoom";
+        else if (location.value === "Online — Google Meet / Zoom") location.value = "6CAT Academy";
+      }
+
       function showDashboardView(view) {
         document.querySelectorAll("[data-dashboard-view]").forEach((panel) => { panel.hidden = panel.dataset.dashboardView !== view; });
         document.querySelectorAll("[data-dashboard-tab]").forEach((tab) => tab.classList.toggle("is-active", tab.dataset.dashboardTab === view));
@@ -264,7 +328,6 @@
         const revenueChart = document.querySelector("[data-revenue-chart]");
         const packageBreakdown = document.querySelector("[data-package-breakdown]");
         const recentBookings = document.querySelector("[data-recent-bookings]");
-        const latestPayment = document.querySelector("[data-last-payment]");
         const dayKey = (date) => new Date(date).toLocaleDateString("en-CA");
         const today = new Date();
         today.setHours(0, 0, 0, 0);
@@ -284,7 +347,6 @@
         const maxPackageCount = Math.max(...Object.values(byPackage), 1);
         packageBreakdown.innerHTML = Object.entries(byPackage).sort((a, b) => b[1] - a[1]).map(([code, count]) => `<div class="package-item"><strong>${escapeHtml(packageLabel(code))}</strong><span>${count} รายการ</span><i style="--percentage:${Math.round((count / maxPackageCount) * 100)}"></i></div>`).join("") || "<span class=\"admin-detail\">ยังไม่มีรายการชำระเงิน</span>";
         recentBookings.innerHTML = bookings.slice(0, 4).map((booking) => `<div class="dashboard-recent-item"><div><strong>${escapeHtml(booking.customer_name)}</strong><span>${escapeHtml(packageLabel(booking.package_code))} · ${escapeHtml(shortDate(booking.paid_at || booking.created_at))}</span></div><b>${escapeHtml(money(booking.amount_thb))}</b></div>`).join("") || "<span class=\"admin-detail\">ยังไม่มีรายการชำระเงิน</span>";
-        latestPayment.textContent = bookings[0] ? shortDate(bookings[0].paid_at || bookings[0].created_at) : "-";
       }
 
       function downloadCsv() {
@@ -322,7 +384,7 @@
         pageShell.classList.add("admin-shell--dashboard");
         siteHeader.hidden = true;
         dashboard.hidden = false;
-        try { await loadBookings(); } catch (error) { dashboardMessage.textContent = error.message; }
+        try { await Promise.all([loadBookings(), loadCourseSlots()]); } catch (error) { dashboardMessage.textContent = error.message; }
       }
 
       loginForm.addEventListener("submit", async (event) => {
@@ -350,7 +412,29 @@
       document.querySelector("[data-calendar-next]").addEventListener("click", () => { calendarMonth = new Date(calendarMonth.getFullYear(), calendarMonth.getMonth() + 1, 1); renderCalendar(); });
       document.querySelector("[data-calendar-today]").addEventListener("click", () => { calendarMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1); renderCalendar(); });
       document.querySelector("[data-export]").addEventListener("click", downloadCsv);
-      document.querySelector("[data-logout]").addEventListener("click", () => { accessToken = ""; bookings = []; dashboard.hidden = true; siteHeader.hidden = true; pageShell.classList.remove("admin-shell--dashboard"); pageShell.classList.add("admin-shell--auth"); loginPanel.hidden = false; loginForm.reset(); });
+      slotManagerForm.elements.packageCode.addEventListener("change", syncSlotLocation);
+      slotManagerForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        if (!slotManagerForm.reportValidity()) return;
+        const values = Object.fromEntries(new FormData(slotManagerForm));
+        slotManagerMessage.textContent = "กำลังเปิดรอบเรียน...";
+        try {
+          await courseSlotRequest("", { method: "POST", headers: { Prefer: "return=minimal" }, body: JSON.stringify({ package_code: values.packageCode, course_date: values.courseDate, start_time: values.startTime, location: values.location, capacity: Number(values.capacity) }) });
+          slotManagerMessage.textContent = "เปิดรอบเรียนแล้ว — หน้าจองจะแสดงในไม่กี่วินาที";
+          await loadCourseSlots();
+        } catch (error) { slotManagerMessage.textContent = error.message; }
+      });
+      slotManagerList.addEventListener("click", async (event) => {
+        const button = event.target.closest("[data-slot-toggle]");
+        if (!button) return;
+        const slot = courseSlots.find((item) => item.id === button.dataset.slotToggle);
+        if (!slot) return;
+        button.disabled = true;
+        try { await courseSlotRequest(`?id=eq.${encodeURIComponent(slot.id)}`, { method: "PATCH", headers: { Prefer: "return=minimal" }, body: JSON.stringify({ is_open: !slot.is_open }) }); await loadCourseSlots(); }
+        catch (error) { slotManagerMessage.textContent = error.message; button.disabled = false; }
+      });
+      document.querySelector("[data-logout]").addEventListener("click", () => { accessToken = ""; bookings = []; courseSlots = []; dashboard.hidden = true; siteHeader.hidden = true; pageShell.classList.remove("admin-shell--dashboard"); pageShell.classList.add("admin-shell--auth"); loginPanel.hidden = false; loginForm.reset(); });
+      syncSlotLocation();
     </script>
   </body>
 </html>

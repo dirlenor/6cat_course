@@ -19,20 +19,6 @@ function text(value: unknown, maxLength: number, required = false) {
   return result || null;
 }
 
-function courseDate(value: unknown, required = false) {
-  const result = text(value, 10, required);
-  if (!result) return null;
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(result) || Number.isNaN(Date.parse(`${result}T00:00:00Z`))) throw new Error("วันที่เรียนไม่ถูกต้อง");
-  return result;
-}
-
-function courseTime(value: unknown, required = false) {
-  const result = text(value, 5, required);
-  if (!result) return null;
-  if (!new Set(["10:00", "13:00", "16:00"]).has(result)) throw new Error("เวลาเรียนไม่ถูกต้อง");
-  return result;
-}
-
 function createStripeClient() {
   const key = Deno.env.get("STRIPE_SECRET_KEY");
   if (!key) throw new Error("Stripe ยังไม่ได้ตั้งค่า");
@@ -48,6 +34,7 @@ export default {
     if (request.method !== "POST") return Response.json({ error: "Method not allowed" }, { status: 405 });
     if (!isAllowedOrigin(request.headers.get("origin"))) return Response.json({ error: "Origin not allowed" }, { status: 403 });
 
+    let reservedSlotId: string | null = null;
     try {
       const payload = await request.json();
       const packageCode = text(payload.package, 40, true) as PackageCode;
@@ -58,11 +45,15 @@ export default {
       const customerPhone = text(payload.phone, 40, true)!;
       const customerEmail = text(payload.email, 254, true)!;
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(customerEmail)) throw new Error("อีเมลไม่ถูกต้อง");
-      const requestedDate = courseDate(payload.courseDate, selected.needsSlot);
-      const requestedTime = courseTime(payload.courseTime, selected.needsSlot);
-      const requestedLocation = selected.needsLocation
-        ? text(payload.location, 160, true)
-        : packageCode === "live-online" ? "Online — Google Meet / Zoom" : null;
+      let scheduledSlot: { id: string; course_date: string; start_time: string; location: string } | null = null;
+      if (selected.needsSlot) {
+        const courseSlotId = text(payload.courseSlotId, 36, true)!;
+        if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(courseSlotId)) throw new Error("รอบเรียนไม่ถูกต้อง");
+        const { data, error } = await ctx.supabaseAdmin.rpc("reserve_course_slot", { p_slot_id: courseSlotId, p_package_code: packageCode });
+        if (error || !data) throw new Error(error?.message || "รอบเรียนนี้เต็มหรือปิดรับจองแล้ว");
+        scheduledSlot = data as typeof scheduledSlot;
+        reservedSlotId = courseSlotId;
+      }
 
       const { data: booking, error: bookingError } = await ctx.supabaseAdmin
         .from("bookings")
@@ -74,10 +65,11 @@ export default {
           customer_email: customerEmail,
           line_id: text(payload.lineId, 120),
           buddy_name: text(payload.buddyName, 120),
-          requested_slot: requestedDate && requestedTime ? `${requestedDate} ${requestedTime}` : null,
-          requested_date: requestedDate,
-          requested_time: requestedTime,
-          requested_location: requestedLocation,
+          course_slot_id: scheduledSlot?.id ?? null,
+          requested_slot: scheduledSlot ? `${scheduledSlot.course_date} ${scheduledSlot.start_time.slice(0, 5)}` : null,
+          requested_date: scheduledSlot?.course_date ?? null,
+          requested_time: scheduledSlot?.start_time ?? null,
+          requested_location: scheduledSlot?.location ?? null,
           customer_note: text(payload.note, 2000),
         })
         .select("id")
@@ -110,6 +102,7 @@ export default {
 
       return Response.json({ url: session.url });
     } catch (error) {
+      if (reservedSlotId) await ctx.supabaseAdmin.rpc("release_course_slot", { p_slot_id: reservedSlotId });
       const message = error instanceof Error ? error.message : "ไม่สามารถสร้างรายการชำระเงินได้";
       return Response.json({ error: message }, { status: 400 });
     }
