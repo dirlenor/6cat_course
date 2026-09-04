@@ -66,6 +66,13 @@ button, input, select, textarea { font: inherit; }
 .booking-pay:hover, .booking-pay:focus-visible { background: transparent; color: var(--orange); transform: translateY(-2px); }
 .booking-summary__secure { margin: 12px 0 0; color: #aaa49e; font-size: 12px; line-height: 1.5; text-align: center; }
 .booking-help { display: grid; grid-template-columns: 30px auto 1fr auto; gap: 10px; align-items: center; padding: 17px 0 0; margin-top: 22px; border-top: 1px solid var(--dark-line); color: var(--paper); font-size: 13px; text-decoration: none; }
+
+.booking-pay:disabled { cursor: wait; opacity: .7; }
+.booking-return { display: grid; min-height: 100vh; align-content: center; justify-items: center; gap: 42px; padding: 48px 24px; background: var(--paper); }
+.booking-return__card { width: min(100%, 620px); padding: clamp(32px, 6vw, 72px); border: 1px solid var(--line); border-radius: var(--radius); background: var(--color-bg-white); text-align: center; }
+.booking-return__eyebrow { margin: 0; color: var(--orange); font-family: "Bangers", "Noto Sans Thai", sans-serif; font-size: 22px; letter-spacing: .05em; }
+.booking-return__card h1 { margin: 14px 0 20px; font-size: clamp(42px, 6vw, 66px); line-height: 1.05; letter-spacing: -.05em; }
+.booking-return__card p:not(.booking-return__eyebrow) { max-width: 36ch; margin: 0 auto 30px; color: var(--muted); line-height: 1.7; }
 .booking-help img { width: 29px; height: 29px; object-fit: contain; }
 .booking-help span { color: var(--orange); font-size: 14px; font-weight: 800; }
 .booking-help b { color: var(--orange); font-size: 26px; font-weight: 400; }

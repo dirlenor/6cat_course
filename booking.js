@@ -15,6 +15,7 @@ const scheduleHelp = document.querySelector("[data-schedule-help]");
 const onlineNotice = document.querySelector("[data-online-notice]");
 const buddyField = document.querySelector("[data-buddy-field]");
 const status = document.querySelector("#booking-status");
+const payButton = document.querySelector(".booking-pay");
 
 function money(amount) {
   return new Intl.NumberFormat("th-TH").format(amount) + " บาท";
@@ -71,13 +72,18 @@ form.addEventListener("submit", async (event) => {
     return;
   }
 
-  const response = await fetch(endpoint, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(Object.fromEntries(new FormData(form))) });
-  if (!response.ok) {
-    status.textContent = "ยังสร้างรายการชำระเงินไม่สำเร็จ กรุณาลองใหม่อีกครั้ง";
-    return;
+  payButton.disabled = true;
+  payButton.textContent = "กำลังเปิด Stripe Checkout...";
+  try {
+    const response = await fetch(endpoint, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(Object.fromEntries(new FormData(form))) });
+    const result = await response.json();
+    if (!response.ok || !result.url) throw new Error(result.error || "ยังสร้างรายการชำระเงินไม่สำเร็จ");
+    window.location.assign(result.url);
+  } catch (error) {
+    status.textContent = error instanceof Error ? error.message : "ยังสร้างรายการชำระเงินไม่สำเร็จ กรุณาลองใหม่อีกครั้ง";
+    payButton.disabled = false;
+    payButton.textContent = "ชำระเงินด้วย Stripe";
   }
-  const { url } = await response.json();
-  window.location.assign(url);
 });
 
 const preselected = new URLSearchParams(window.location.search).get("package");

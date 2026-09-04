@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="ยืนยันการชำระเงิน 6CAT Academy" />
+    <title>กำลังยืนยันการชำระเงิน | 6CAT Academy</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./booking.css" />
+  </head>
+  <body data-checkout-status-endpoint="https://qmayxfnadhqzilwrtepx.supabase.co/functions/v1/checkout-status">
+    <main class="booking-return">
+      <a class="booking-brand" href="./index.html" aria-label="กลับไปหน้า 6CAT Academy">
+        <img class="booking-brand__logo" src="./assets/brand/6cat-academy-logo.png" alt="6CAT Academy — Create. Build. Grow." />
+      </a>
+      <section class="booking-return__card" aria-live="polite">
+        <p class="booking-return__eyebrow">PAYMENT STATUS</p>
+        <h1>กำลังยืนยัน<br />การชำระเงิน</h1>
+        <p data-payment-message>กำลังตรวจสอบกับระบบ โปรดรอสักครู่</p>
+        <a class="button button--primary" href="./index.html">กลับหน้าแรก <span aria-hidden="true">→</span></a>
+      </section>
+    </main>
+    <script>
+      const message = document.querySelector("[data-payment-message]");
+      const sessionId = new URLSearchParams(window.location.search).get("session_id");
+      const endpoint = document.body.dataset.checkoutStatusEndpoint;
+      let attempts = 0;
+
+      async function checkPayment() {
+        if (!sessionId) {
+          message.textContent = "ไม่พบรายการชำระเงิน กรุณาติดต่อเราผ่าน LINE";
+          return;
+        }
+        try {
+          const response = await fetch(`${endpoint}?session_id=${encodeURIComponent(sessionId)}`);
+          const result = await response.json();
+          if (result.status === "paid") {
+            document.title = "ชำระเงินสำเร็จ | 6CAT Academy";
+            message.textContent = "ชำระเงินสำเร็จแล้ว เราจะส่งรายละเอียดการเรียนให้ทางอีเมลเร็ว ๆ นี้";
+            return;
+          }
+          attempts += 1;
+          if (attempts < 8) return window.setTimeout(checkPayment, 1500);
+          message.textContent = "เราได้รับรายการแล้วและกำลังยืนยันการชำระเงิน หากไม่ได้รับอีเมล กรุณาติดต่อเราผ่าน LINE";
+        } catch {
+          message.textContent = "กำลังยืนยันการชำระเงิน กรุณาตรวจสอบอีเมล หรือทัก LINE หากต้องการความช่วยเหลือ";
+        }
+      }
+
+      checkPayment();
+    </script>
+  </body>
+</html>
