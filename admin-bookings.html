@@ -114,10 +114,20 @@
       .calendar-toolbar__controls { display: flex; gap: 8px; }
       .calendar-toolbar button { border: 1px solid #ddd5ce; border-radius: 8px; background: #fff; cursor: pointer; padding: 7px 10px; font: inherit; font-weight: 800; }
       .slot-manager { margin-top: 18px; }
-      .slot-manager__form { display: grid; grid-template-columns: 1.15fr 1fr .8fr 1.4fr .65fr auto; gap: 10px; align-items: end; }
+      .slot-manager__form { display: grid; grid-template-columns: 1.1fr 1fr 1.4fr .65fr auto; gap: 10px; align-items: end; }
       .slot-manager__form label { display: grid; gap: 6px; color: #625c56; font-size: .74rem; font-weight: 800; }
       .slot-manager__form input, .slot-manager__form select { min-width: 0; border: 1px solid #e1dad3; border-radius: 9px; background: #fff; padding: 10px; font: inherit; }
       .slot-manager__form .admin-button { min-height: 41px; white-space: nowrap; }
+      .slot-manager__days { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 8px; grid-column: 1 / -1; padding: 13px; border: 1px solid #ebe5df; border-radius: 12px; background: #faf8f5; }
+      .slot-manager__days > strong, .slot-manager__times > strong { grid-column: 1 / -1; color: #625c56; font-size: .78rem; }
+      .slot-manager__day { display: grid; justify-items: center; gap: 3px; min-height: 68px; border: 1px solid #e1dad3; border-radius: 9px; background: #fff; color: #625c56; cursor: pointer; font: inherit; }
+      .slot-manager__day strong { margin-top: 8px; font-size: .65rem; }
+      .slot-manager__day span { font-size: 1.1rem; font-weight: 900; }
+      .slot-manager__day.is-selected { border-color: #ff4d0a; background: #ff4d0a; color: #fff; }
+      .slot-manager__times { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; grid-column: 1 / -1; }
+      .slot-manager__times label { display: inline-flex; grid-template-columns: auto auto; align-items: center; gap: 6px; font-size: .8rem; }
+      .slot-manager__times input { width: 16px; height: 16px; padding: 0; accent-color: #ff4d0a; }
+      .slot-manager__count { grid-column: 1 / -1; margin: 0; color: #716b65; font-size: .8rem; }
       .slot-manager__list { display: grid; gap: 8px; margin-top: 16px; }
       .slot-manager__row { display: grid; grid-template-columns: minmax(130px, 1fr) minmax(120px, 1fr) minmax(0, 1.5fr) auto; gap: 12px; align-items: center; padding: 11px 12px; border: 1px solid #ebe5df; border-radius: 10px; background: #fff; font-size: .84rem; }
       .slot-manager__row small { display: block; margin-top: 2px; color: #7b746e; font-size: .76rem; }
@@ -132,8 +142,8 @@
       .admin-shell--dashboard .admin-message { margin: 12px 0 0; }
       @media (max-width: 820px) { .admin-login { grid-template-columns: 1fr; min-height: auto; border-width: 12px; border-radius: 24px; } .admin-auth__visual { min-height: 235px; } .admin-auth__visual img { min-height: 235px; object-position: 50% 32%; } .admin-auth__form { padding: 34px 26px 40px; border-radius: 12px; } .admin-auth__logo { width: min(174px, 60%); margin-bottom: 34px; } .admin-login h1 { font-size: clamp(2.35rem, 12vw, 3.7rem); } }
       @media (max-width: 1020px) { .admin-shell--dashboard .admin-dashboard { grid-template-columns: 1fr; } .dashboard-sidebar { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 18px; padding: 18px 24px; border-right: 0; border-bottom: 1px solid #e4dfd9; } .dashboard-nav { display: flex; flex-wrap: wrap; justify-content: center; } .dashboard-sidebar__footer { display: none; } .dashboard-logout { width: auto; } .admin-shell--dashboard .admin-summary { grid-template-columns: repeat(2, 1fr); } }
-      @media (max-width: 900px) { .slot-manager__form { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-      @media (max-width: 720px) { .admin-shell { width: min(100% - 28px, 1180px); padding-top: 14px; } .admin-top { align-items: flex-start; flex-direction: column; } .admin-controls, .admin-summary { grid-template-columns: 1fr; } .admin-card { padding: 20px; } .admin-login { padding: 0; } .dashboard-sidebar { grid-template-columns: 1fr auto; padding: 16px 18px; } .dashboard-sidebar__brand img { width: 126px; } .dashboard-nav { grid-column: 1 / -1; justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; } .dashboard-nav a { min-width: max-content; } .dashboard-main { padding: 28px 18px 42px; } .dashboard-topbar { display: grid; gap: 16px; margin-bottom: 24px; } .dashboard-site-link { justify-self: start; } .admin-shell--dashboard .admin-summary { grid-template-columns: 1fr 1fr; gap: 10px; } .admin-shell--dashboard .admin-stat { min-height: 88px; padding: 16px; } .dashboard-insights { grid-template-columns: 1fr; gap: 12px; } .dashboard-card { padding: 18px; } .dashboard-revenue { min-height: 238px; } .dashboard-bars { gap: 6px; height: 162px; } .dashboard-recent, .dashboard-bookings { grid-column: auto; } .admin-shell--dashboard .admin-controls { grid-template-columns: 1fr; } .slot-manager__form { grid-template-columns: 1fr; } .slot-manager__row { grid-template-columns: 1fr auto; } }
+      @media (max-width: 900px) { .slot-manager__form { grid-template-columns: repeat(2, minmax(0, 1fr)); } .slot-manager__days { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+      @media (max-width: 720px) { .admin-shell { width: min(100% - 28px, 1180px); padding-top: 14px; } .admin-top { align-items: flex-start; flex-direction: column; } .admin-controls, .admin-summary { grid-template-columns: 1fr; } .admin-card { padding: 20px; } .admin-login { padding: 0; } .dashboard-sidebar { grid-template-columns: 1fr auto; padding: 16px 18px; } .dashboard-sidebar__brand img { width: 126px; } .dashboard-nav { grid-column: 1 / -1; justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; } .dashboard-nav a { min-width: max-content; } .dashboard-main { padding: 28px 18px 42px; } .dashboard-topbar { display: grid; gap: 16px; margin-bottom: 24px; } .dashboard-site-link { justify-self: start; } .admin-shell--dashboard .admin-summary { grid-template-columns: 1fr 1fr; gap: 10px; } .admin-shell--dashboard .admin-stat { min-height: 88px; padding: 16px; } .dashboard-insights { grid-template-columns: 1fr; gap: 12px; } .dashboard-card { padding: 18px; } .dashboard-revenue { min-height: 238px; } .dashboard-bars { gap: 6px; height: 162px; } .dashboard-recent, .dashboard-bookings { grid-column: auto; } .admin-shell--dashboard .admin-controls { grid-template-columns: 1fr; } .slot-manager__form { grid-template-columns: 1fr; } .slot-manager__days { grid-template-columns: repeat(3, minmax(0, 1fr)); } .slot-manager__row { grid-template-columns: 1fr auto; } }
     </style>
   </head>
   <body>
@@ -205,14 +215,16 @@
               <div class="dashboard-calendar" data-course-calendar></div>
             </section>
             <section class="dashboard-card slot-manager">
-              <div class="dashboard-card__heading"><div><h2>จัดการรอบเรียน</h2><span>เปิดหรือปิดรอบเพื่อให้แสดงบนหน้าจองใน 7 วันข้างหน้า</span></div></div>
+              <div class="dashboard-card__heading"><div><h2>จัดการรอบเรียน</h2><span>เลือกวันที่ที่ต้องการ แล้วสร้างหลายรอบให้ครั้งเดียว</span></div></div>
               <form class="slot-manager__form" data-slot-manager-form>
                 <label>แพ็กเกจ<select name="packageCode"><option value="live-online">Private Live Online</option><option value="solo">Solo</option><option value="buddy">Buddy</option></select></label>
-                <label>วันที่เรียน<input name="courseDate" type="date" required /></label>
-                <label>เวลา<select name="startTime"><option value="10:00">10:00 น.</option><option value="13:00">13:00 น.</option><option value="16:00">16:00 น.</option></select></label>
+                <label>เริ่มดูวันที่<input name="weekAnchor" type="date" required /></label>
                 <label>สถานที่ / ช่องทาง<input name="location" value="Online — Google Meet / Zoom" maxlength="160" required /></label>
                 <label>รับได้<input name="capacity" type="number" min="1" max="20" value="1" required /></label>
-                <button class="admin-button" type="submit">เปิดรอบ</button>
+                <button class="admin-button" type="submit">สร้างรอบ</button>
+                <div class="slot-manager__days" data-slot-generator-days></div>
+                <div class="slot-manager__times"><strong>เลือกรอบเวลา</strong><label><input type="checkbox" name="slotTime" value="10:00" checked />10:00 น.</label><label><input type="checkbox" name="slotTime" value="13:00" checked />13:00 น.</label><label><input type="checkbox" name="slotTime" value="16:00" checked />16:00 น.</label></div>
+                <p class="slot-manager__count" data-slot-generator-count></p>
               </form>
               <p class="admin-message" data-slot-manager-message aria-live="polite"></p>
               <div class="slot-manager__list" data-slot-manager-list></div>
@@ -237,9 +249,12 @@
       const slotManagerForm = document.querySelector("[data-slot-manager-form]");
       const slotManagerMessage = document.querySelector("[data-slot-manager-message]");
       const slotManagerList = document.querySelector("[data-slot-manager-list]");
+      const slotGeneratorDays = document.querySelector("[data-slot-generator-days]");
+      const slotGeneratorCount = document.querySelector("[data-slot-generator-count]");
       let accessToken = "";
       let bookings = [];
       let courseSlots = [];
+      let selectedGeneratorDates = new Set();
       let calendarMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
 
       const money = (amount) => new Intl.NumberFormat("th-TH", { style: "currency", currency: "THB", maximumFractionDigits: 0 }).format(amount || 0);
@@ -248,8 +263,8 @@
       const packageLabel = (code) => ({ "online-course": "Online Course", "live-online": "Private Live Online", solo: "Solo", buddy: "Buddy" }[code] || String(code || "-").replaceAll("-", " "));
       const shortDate = (value) => value ? new Intl.DateTimeFormat("th-TH", { day: "numeric", month: "short" }).format(new Date(value)) : "-";
       const localDate = (date = new Date()) => [date.getFullYear(), String(date.getMonth() + 1).padStart(2, "0"), String(date.getDate()).padStart(2, "0")].join("-");
-      slotManagerForm.elements.courseDate.min = localDate();
-      slotManagerForm.elements.courseDate.value = localDate();
+      slotManagerForm.elements.weekAnchor.min = localDate();
+      slotManagerForm.elements.weekAnchor.value = localDate();
 
       async function auth(path, body) {
         const response = await fetch(`${supabaseUrl}/auth/v1/${path}`, { method: "POST", headers: { apikey: supabaseKey, "Content-Type": "application/json" }, body: JSON.stringify(body) });
@@ -316,6 +331,29 @@
         location.readOnly = isOnline;
         if (isOnline) location.value = "Online — Google Meet / Zoom";
         else if (location.value === "Online — Google Meet / Zoom") location.value = "6CAT Academy";
+      }
+
+      function generatorDates() {
+        const anchor = new Date(`${slotManagerForm.elements.weekAnchor.value}T00:00:00`);
+        return Array.from({ length: 7 }, (_, index) => {
+          const date = new Date(anchor);
+          date.setDate(anchor.getDate() + index);
+          return date;
+        });
+      }
+
+      function updateGeneratorCount() {
+        const timeCount = [...slotManagerForm.querySelectorAll('input[name="slotTime"]:checked')].length;
+        const count = selectedGeneratorDates.size * timeCount;
+        slotGeneratorCount.textContent = count ? `พร้อมสร้าง ${count} รอบ จาก ${selectedGeneratorDates.size} วันที่เลือก` : "เลือกอย่างน้อย 1 วันและ 1 รอบเวลา";
+      }
+
+      function renderSlotGeneratorDays(selectAll = false) {
+        const dates = generatorDates();
+        if (selectAll) selectedGeneratorDates = new Set(dates.map(localDate));
+        const weekday = new Intl.DateTimeFormat("th-TH", { weekday: "short" });
+        slotGeneratorDays.innerHTML = `<strong>เลือกวันที่ต้องการเปิดรอบ</strong>${dates.map((date) => `<button type="button" class="slot-manager__day${selectedGeneratorDates.has(localDate(date)) ? " is-selected" : ""}" data-generator-date="${localDate(date)}"><strong>${weekday.format(date)}</strong><span>${date.getDate()}</span></button>`).join("")}`;
+        updateGeneratorCount();
       }
 
       function showDashboardView(view) {
@@ -413,14 +451,30 @@
       document.querySelector("[data-calendar-today]").addEventListener("click", () => { calendarMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1); renderCalendar(); });
       document.querySelector("[data-export]").addEventListener("click", downloadCsv);
       slotManagerForm.elements.packageCode.addEventListener("change", syncSlotLocation);
+      slotManagerForm.elements.weekAnchor.addEventListener("change", () => renderSlotGeneratorDays(true));
+      slotManagerForm.querySelectorAll('input[name="slotTime"]').forEach((input) => input.addEventListener("change", updateGeneratorCount));
+      slotGeneratorDays.addEventListener("click", (event) => {
+        const button = event.target.closest("[data-generator-date]");
+        if (!button) return;
+        const date = button.dataset.generatorDate;
+        if (selectedGeneratorDates.has(date)) selectedGeneratorDates.delete(date);
+        else selectedGeneratorDates.add(date);
+        renderSlotGeneratorDays();
+      });
       slotManagerForm.addEventListener("submit", async (event) => {
         event.preventDefault();
         if (!slotManagerForm.reportValidity()) return;
-        const values = Object.fromEntries(new FormData(slotManagerForm));
-        slotManagerMessage.textContent = "กำลังเปิดรอบเรียน...";
+        const formData = new FormData(slotManagerForm);
+        const packageCode = formData.get("packageCode");
+        const location = formData.get("location");
+        const capacity = Number(formData.get("capacity"));
+        const times = formData.getAll("slotTime");
+        const slots = [...selectedGeneratorDates].flatMap((courseDate) => times.map((startTime) => ({ package_code: packageCode, course_date: courseDate, start_time: startTime, location, capacity })));
+        if (!slots.length) { slotManagerMessage.textContent = "กรุณาเลือกวันและรอบเวลาอย่างน้อย 1 รายการ"; return; }
+        slotManagerMessage.textContent = `กำลังสร้าง ${slots.length} รอบเรียน...`;
         try {
-          await courseSlotRequest("", { method: "POST", headers: { Prefer: "return=minimal" }, body: JSON.stringify({ package_code: values.packageCode, course_date: values.courseDate, start_time: values.startTime, location: values.location, capacity: Number(values.capacity) }) });
-          slotManagerMessage.textContent = "เปิดรอบเรียนแล้ว — หน้าจองจะแสดงในไม่กี่วินาที";
+          await courseSlotRequest("?on_conflict=package_code,course_date,start_time", { method: "POST", headers: { Prefer: "resolution=ignore-duplicates,return=minimal" }, body: JSON.stringify(slots) });
+          slotManagerMessage.textContent = `สร้างรอบเรียน ${slots.length} รายการแล้ว — หน้าจองจะแสดงในไม่กี่วินาที`;
           await loadCourseSlots();
         } catch (error) { slotManagerMessage.textContent = error.message; }
       });
@@ -435,6 +489,7 @@
       });
       document.querySelector("[data-logout]").addEventListener("click", () => { accessToken = ""; bookings = []; courseSlots = []; dashboard.hidden = true; siteHeader.hidden = true; pageShell.classList.remove("admin-shell--dashboard"); pageShell.classList.add("admin-shell--auth"); loginPanel.hidden = false; loginForm.reset(); });
       syncSlotLocation();
+      renderSlotGeneratorDays(true);
     </script>
   </body>
 </html>
