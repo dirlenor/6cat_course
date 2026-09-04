@@ -1,8 +1,8 @@
 const packages = {
   "online-course": { name: "ONLINE COURSE", detail: "เรียนด้วยตัวเอง เข้าถึงคอร์สได้ตลอดเวลา", format: "เรียนด้วยตัวเอง", duration: "เข้าเรียนได้ตลอด 24 ชม.", price: 990, needsSlot: false },
-  "live-online": { name: "PRIVATE LIVE ONLINE", detail: "เรียนสด 4 ชั่วโมง ผ่าน Meet หรือ Zoom", format: "Private 1:1 ออนไลน์", duration: "4 ชั่วโมง", price: 2999, needsSlot: true },
-  solo: { name: "SOLO", detail: "Private 1:1 เต็มวัน 6 ชั่วโมง", format: "Private Workshop 1 คน", duration: "6 ชั่วโมง", price: 3999, needsSlot: true },
-  buddy: { name: "BUDDY", detail: "มา 2 คน เรียนและทำเว็บไซต์ไปด้วยกัน", format: "Private Workshop 2 คน", duration: "6 ชั่วโมง", price: 5999, needsSlot: true },
+  "live-online": { name: "PRIVATE LIVE ONLINE", detail: "เรียนสด 4 ชั่วโมง ผ่าน Meet หรือ Zoom", format: "Private 1:1 ออนไลน์", duration: "4 ชั่วโมง", price: 2999, needsSlot: true, type: "live" },
+  solo: { name: "SOLO", detail: "Private Workshop 6 ชั่วโมง เลือกสถานที่ได้", format: "Private Workshop 1 คน", duration: "6 ชั่วโมง", price: 3999, needsSlot: true, type: "workshop" },
+  buddy: { name: "BUDDY", detail: "Private Workshop 6 ชั่วโมง สำหรับ 2 คน", format: "Private Workshop 2 คน", duration: "6 ชั่วโมง", price: 5999, needsSlot: true, type: "workshop" },
 };
 
 const form = document.querySelector("#booking-form");
@@ -14,14 +14,21 @@ const buddyField = document.querySelector("[data-buddy-field]");
 const slotDays = document.querySelector("[data-slot-days]");
 const slotTimes = document.querySelector("[data-slot-times]");
 const slotIdInput = document.querySelector("#course-slot-id");
+const workshopLocation = document.querySelector("[data-workshop-location]");
+const workshopLocationSelect = document.querySelector("#workshop-location");
+const weekLabel = document.querySelector("[data-slot-week-label]");
+const previousWeek = document.querySelector("[data-slot-previous]");
+const nextWeek = document.querySelector("[data-slot-next]");
 const status = document.querySelector("#booking-status");
 const payButton = document.querySelector(".booking-pay");
 let courseSlots = [];
 let selectedDate = "";
 let selectedSlot = null;
+let weekStart = startOfDay(new Date());
 
-const dateKey = (date) => [date.getFullYear(), String(date.getMonth() + 1).padStart(2, "0"), String(date.getDate()).padStart(2, "0")].join("-");
-const dayRange = () => Array.from({ length: 7 }, (_, index) => { const date = new Date(); date.setHours(0, 0, 0, 0); date.setDate(date.getDate() + index); return date; });
+function startOfDay(value) { const date = new Date(value); date.setHours(0, 0, 0, 0); return date; }
+function dateKey(date) { return [date.getFullYear(), String(date.getMonth() + 1).padStart(2, "0"), String(date.getDate()).padStart(2, "0")].join("-"); }
+function weekDates() { return Array.from({ length: 7 }, (_, index) => { const date = new Date(weekStart); date.setDate(weekStart.getDate() + index); return date; }); }
 const money = (amount) => new Intl.NumberFormat("th-TH").format(amount) + " บาท";
 const thaiDate = (value) => new Intl.DateTimeFormat("th-TH", { weekday: "short", day: "numeric", month: "short" }).format(new Date(`${value}T00:00:00`));
 const escapeHtml = (value) => String(value || "").replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;" })[char]);
@@ -32,14 +39,20 @@ function isAvailable(slot) { return slot.is_open && Number(slot.reserved_count) 
 
 function updateSummaryDetails() {
   const selected = selectedPackage();
+  const isWorkshop = selected?.type === "workshop";
   document.querySelector("[data-summary-slot-row]").hidden = !selected?.needsSlot;
   document.querySelector("[data-summary-location-row]").hidden = !selected?.needsSlot;
-  document.querySelector("[data-summary-slot]").textContent = selectedSlot ? `${thaiDate(selectedSlot.course_date)} · ${selectedSlot.start_time.slice(0, 5)} น.` : "ยังไม่ได้เลือก";
-  document.querySelector("[data-summary-location]").textContent = selectedSlot?.location || "ยังไม่ได้เลือก";
+  document.querySelector("[data-summary-slot]").textContent = selectedSlot ? (isWorkshop ? `${thaiDate(selectedSlot.course_date)} · 6 ชั่วโมง` : `${thaiDate(selectedSlot.course_date)} · ${selectedSlot.start_time.slice(0, 5)} น. · 4 ชั่วโมง`) : "ยังไม่ได้เลือก";
+  document.querySelector("[data-summary-location]").textContent = isWorkshop ? workshopLocationSelect.value || "ยังไม่ได้เลือก" : selectedSlot?.location || "ยังไม่ได้เลือก";
 }
 
 function renderSlots() {
-  slotDays.innerHTML = dayRange().map((date) => {
+  const selected = selectedPackage();
+  const isWorkshop = selected?.type === "workshop";
+  const today = startOfDay(new Date());
+  previousWeek.disabled = weekStart <= today;
+  weekLabel.textContent = `${new Intl.DateTimeFormat("th-TH", { day: "numeric", month: "short" }).format(weekStart)} – ${new Intl.DateTimeFormat("th-TH", { day: "numeric", month: "short", year: "numeric" }).format(weekDates()[6])}`;
+  slotDays.innerHTML = weekDates().map((date) => {
     const key = dateKey(date);
     const slots = courseSlots.filter((slot) => slot.course_date === key);
     const hasOpenSlot = slots.some(isAvailable);
@@ -47,8 +60,18 @@ function renderSlots() {
     return `<button class="course-slot-day${selectedDate === key ? " is-selected" : ""}${hasOpenSlot ? "" : " is-unavailable"}" type="button" data-slot-date="${key}" ${hasOpenSlot ? "" : "disabled"}><strong>${new Intl.DateTimeFormat("th-TH", { weekday: "short" }).format(date)}</strong><span>${date.getDate()}</span><small>${statusText}</small></button>`;
   }).join("");
   const daySlots = courseSlots.filter((slot) => slot.course_date === selectedDate);
-  slotTimes.hidden = !selectedDate;
-  slotTimes.innerHTML = selectedDate ? `<strong>เลือกรอบเวลา · ${thaiDate(selectedDate)}</strong><div>${daySlots.map((slot) => `<button type="button" class="course-slot-time${selectedSlot?.id === slot.id ? " is-selected" : ""}${isAvailable(slot) ? "" : " is-unavailable"}" data-slot-id="${slot.id}" ${isAvailable(slot) ? "" : "disabled"}>${slot.start_time.slice(0, 5)} น.<small>${isAvailable(slot) ? escapeHtml(slot.location) : "เต็ม"}</small></button>`).join("") || "<p>วันนี้ไม่มีรอบเรียนที่เปิดรับ</p>"}</div>` : "";
+  slotTimes.hidden = !selectedDate || isWorkshop;
+  if (isWorkshop && selectedDate) {
+    const availableSlot = daySlots.find(isAvailable) || null;
+    selectedSlot = availableSlot;
+    slotIdInput.value = availableSlot?.id || "";
+    slotTimes.innerHTML = "";
+  } else if (selectedDate) {
+    slotTimes.innerHTML = `<strong>เลือกรอบเวลา · ${thaiDate(selectedDate)} · 4 ชั่วโมง</strong><div>${daySlots.map((slot) => `<button type="button" class="course-slot-time${selectedSlot?.id === slot.id ? " is-selected" : ""}${isAvailable(slot) ? "" : " is-unavailable"}" data-slot-id="${slot.id}" ${isAvailable(slot) ? "" : "disabled"}>${slot.start_time.slice(0, 5)} น.<small>${isAvailable(slot) ? "Google Meet / Zoom" : "เต็ม"}</small></button>`).join("") || "<p>วันนี้ไม่มีรอบเรียนที่เปิดรับ</p>"}</div>`;
+  } else {
+    slotTimes.innerHTML = "";
+  }
+  updateSummaryDetails();
 }
 
 async function loadSlots() {
@@ -63,7 +86,7 @@ async function loadSlots() {
   slotDays.innerHTML = '<p class="course-slot-loading">กำลังโหลดรอบเรียน...</p>';
   slotTimes.hidden = true;
   try {
-    const response = await fetch(`${endpoint}?package=${encodeURIComponent(packageCode)}`);
+    const response = await fetch(`${endpoint}?package=${encodeURIComponent(packageCode)}&week=${encodeURIComponent(dateKey(weekStart))}`);
     const result = await response.json();
     if (!response.ok) throw new Error(result.error || "ไม่สามารถโหลดรอบเรียนได้");
     courseSlots = Array.isArray(result.slots) ? result.slots : [];
@@ -84,15 +107,19 @@ function updateBookingPage() {
   document.querySelector("[data-summary-total]").textContent = money(selected.price);
   scheduleFields.hidden = !selected.needsSlot;
   onlineNotice.hidden = selected.needsSlot;
+  workshopLocation.hidden = selected.type !== "workshop";
+  workshopLocationSelect.required = selected.type === "workshop";
   slotIdInput.required = selected.needsSlot;
   buddyField.hidden = selected.name !== "BUDDY";
   document.querySelector("#buddy-name").required = selected.name === "BUDDY";
-  scheduleHelp.textContent = selected.needsSlot ? "เลือกวันและเวลาจากรอบที่เปิดรับจองใน 7 วันข้างหน้า" : "คอร์สนี้ไม่ต้องเลือกรอบเรียน";
+  scheduleHelp.textContent = selected.type === "workshop" ? "เลือกวันเรียนได้อิสระ วันละ 6 ชั่วโมง เริ่มประมาณ 10:00 น. หรือตามตกลง" : selected.needsSlot ? "เลือกวันและรอบเวลาจากตารางรายสัปดาห์" : "คอร์สนี้ไม่ต้องเลือกรอบเรียน";
   updateSummaryDetails();
   if (selected.needsSlot) loadSlots();
 }
 
 packageInputs.forEach((input) => input.addEventListener("change", updateBookingPage));
+previousWeek.addEventListener("click", () => { weekStart.setDate(weekStart.getDate() - 7); loadSlots(); });
+nextWeek.addEventListener("click", () => { weekStart.setDate(weekStart.getDate() + 7); loadSlots(); });
 slotDays.addEventListener("click", (event) => {
   const button = event.target.closest("[data-slot-date]");
   if (!button) return;
@@ -100,7 +127,6 @@ slotDays.addEventListener("click", (event) => {
   selectedSlot = null;
   slotIdInput.value = "";
   renderSlots();
-  updateSummaryDetails();
 });
 slotTimes.addEventListener("click", (event) => {
   const button = event.target.closest("[data-slot-id]");
@@ -108,8 +134,8 @@ slotTimes.addEventListener("click", (event) => {
   selectedSlot = courseSlots.find((slot) => slot.id === button.dataset.slotId) || null;
   slotIdInput.value = selectedSlot?.id || "";
   renderSlots();
-  updateSummaryDetails();
 });
+workshopLocationSelect.addEventListener("change", updateSummaryDetails);
 
 form.addEventListener("submit", async (event) => {
   event.preventDefault();

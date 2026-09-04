@@ -60,11 +60,12 @@
 
           <section class="booking-section" aria-labelledby="schedule-title">
             <h2 id="schedule-title">รายละเอียดการเรียน</h2>
-            <p class="booking-section__help" data-schedule-help>เลือกวันและเวลาจากรอบที่เปิดรับจองใน 7 วันข้างหน้า</p>
+            <p class="booking-section__help" data-schedule-help>เลือกวันจากรอบที่เปิดรับจอง และเลื่อนดูสัปดาห์อื่นได้</p>
             <div class="course-slot-picker" data-schedule-fields aria-live="polite">
-              <div class="course-slot-picker__heading"><strong>เลือกวันเรียน</strong><span>วันที่เต็มจะแสดงสถานะให้เห็น</span></div>
+              <div class="course-slot-picker__heading"><strong>เลือกวันเรียน</strong><div class="course-slot-week-nav"><button type="button" data-slot-previous aria-label="สัปดาห์ก่อนหน้า">←</button><span data-slot-week-label></span><button type="button" data-slot-next aria-label="สัปดาห์ถัดไป">→</button></div></div>
               <div class="course-slot-days" data-slot-days></div>
               <div class="course-slot-times" data-slot-times hidden></div>
+              <div class="field course-slot-location" data-workshop-location hidden><label for="workshop-location">สถานที่เรียน</label><select id="workshop-location" name="location"><option value="Central นอร์ทวิว">Central นอร์ทวิว</option><option value="Central เวสเกต">Central เวสเกต</option><option value="Espanard แคลาย">Espanard แคลาย</option></select><p class="field__help">เรียน 6 ชั่วโมง เริ่มประมาณ 10:00 น. หรือเวลาตามตกลง</p></div>
               <input id="course-slot-id" name="courseSlotId" type="hidden" required />
             </div>
             <p class="booking-notice" data-online-notice hidden><img src="./assets/booking-icons/lightbulb.png" alt="" />คอร์สนี้เรียนได้ทันทีหลังชำระเงิน ระบบจะส่งสิทธิ์เข้าเรียนไปยังอีเมลที่ระบุ</p>

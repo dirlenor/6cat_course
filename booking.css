@@ -46,6 +46,10 @@ button, input, select, textarea { font: inherit; }
 .course-slot-picker__heading { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; }
 .course-slot-picker__heading strong { font-size: 15px; }
 .course-slot-picker__heading span, .course-slot-loading { margin: 0; color: var(--muted); font-size: 12px; }
+.course-slot-week-nav { display: inline-flex; align-items: center; gap: 8px; color: var(--muted); font-size: 12px; font-weight: 800; }
+.course-slot-week-nav button { width: 28px; height: 28px; border: 1px solid var(--line); border-radius: 50%; background: var(--color-bg-white); color: var(--ink); cursor: pointer; font: inherit; }
+.course-slot-week-nav button:hover:not(:disabled), .course-slot-week-nav button:focus-visible { border-color: var(--orange); color: var(--orange); outline: 0; }
+.course-slot-week-nav button:disabled { cursor: not-allowed; opacity: .38; }
 .course-slot-days { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 8px; }
 .course-slot-day { display: grid; justify-items: center; gap: 3px; min-height: 104px; padding: 11px 5px; border: 1px solid var(--line); border-radius: 12px; background: var(--color-bg-white); color: var(--ink); cursor: pointer; transition: transform 180ms ease, border-color 180ms ease, background 180ms ease; }
 .course-slot-day:hover:not(:disabled), .course-slot-day:focus-visible, .course-slot-day.is-selected { border-color: var(--orange); background: #fff3ec; outline: 0; transform: translateY(-2px); }
@@ -62,6 +66,7 @@ button, input, select, textarea { font: inherit; }
 .course-slot-time:hover:not(:disabled), .course-slot-time:focus-visible, .course-slot-time.is-selected { border-color: var(--orange); background: var(--orange); color: #fff; outline: 0; }
 .course-slot-time.is-selected small { color: #fff3ec; }
 .course-slot-time.is-unavailable { cursor: not-allowed; opacity: .45; text-decoration: line-through; }
+.course-slot-location { max-width: 360px; }
 .booking-notice { display: flex; align-items: center; gap: 10px; padding: 14px 16px; margin: 20px 0 0; border-left: 3px solid var(--orange); background: var(--color-bg-white); color: var(--muted); font-size: 14px; line-height: 1.6; }
 .booking-notice img { width: 28px; height: 28px; object-fit: contain; }
 .consent { display: flex; gap: 12px; align-items: flex-start; color: var(--muted); font-size: 13px; line-height: 1.55; }

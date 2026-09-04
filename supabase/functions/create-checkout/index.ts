@@ -10,6 +10,7 @@ const packages = {
   solo: { name: "SOLO", amountThb: 3999, needsSlot: true, needsLocation: true },
   buddy: { name: "BUDDY", amountThb: 5999, needsSlot: true, needsLocation: true },
 } as const;
+const workshopLocations = new Set(["Central นอร์ทวิว", "Central เวสเกต", "Espanard แคลาย"]);
 
 type PackageCode = keyof typeof packages;
 
@@ -54,6 +55,10 @@ export default {
         scheduledSlot = data as typeof scheduledSlot;
         reservedSlotId = courseSlotId;
       }
+      const requestedLocation = selected.needsLocation
+        ? text(payload.location, 160, true)
+        : scheduledSlot?.location ?? null;
+      if (selected.needsLocation && !workshopLocations.has(requestedLocation || "")) throw new Error("กรุณาเลือกสถานที่เรียนที่กำหนด");
 
       const { data: booking, error: bookingError } = await ctx.supabaseAdmin
         .from("bookings")
@@ -69,7 +74,7 @@ export default {
           requested_slot: scheduledSlot ? `${scheduledSlot.course_date} ${scheduledSlot.start_time.slice(0, 5)}` : null,
           requested_date: scheduledSlot?.course_date ?? null,
           requested_time: scheduledSlot?.start_time ?? null,
-          requested_location: scheduledSlot?.location ?? null,
+          requested_location: requestedLocation,
           customer_note: text(payload.note, 2000),
         })
         .select("id")

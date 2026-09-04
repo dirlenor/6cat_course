@@ -6,7 +6,9 @@
     <meta name="robots" content="noindex, nofollow" />
     <title>จัดการการจอง | 6CAT Academy</title>
     <link rel="stylesheet" href="./styles.css" />
+    <script>try { if (sessionStorage.getItem("6cat-admin-session")) document.documentElement.classList.add("admin-session-pending"); } catch (_) {}</script>
     <style>
+      html.admin-session-pending [data-login-panel] { visibility: hidden; }
       body { min-height: 100dvh; background: #f5f1ed; color: #111; }
       .admin-shell { width: min(1180px, calc(100% - 40px)); margin: 0 auto; padding: 32px 0 72px; }
       .admin-shell--auth { width: 100%; min-height: 100dvh; padding: 0; }
@@ -54,7 +56,7 @@
       body:has(.admin-dashboard:not([hidden])) { background: #f7f5f2; }
       .admin-shell--dashboard { width: 100%; max-width: none; margin: 0; padding: 0; }
       .admin-shell--dashboard .admin-dashboard { display: grid; grid-template-columns: 244px minmax(0, 1fr); min-height: 100dvh; margin: 0; padding: 0; border: 0; border-radius: 0; background: #f7f5f2; }
-      .dashboard-sidebar { display: flex; flex-direction: column; gap: 32px; padding: 34px 20px 24px; border-right: 1px solid #e4dfd9; background: #fffdfa; }
+      .dashboard-sidebar { position: sticky; top: 0; align-self: start; display: flex; flex-direction: column; gap: 32px; height: 100dvh; overflow-y: auto; padding: 34px 20px 24px; border-right: 1px solid #e4dfd9; background: #fffdfa; }
       .dashboard-sidebar__brand img { display: block; width: 144px; height: auto; }
       .dashboard-nav { display: grid; gap: 6px; }
       .dashboard-nav button { display: flex; align-items: center; width: 100%; min-height: 42px; padding: 0 13px; border: 0; border-radius: 10px; background: transparent; color: #5f5a55; cursor: pointer; font: inherit; font-size: .92rem; font-weight: 700; text-align: left; }
@@ -106,21 +108,25 @@
       .dashboard-calendar { display: grid; grid-template-columns: repeat(7, minmax(110px, 1fr)); gap: 1px; overflow-x: auto; border: 1px solid #e5ded7; border-radius: 12px; background: #e5ded7; }
       .dashboard-calendar__weekday { min-width: 110px; padding: 12px; background: #faf8f5; color: #7c756f; font-size: .76rem; font-weight: 800; text-align: center; }
       .dashboard-calendar__day { min-width: 110px; min-height: 124px; padding: 10px; background: #fffdfa; }
+      .dashboard-calendar__day.is-open { background: #effcf4; box-shadow: inset 0 0 0 2px #42b978; }
       .dashboard-calendar__day--outside { background: #fbfaf8; color: #aaa39b; }
       .dashboard-calendar__date { display: block; margin-bottom: 8px; font-size: .8rem; font-weight: 800; }
       .dashboard-calendar__event { display: block; margin-top: 5px; padding: 5px 6px; overflow: hidden; border-radius: 6px; background: #fff0e9; color: #bf3a08; font-size: .69rem; font-weight: 800; text-overflow: ellipsis; white-space: nowrap; }
+      .dashboard-calendar__availability { display: block; margin-top: 5px; padding: 5px 6px; overflow: hidden; border-radius: 6px; background: #d9f7e5; color: #187243; font-size: .69rem; font-weight: 800; text-overflow: ellipsis; white-space: nowrap; }
       .calendar-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 18px; }
       .calendar-toolbar h2 { margin: 0; font-size: 1.1rem; }
       .calendar-toolbar__controls { display: flex; gap: 8px; }
       .calendar-toolbar button { border: 1px solid #ddd5ce; border-radius: 8px; background: #fff; cursor: pointer; padding: 7px 10px; font: inherit; font-weight: 800; }
+      .calendar-toolbar select { border: 1px solid #ddd5ce; border-radius: 8px; background: #fff; padding: 7px 10px; color: #171513; font: inherit; font-size: .8rem; font-weight: 800; }
       .slot-manager { margin-top: 18px; }
-      .slot-manager__form { display: grid; grid-template-columns: 1.1fr 1fr 1.4fr .65fr auto; gap: 10px; align-items: end; }
+      .slot-manager__form { display: grid; grid-template-columns: 1.1fr 1fr auto; gap: 10px; align-items: end; }
       .slot-manager__form label { display: grid; gap: 6px; color: #625c56; font-size: .74rem; font-weight: 800; }
       .slot-manager__form input, .slot-manager__form select { min-width: 0; border: 1px solid #e1dad3; border-radius: 9px; background: #fff; padding: 10px; font: inherit; }
       .slot-manager__form .admin-button { min-height: 41px; white-space: nowrap; }
       .slot-manager__days { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 8px; grid-column: 1 / -1; padding: 13px; border: 1px solid #ebe5df; border-radius: 12px; background: #faf8f5; }
       .slot-manager__days > strong, .slot-manager__times > strong { grid-column: 1 / -1; color: #625c56; font-size: .78rem; }
-      .slot-manager__day { display: grid; justify-items: center; gap: 3px; min-height: 68px; border: 1px solid #e1dad3; border-radius: 9px; background: #fff; color: #625c56; cursor: pointer; font: inherit; }
+      .slot-manager__day { display: grid; justify-items: center; gap: 3px; min-height: 58px; border: 1px solid #e1dad3; border-radius: 9px; background: #fff; color: #625c56; cursor: pointer; font: inherit; }
+      .slot-manager__day:disabled { cursor: not-allowed; opacity: .32; }
       .slot-manager__day strong { margin-top: 8px; font-size: .65rem; }
       .slot-manager__day span { font-size: 1.1rem; font-weight: 900; }
       .slot-manager__day.is-selected { border-color: #ff4d0a; background: #ff4d0a; color: #fff; }
@@ -141,7 +147,7 @@
       .admin-shell--dashboard th { background: #faf8f5; }
       .admin-shell--dashboard .admin-message { margin: 12px 0 0; }
       @media (max-width: 820px) { .admin-login { grid-template-columns: 1fr; min-height: auto; border-width: 12px; border-radius: 24px; } .admin-auth__visual { min-height: 235px; } .admin-auth__visual img { min-height: 235px; object-position: 50% 32%; } .admin-auth__form { padding: 34px 26px 40px; border-radius: 12px; } .admin-auth__logo { width: min(174px, 60%); margin-bottom: 34px; } .admin-login h1 { font-size: clamp(2.35rem, 12vw, 3.7rem); } }
-      @media (max-width: 1020px) { .admin-shell--dashboard .admin-dashboard { grid-template-columns: 1fr; } .dashboard-sidebar { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 18px; padding: 18px 24px; border-right: 0; border-bottom: 1px solid #e4dfd9; } .dashboard-nav { display: flex; flex-wrap: wrap; justify-content: center; } .dashboard-sidebar__footer { display: none; } .dashboard-logout { width: auto; } .admin-shell--dashboard .admin-summary { grid-template-columns: repeat(2, 1fr); } }
+      @media (max-width: 1020px) { .admin-shell--dashboard .admin-dashboard { grid-template-columns: 1fr; } .dashboard-sidebar { position: static; align-self: auto; display: grid; grid-template-columns: auto 1fr auto; gap: 18px; height: auto; overflow: visible; padding: 18px 24px; border-right: 0; border-bottom: 1px solid #e4dfd9; } .dashboard-nav { display: flex; flex-wrap: wrap; justify-content: center; } .dashboard-sidebar__footer { display: none; } .dashboard-logout { width: auto; } .admin-shell--dashboard .admin-summary { grid-template-columns: repeat(2, 1fr); } }
       @media (max-width: 900px) { .slot-manager__form { grid-template-columns: repeat(2, minmax(0, 1fr)); } .slot-manager__days { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
       @media (max-width: 720px) { .admin-shell { width: min(100% - 28px, 1180px); padding-top: 14px; } .admin-top { align-items: flex-start; flex-direction: column; } .admin-controls, .admin-summary { grid-template-columns: 1fr; } .admin-card { padding: 20px; } .admin-login { padding: 0; } .dashboard-sidebar { grid-template-columns: 1fr auto; padding: 16px 18px; } .dashboard-sidebar__brand img { width: 126px; } .dashboard-nav { grid-column: 1 / -1; justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; } .dashboard-nav a { min-width: max-content; } .dashboard-main { padding: 28px 18px 42px; } .dashboard-topbar { display: grid; gap: 16px; margin-bottom: 24px; } .dashboard-site-link { justify-self: start; } .admin-shell--dashboard .admin-summary { grid-template-columns: 1fr 1fr; gap: 10px; } .admin-shell--dashboard .admin-stat { min-height: 88px; padding: 16px; } .dashboard-insights { grid-template-columns: 1fr; gap: 12px; } .dashboard-card { padding: 18px; } .dashboard-revenue { min-height: 238px; } .dashboard-bars { gap: 6px; height: 162px; } .dashboard-recent, .dashboard-bookings { grid-column: auto; } .admin-shell--dashboard .admin-controls { grid-template-columns: 1fr; } .slot-manager__form { grid-template-columns: 1fr; } .slot-manager__days { grid-template-columns: repeat(3, minmax(0, 1fr)); } .slot-manager__row { grid-template-columns: 1fr auto; } }
     </style>
@@ -210,20 +216,18 @@
           </section>
           <section class="dashboard-view" data-dashboard-view="calendar" hidden>
             <section class="dashboard-card">
-              <div class="calendar-toolbar"><h2 data-calendar-title>ปฏิทินคอร์ส</h2><div class="calendar-toolbar__controls"><button type="button" data-calendar-previous>←</button><button type="button" data-calendar-today>วันนี้</button><button type="button" data-calendar-next>→</button></div></div>
-              <p class="admin-subtitle">แสดงเฉพาะรายการชำระเงินแล้วที่ลูกค้าเลือกวันและเวลาเรียน</p>
+              <div class="calendar-toolbar"><h2 data-calendar-title>ปฏิทินคอร์ส</h2><div class="calendar-toolbar__controls"><select data-calendar-filter aria-label="กรองแพ็กเกจ"><option value="all">ทุกแพ็กเกจ</option><option value="online-course">Online Course</option><option value="live-online">Private Live</option><option value="workshop">Solo / Buddy</option></select><button type="button" data-calendar-previous>←</button><button type="button" data-calendar-today>วันนี้</button><button type="button" data-calendar-next>→</button></div></div>
+              <p class="admin-subtitle">สีเขียวคือวันที่เปิดรับจอง · ใช้ตัวกรองเพื่อดูแต่ละกลุ่มคอร์ส</p>
               <div class="dashboard-calendar" data-course-calendar></div>
             </section>
             <section class="dashboard-card slot-manager">
-              <div class="dashboard-card__heading"><div><h2>จัดการรอบเรียน</h2><span>เลือกวันที่ที่ต้องการ แล้วสร้างหลายรอบให้ครั้งเดียว</span></div></div>
+              <div class="dashboard-card__heading"><div><h2>จัดการรอบเรียนรายเดือน</h2><span>Online Course เรียนได้ทันที · Private Live วันละ 2 รอบ · Solo/Buddy ใช้วัน Workshop ร่วมกัน</span></div></div>
               <form class="slot-manager__form" data-slot-manager-form>
-                <label>แพ็กเกจ<select name="packageCode"><option value="live-online">Private Live Online</option><option value="solo">Solo</option><option value="buddy">Buddy</option></select></label>
-                <label>เริ่มดูวันที่<input name="weekAnchor" type="date" required /></label>
-                <label>สถานที่ / ช่องทาง<select name="location" data-slot-location required></select></label>
-                <label>รับได้<input name="capacity" type="number" min="1" max="20" value="1" required /></label>
+                <label>กลุ่มคอร์ส<select name="scheduleGroup"><option value="online-course">Online Course</option><option value="live-online" selected>Private Live</option><option value="workshop">Solo / Buddy Workshop</option></select></label>
+                <label>เดือนที่จัดรอบ<input name="scheduleMonth" type="month" required /></label>
                 <button class="admin-button" type="submit">สร้างรอบ</button>
                 <div class="slot-manager__days" data-slot-generator-days></div>
-                <div class="slot-manager__times"><strong>เลือกรอบเวลา</strong><label><input type="checkbox" name="slotTime" value="10:00" checked />10:00 น.</label><label><input type="checkbox" name="slotTime" value="13:00" checked />13:00 น.</label><label><input type="checkbox" name="slotTime" value="16:00" checked />16:00 น.</label></div>
+                <div class="slot-manager__times" data-slot-generator-times></div>
                 <p class="slot-manager__count" data-slot-generator-count></p>
               </form>
               <p class="admin-message" data-slot-manager-message aria-live="polite"></p>
@@ -250,7 +254,9 @@
       const slotManagerMessage = document.querySelector("[data-slot-manager-message]");
       const slotManagerList = document.querySelector("[data-slot-manager-list]");
       const slotGeneratorDays = document.querySelector("[data-slot-generator-days]");
+      const slotGeneratorTimes = document.querySelector("[data-slot-generator-times]");
       const slotGeneratorCount = document.querySelector("[data-slot-generator-count]");
+      const calendarFilter = document.querySelector("[data-calendar-filter]");
       const adminSessionKey = "6cat-admin-session";
       let accessToken = "";
       let bookings = [];
@@ -261,11 +267,10 @@
       const money = (amount) => new Intl.NumberFormat("th-TH", { style: "currency", currency: "THB", maximumFractionDigits: 0 }).format(amount || 0);
       const dateTime = (value) => value ? new Intl.DateTimeFormat("th-TH", { dateStyle: "medium", timeStyle: "short" }).format(new Date(value)) : "-";
       const escapeHtml = (value) => String(value || "-").replace(/[&<>'\"]/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", "\"": "&quot;" })[char]);
-      const packageLabel = (code) => ({ "online-course": "Online Course", "live-online": "Private Live Online", solo: "Solo", buddy: "Buddy" }[code] || String(code || "-").replaceAll("-", " "));
+      const packageLabel = (code) => ({ "online-course": "Online Course", "live-online": "Private Live Online", workshop: "Solo / Buddy Workshop", solo: "Solo", buddy: "Buddy" }[code] || String(code || "-").replaceAll("-", " "));
       const shortDate = (value) => value ? new Intl.DateTimeFormat("th-TH", { day: "numeric", month: "short" }).format(new Date(value)) : "-";
       const localDate = (date = new Date()) => [date.getFullYear(), String(date.getMonth() + 1).padStart(2, "0"), String(date.getDate()).padStart(2, "0")].join("-");
-      slotManagerForm.elements.weekAnchor.min = localDate();
-      slotManagerForm.elements.weekAnchor.value = localDate();
+      slotManagerForm.elements.scheduleMonth.value = localDate().slice(0, 7);
 
       async function auth(path, body) {
         const response = await fetch(`${supabaseUrl}/auth/v1/${path}`, { method: "POST", headers: { apikey: supabaseKey, "Content-Type": "application/json" }, body: JSON.stringify(body) });
@@ -297,6 +302,8 @@
           await openDashboard(await auth("token?grant_type=refresh_token", { refresh_token: session.refresh_token }));
         } catch (_) {
           forgetSession();
+        } finally {
+          document.documentElement.classList.remove("admin-session-pending");
         }
       }
 
@@ -319,18 +326,29 @@
         const start = new Date(firstDay);
         start.setDate(1 - firstDay.getDay());
         const weekday = ["อา", "จ", "อ", "พ", "พฤ", "ศ", "ส"].map((name) => `<div class="dashboard-calendar__weekday">${name}</div>`).join("");
+        const selectedGroup = calendarFilter.value;
+        const bookingMatchesFilter = (booking) => selectedGroup === "all" || (selectedGroup === "workshop" ? ["solo", "buddy"].includes(booking.package_code) : booking.package_code === selectedGroup);
+        const slotMatchesFilter = (slot) => ["live-online", "workshop"].includes(slot.package_code) && (selectedGroup === "all" || slot.package_code === selectedGroup);
         const cells = Array.from({ length: 42 }, (_, index) => {
           const day = new Date(start);
           day.setDate(start.getDate() + index);
           const dateKey = [day.getFullYear(), String(day.getMonth() + 1).padStart(2, "0"), String(day.getDate()).padStart(2, "0")].join("-");
-          const events = bookings.filter((booking) => booking.requested_date === dateKey).map((booking) => `<span class="dashboard-calendar__event" title="${escapeHtml(`${booking.customer_name} · ${booking.requested_time || ""} · ${booking.requested_location || ""}`)}">${escapeHtml(`${booking.requested_time || ""} ${booking.customer_name}`)}</span>`).join("");
-          return `<div class="dashboard-calendar__day${day.getMonth() === calendarMonth.getMonth() ? "" : " dashboard-calendar__day--outside"}"><span class="dashboard-calendar__date">${day.getDate()}</span>${events}</div>`;
+          const events = bookings.filter((booking) => booking.requested_date === dateKey && bookingMatchesFilter(booking)).map((booking) => `<span class="dashboard-calendar__event" title="${escapeHtml(`${booking.customer_name} · ${booking.requested_time || ""} · ${booking.requested_location || ""}`)}">${escapeHtml(`${booking.requested_time || ""} ${booking.customer_name}`)}</span>`).join("");
+          const openSlots = courseSlots.filter((slot) => slot.course_date === dateKey && slotMatchesFilter(slot) && slot.is_open && Number(slot.reserved_count) < Number(slot.capacity));
+          const availability = openSlots.length ? `<span class="dashboard-calendar__availability">${selectedGroup === "live-online" ? `เปิด ${openSlots.map((slot) => String(slot.start_time).slice(0, 5)).join(" / ")} น.` : "เปิดรับ Workshop"}</span>` : "";
+          return `<div class="dashboard-calendar__day${day.getMonth() === calendarMonth.getMonth() ? "" : " dashboard-calendar__day--outside"}${openSlots.length ? " is-open" : ""}"><span class="dashboard-calendar__date">${day.getDate()}</span>${availability}${events}</div>`;
         }).join("");
         calendar.innerHTML = weekday + cells;
       }
 
       function renderCourseSlots() {
-        slotManagerList.innerHTML = courseSlots.map((slot) => `<div class="slot-manager__row${slot.is_open ? "" : " is-closed"}"><div><strong>${escapeHtml(packageLabel(slot.package_code))}</strong><small>${escapeHtml(slot.course_date)} · ${escapeHtml(String(slot.start_time).slice(0, 5))} น.</small></div><div><strong>${escapeHtml(slot.location)}</strong><small>จองแล้ว ${escapeHtml(slot.reserved_count)}/${escapeHtml(slot.capacity)} <span class="slot-manager__state${slot.is_open ? "" : " is-closed"}">${slot.is_open ? "เปิดรับ" : "ปิด"}</span></small></div><div><small>${Number(slot.reserved_count) >= Number(slot.capacity) ? "เต็มแล้ว — จะไม่รับการจองเพิ่ม" : "ยังมีที่ว่างสำหรับการจอง"}</small></div><button class="slot-manager__toggle" type="button" data-slot-toggle="${escapeHtml(slot.id)}">${slot.is_open ? "ปิดรอบ" : "เปิดรอบ"}</button></div>`).join("") || "<span class=\"admin-detail\">ยังไม่มีรอบเรียนที่ตั้งไว้ — เปิดรอบแรกด้วยฟอร์มด้านบน</span>";
+        slotManagerList.innerHTML = courseSlots.filter((slot) => ["live-online", "workshop"].includes(slot.package_code)).map((slot) => {
+          const workshop = slot.package_code === "workshop";
+          const full = Number(slot.reserved_count) >= Number(slot.capacity);
+          const schedule = workshop ? "6 ชั่วโมง · เริ่มประมาณ 10:00 น." : `${escapeHtml(String(slot.start_time).slice(0, 5))}–${String(slot.start_time).slice(0, 5) === "09:00" ? "13:00" : "19:00"} น.`;
+          const detail = workshop ? "Solo/Buddy ใช้วันเดียวกัน · ผู้เรียนเลือกสถานที่ตอนจอง" : "Online — Google Meet / Zoom";
+          return `<div class="slot-manager__row${slot.is_open ? "" : " is-closed"}"><div><strong>${escapeHtml(packageLabel(slot.package_code))}</strong><small>${escapeHtml(slot.course_date)} · ${schedule}</small></div><div><strong>${detail}</strong><small><span class="slot-manager__state${slot.is_open && !full ? "" : " is-closed"}">${slot.is_open && !full ? "เปิดรับ" : full ? "เต็มแล้ว" : "ปิด"}</span></small></div><div><small>${full ? "มีผู้จองแล้ว — ปิดทั้งวันสำหรับกลุ่มนี้" : "พร้อมให้จอง"}</small></div><button class="slot-manager__toggle" type="button" data-slot-toggle="${escapeHtml(slot.id)}">${slot.is_open ? "ปิดรอบ" : "เปิดรอบ"}</button></div>`;
+        }).join("") || "<span class=\"admin-detail\">ยังไม่มีรอบเรียนที่ตั้งไว้ — เลือกเดือนและวันที่ด้านบนเพื่อสร้างรอบ</span>";
       }
 
       async function courseSlotRequest(path, options = {}) {
@@ -351,36 +369,41 @@
         renderCourseSlots();
       }
 
-      function syncSlotLocation() {
-        const packageCode = slotManagerForm.elements.packageCode.value;
-        const location = slotManagerForm.elements.location;
-        const isOnline = packageCode === "live-online";
-        const locations = isOnline
-          ? ["Online — Google Meet / Zoom"]
-          : ["Central นอร์ทวิว", "Central เวสเกต", "Espanard แคลาย"];
-        location.innerHTML = locations.map((name) => `<option value="${escapeHtml(name)}">${escapeHtml(name)}</option>`).join("");
-      }
+      function scheduleGroup() { return slotManagerForm.elements.scheduleGroup.value; }
 
       function generatorDates() {
-        const anchor = new Date(`${slotManagerForm.elements.weekAnchor.value}T00:00:00`);
-        return Array.from({ length: 7 }, (_, index) => {
-          const date = new Date(anchor);
-          date.setDate(anchor.getDate() + index);
-          return date;
-        });
+        const [year, month] = slotManagerForm.elements.scheduleMonth.value.split("-").map(Number);
+        if (!year || !month) return [];
+        return Array.from({ length: new Date(year, month, 0).getDate() }, (_, index) => new Date(year, month - 1, index + 1));
       }
 
       function updateGeneratorCount() {
-        const timeCount = [...slotManagerForm.querySelectorAll('input[name="slotTime"]:checked')].length;
-        const count = selectedGeneratorDates.size * timeCount;
-        slotGeneratorCount.textContent = count ? `พร้อมสร้าง ${count} รอบ จาก ${selectedGeneratorDates.size} วันที่เลือก` : "เลือกอย่างน้อย 1 วันและ 1 รอบเวลา";
+        const group = scheduleGroup();
+        const perDay = group === "live-online" ? 2 : group === "workshop" ? 1 : 0;
+        const count = selectedGeneratorDates.size * perDay;
+        slotGeneratorCount.textContent = group === "online-course" ? "Online Course ไม่ต้องเปิดรอบ ผู้ซื้อชำระแล้วเข้าเรียนได้ทันที" : count ? `พร้อมสร้าง ${count} รอบ จาก ${selectedGeneratorDates.size} วันที่เลือก` : "เลือกวันที่ต้องการเปิดรอบอย่างน้อย 1 วัน";
       }
 
       function renderSlotGeneratorDays(selectAll = false) {
+        const group = scheduleGroup();
+        if (group === "online-course") {
+          slotGeneratorDays.innerHTML = "<strong>Online Course ไม่มีรอบวันเรียน — ระบบเปิดสิทธิ์เข้าเรียนทันทีหลังชำระเงิน</strong>";
+          slotGeneratorTimes.innerHTML = "";
+          updateGeneratorCount();
+          return;
+        }
+        const today = localDate();
         const dates = generatorDates();
-        if (selectAll) selectedGeneratorDates = new Set(dates.map(localDate));
+        if (selectAll) selectedGeneratorDates = new Set(dates.filter((date) => localDate(date) >= today).map(localDate));
         const weekday = new Intl.DateTimeFormat("th-TH", { weekday: "short" });
-        slotGeneratorDays.innerHTML = `<strong>เลือกวันที่ต้องการเปิดรอบ</strong>${dates.map((date) => `<button type="button" class="slot-manager__day${selectedGeneratorDates.has(localDate(date)) ? " is-selected" : ""}" data-generator-date="${localDate(date)}"><strong>${weekday.format(date)}</strong><span>${date.getDate()}</span></button>`).join("")}`;
+        slotGeneratorDays.innerHTML = `<strong>เลือกวันที่ต้องการเปิดรอบในเดือนนี้</strong>${dates.map((date) => {
+          const key = localDate(date);
+          const disabled = key < today;
+          return `<button type="button" class="slot-manager__day${selectedGeneratorDates.has(key) ? " is-selected" : ""}" data-generator-date="${key}" ${disabled ? "disabled" : ""}><strong>${weekday.format(date)}</strong><span>${date.getDate()}</span></button>`;
+        }).join("")}`;
+        slotGeneratorTimes.innerHTML = group === "live-online"
+          ? "<strong>Private Live จะสร้าง 2 รอบอัตโนมัติ: 09:00–13:00 และ 15:00–19:00 น.</strong>"
+          : "<strong>Solo / Buddy จะใช้วัน Workshop เดียวกัน: 6 ชั่วโมง เริ่มประมาณ 10:00 น. และผู้จองเลือกสถานที่ได้</strong>";
         updateGeneratorCount();
       }
 
@@ -478,10 +501,10 @@
       document.querySelector("[data-calendar-previous]").addEventListener("click", () => { calendarMonth = new Date(calendarMonth.getFullYear(), calendarMonth.getMonth() - 1, 1); renderCalendar(); });
       document.querySelector("[data-calendar-next]").addEventListener("click", () => { calendarMonth = new Date(calendarMonth.getFullYear(), calendarMonth.getMonth() + 1, 1); renderCalendar(); });
       document.querySelector("[data-calendar-today]").addEventListener("click", () => { calendarMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1); renderCalendar(); });
+      calendarFilter.addEventListener("change", renderCalendar);
       document.querySelector("[data-export]").addEventListener("click", downloadCsv);
-      slotManagerForm.elements.packageCode.addEventListener("change", syncSlotLocation);
-      slotManagerForm.elements.weekAnchor.addEventListener("change", () => renderSlotGeneratorDays(true));
-      slotManagerForm.querySelectorAll('input[name="slotTime"]').forEach((input) => input.addEventListener("change", updateGeneratorCount));
+      slotManagerForm.elements.scheduleGroup.addEventListener("change", () => renderSlotGeneratorDays(true));
+      slotManagerForm.elements.scheduleMonth.addEventListener("change", () => renderSlotGeneratorDays(true));
       slotGeneratorDays.addEventListener("click", (event) => {
         const button = event.target.closest("[data-generator-date]");
         if (!button) return;
@@ -493,18 +516,18 @@
       slotManagerForm.addEventListener("submit", async (event) => {
         event.preventDefault();
         if (!slotManagerForm.reportValidity()) return;
-        const formData = new FormData(slotManagerForm);
-        const packageCode = formData.get("packageCode");
-        const location = formData.get("location");
-        const capacity = Number(formData.get("capacity"));
-        const times = formData.getAll("slotTime");
-        const slots = [...selectedGeneratorDates].flatMap((courseDate) => times.map((startTime) => ({ package_code: packageCode, course_date: courseDate, start_time: startTime, location, capacity })));
-        if (!slots.length) { slotManagerMessage.textContent = "กรุณาเลือกวันและรอบเวลาอย่างน้อย 1 รายการ"; return; }
+        const group = scheduleGroup();
+        if (group === "online-course") { slotManagerMessage.textContent = "Online Course ไม่ต้องสร้างรอบ — ผู้ซื้อเข้าเรียนได้ทันทีหลังชำระเงิน"; return; }
+        const times = group === "live-online" ? ["09:00", "15:00"] : ["10:00"];
+        const location = group === "live-online" ? "Online — Google Meet / Zoom" : "เลือกสถานที่ตอนจอง";
+        const slots = [...selectedGeneratorDates].flatMap((courseDate) => times.map((startTime) => ({ package_code: group, course_date: courseDate, start_time: startTime, location, capacity: 1 })));
+        if (!slots.length) { slotManagerMessage.textContent = "กรุณาเลือกวันที่ต้องการเปิดรอบอย่างน้อย 1 วัน"; return; }
         slotManagerMessage.textContent = `กำลังสร้าง ${slots.length} รอบเรียน...`;
         try {
           await courseSlotRequest("?on_conflict=package_code,course_date,start_time", { method: "POST", headers: { Prefer: "resolution=ignore-duplicates,return=minimal" }, body: JSON.stringify(slots) });
           slotManagerMessage.textContent = `สร้างรอบเรียน ${slots.length} รายการแล้ว — หน้าจองจะแสดงในไม่กี่วินาที`;
           await loadCourseSlots();
+          renderCalendar();
         } catch (error) { slotManagerMessage.textContent = error.message; }
       });
       slotManagerList.addEventListener("click", async (event) => {
@@ -529,7 +552,6 @@
         loginPanel.hidden = false;
         loginForm.reset();
       });
-      syncSlotLocation();
       renderSlotGeneratorDays(true);
       restoreSession();
     </script>
