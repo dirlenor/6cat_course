@@ -57,10 +57,8 @@
       .dashboard-sidebar { display: flex; flex-direction: column; gap: 32px; padding: 34px 20px 24px; border-right: 1px solid #e4dfd9; background: #fffdfa; }
       .dashboard-sidebar__brand img { display: block; width: 144px; height: auto; }
       .dashboard-nav { display: grid; gap: 6px; }
-      .dashboard-nav a { display: flex; align-items: center; gap: 11px; min-height: 42px; padding: 0 13px; border-radius: 10px; color: #5f5a55; font-size: .92rem; font-weight: 700; text-decoration: none; }
-      .dashboard-nav a::before { width: 8px; height: 8px; border: 2px solid currentColor; border-radius: 2px; content: ""; }
-      .dashboard-nav a:hover, .dashboard-nav a:focus-visible, .dashboard-nav a.is-active { color: #ff4d0a; background: #fff0e9; outline: none; }
-      .dashboard-nav a.is-active::before { border-color: #ff4d0a; background: #ff4d0a; }
+      .dashboard-nav button { display: flex; align-items: center; width: 100%; min-height: 42px; padding: 0 13px; border: 0; border-radius: 10px; background: transparent; color: #5f5a55; cursor: pointer; font: inherit; font-size: .92rem; font-weight: 700; text-align: left; }
+      .dashboard-nav button:hover, .dashboard-nav button:focus-visible, .dashboard-nav button.is-active { color: #ff4d0a; background: #fff0e9; outline: none; }
       .dashboard-sidebar__footer { display: grid; gap: 5px; margin-top: auto; padding-top: 20px; border-top: 1px solid #ece7e2; color: #77706a; font-size: .8rem; }
       .dashboard-sidebar__footer strong { color: #171513; font-size: .86rem; overflow-wrap: anywhere; }
       .dashboard-logout { width: 100%; background: #171513; }
@@ -104,6 +102,17 @@
       .dashboard-recent-item span { margin-top: 3px; color: #7c756f; font-size: .8rem; }
       .dashboard-recent-item b { align-self: center; color: #ff4d0a; font-size: .88rem; }
       .dashboard-bookings { grid-column: 1 / -1; }
+      .dashboard-view[hidden] { display: none; }
+      .dashboard-calendar { display: grid; grid-template-columns: repeat(7, minmax(110px, 1fr)); gap: 1px; overflow-x: auto; border: 1px solid #e5ded7; border-radius: 12px; background: #e5ded7; }
+      .dashboard-calendar__weekday { min-width: 110px; padding: 12px; background: #faf8f5; color: #7c756f; font-size: .76rem; font-weight: 800; text-align: center; }
+      .dashboard-calendar__day { min-width: 110px; min-height: 124px; padding: 10px; background: #fffdfa; }
+      .dashboard-calendar__day--outside { background: #fbfaf8; color: #aaa39b; }
+      .dashboard-calendar__date { display: block; margin-bottom: 8px; font-size: .8rem; font-weight: 800; }
+      .dashboard-calendar__event { display: block; margin-top: 5px; padding: 5px 6px; overflow: hidden; border-radius: 6px; background: #fff0e9; color: #bf3a08; font-size: .69rem; font-weight: 800; text-overflow: ellipsis; white-space: nowrap; }
+      .calendar-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 18px; }
+      .calendar-toolbar h2 { margin: 0; font-size: 1.1rem; }
+      .calendar-toolbar__controls { display: flex; gap: 8px; }
+      .calendar-toolbar button { border: 1px solid #ddd5ce; border-radius: 8px; background: #fff; cursor: pointer; padding: 7px 10px; font: inherit; font-weight: 800; }
       .admin-shell--dashboard .admin-controls { grid-template-columns: minmax(0, 1fr) minmax(180px, 220px) auto; margin: 0 0 16px; }
       .admin-shell--dashboard .admin-filter { border-color: #e1dad3; border-radius: 10px; background: #fff; }
       .admin-shell--dashboard .admin-table-wrap { border-color: #e5ded7; border-radius: 12px; }
@@ -140,9 +149,9 @@
         <aside class="dashboard-sidebar">
           <a class="dashboard-sidebar__brand" href="./index.html" aria-label="กลับหน้า 6CAT Academy"><img src="./assets/brand/6cat-academy-logo.png" alt="6CAT Academy" /></a>
           <nav class="dashboard-nav" aria-label="เมนูแอดมิน">
-            <a class="is-active" href="#dashboard-overview">ภาพรวม</a>
-            <a href="#dashboard-insights">สถิติการขาย</a>
-            <a href="#dashboard-bookings">รายการลงทะเบียน</a>
+            <button class="is-active" type="button" data-dashboard-tab="overview">Overview</button>
+            <button type="button" data-dashboard-tab="bookings">Booking</button>
+            <button type="button" data-dashboard-tab="calendar">Calendar Course</button>
           </nav>
           <div class="dashboard-sidebar__footer"><span>ลงชื่อเข้าใช้ในฐานะแอดมิน</span><strong data-admin-email></strong></div>
           <button class="admin-button dashboard-logout" type="button" data-logout>ออกจากระบบ</button>
@@ -152,16 +161,20 @@
             <div><p class="dashboard-kicker">6CAT BOOKINGS</p><h1>ภาพรวมการจองคอร์ส</h1><p>ติดตามผู้เรียนและยอดชำระเงินที่ยืนยันแล้ว</p></div>
             <a class="dashboard-site-link" href="./index.html">← กลับหน้าเว็บไซต์</a>
           </header>
+          <div class="dashboard-view" data-dashboard-view="overview">
           <div class="admin-summary" aria-label="สรุปข้อมูลการขาย">
             <div class="admin-stat"><span>ชำระแล้ว</span><strong data-count>0</strong></div>
-            <div class="admin-stat"><span>ยอดขายสะสม</span><strong data-total>฿0</strong></div>
+            <div class="admin-stat"><span>ยอดสุทธิหลัง Stripe</span><strong data-total>฿0</strong></div>
             <div class="admin-stat"><span>แพ็กเกจที่ขาย</span><strong data-packages>0</strong></div>
-            <div class="admin-stat"><span>การชำระล่าสุด</span><strong data-last-payment>-</strong></div>
+            <div class="admin-stat"><span>ค่าธรรมเนียม Stripe</span><strong data-fee-total>฿0</strong></div>
           </div>
           <div class="dashboard-insights" id="dashboard-insights">
             <section class="dashboard-card dashboard-revenue"><div class="dashboard-card__heading"><div><h2>รายได้ 7 วันล่าสุด</h2><span>คำนวณจากรายการที่ชำระสำเร็จ</span></div></div><div class="dashboard-bars" data-revenue-chart></div></section>
             <section class="dashboard-card"><div class="dashboard-card__heading"><div><h2>สัดส่วนแพ็กเกจ</h2><span>ตามจำนวนรายการชำระแล้ว</span></div></div><div class="dashboard-breakdown" data-package-breakdown></div></section>
             <section class="dashboard-card dashboard-recent"><div class="dashboard-card__heading"><div><h2>รายการชำระล่าสุด</h2><span>แสดง 4 รายการล่าสุด</span></div></div><div class="dashboard-recent-list" data-recent-bookings></div></section>
+          </div>
+          </div>
+          <section class="dashboard-view" data-dashboard-view="bookings" hidden>
             <section class="dashboard-card dashboard-bookings" id="dashboard-bookings">
               <div class="dashboard-card__heading"><div><h2>รายชื่อผู้ลงทะเบียน</h2><span>ค้นหา กรอง และ export รายการชำระสำเร็จ</span></div><button class="admin-button admin-button--quiet" type="button" data-export>Export CSV</button></div>
               <div class="admin-controls">
@@ -171,7 +184,14 @@
               <div class="admin-table-wrap"><table><thead><tr><th>ผู้ซื้อ</th><th>แพ็กเกจ</th><th>ยอดชำระ</th><th>ข้อมูลเรียน</th><th>ชำระเมื่อ</th><th>สถานะ</th></tr></thead><tbody data-bookings></tbody></table></div>
               <p class="admin-message" data-dashboard-message aria-live="polite"></p>
             </section>
-          </div>
+          </section>
+          <section class="dashboard-view" data-dashboard-view="calendar" hidden>
+            <section class="dashboard-card">
+              <div class="calendar-toolbar"><h2 data-calendar-title>ปฏิทินคอร์ส</h2><div class="calendar-toolbar__controls"><button type="button" data-calendar-previous>←</button><button type="button" data-calendar-today>วันนี้</button><button type="button" data-calendar-next>→</button></div></div>
+              <p class="admin-subtitle">แสดงเฉพาะรายการชำระเงินแล้วที่ลูกค้าเลือกวันและเวลาเรียน</p>
+              <div class="dashboard-calendar" data-course-calendar></div>
+            </section>
+          </section>
         </main>
       </section>
     </main>
@@ -190,6 +210,7 @@
       const packageFilter = document.querySelector("[data-package-filter]");
       let accessToken = "";
       let bookings = [];
+      let calendarMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
 
       const money = (amount) => new Intl.NumberFormat("th-TH", { style: "currency", currency: "THB", maximumFractionDigits: 0 }).format(amount || 0);
       const dateTime = (value) => value ? new Intl.DateTimeFormat("th-TH", { dateStyle: "medium", timeStyle: "short" }).format(new Date(value)) : "-";
@@ -211,7 +232,32 @@
           const searchable = [booking.customer_name, booking.customer_email, booking.customer_phone, booking.line_id].join(" ").toLowerCase();
           return (!term || searchable.includes(term)) && (!selectedPackage || booking.package_code === selectedPackage);
         });
-        bookingsBody.innerHTML = visible.map((booking) => `<tr><td><strong>${escapeHtml(booking.customer_name)}</strong><span class="admin-detail">${escapeHtml(booking.customer_email)}<br />${escapeHtml(booking.customer_phone)}${booking.line_id ? `<br />LINE: ${escapeHtml(booking.line_id)}` : ""}</span></td><td><strong>${escapeHtml(booking.package_code.replaceAll("-", " "))}</strong>${booking.buddy_name ? `<span class="admin-detail">คู่เรียน: ${escapeHtml(booking.buddy_name)}</span>` : ""}</td><td>${money(booking.amount_thb)}</td><td><span class="admin-detail">${booking.requested_slot ? `รอบ: ${escapeHtml(booking.requested_slot)}<br />` : ""}${booking.requested_location ? `สถานที่: ${escapeHtml(booking.requested_location)}<br />` : ""}${booking.customer_note ? `หมายเหตุ: ${escapeHtml(booking.customer_note)}` : "-"}</span></td><td>${dateTime(booking.paid_at || booking.created_at)}</td><td><span class="admin-status">${escapeHtml(booking.status)}</span></td></tr>`).join("") || "<tr><td colspan=\"6\">ไม่พบรายการ</td></tr>";
+        bookingsBody.innerHTML = visible.map((booking) => `<tr><td><strong>${escapeHtml(booking.customer_name)}</strong><span class="admin-detail">${escapeHtml(booking.customer_email)}<br />${escapeHtml(booking.customer_phone)}${booking.line_id ? `<br />LINE: ${escapeHtml(booking.line_id)}` : ""}</span></td><td><strong>${escapeHtml(packageLabel(booking.package_code))}</strong>${booking.buddy_name ? `<span class="admin-detail">คู่เรียน: ${escapeHtml(booking.buddy_name)}</span>` : ""}</td><td>${money(booking.amount_thb)}<span class="admin-detail">สุทธิ: ${booking.net_amount_thb == null ? "รอ Stripe" : money(booking.net_amount_thb)}</span></td><td><span class="admin-detail">${booking.requested_date ? `วันที่: ${escapeHtml(booking.requested_date)} ${escapeHtml(booking.requested_time || "")}<br />` : "-"}${booking.requested_location ? `สถานที่: ${escapeHtml(booking.requested_location)}<br />` : ""}อีเมล: ${escapeHtml(booking.customer_email_status)}</span></td><td>${dateTime(booking.paid_at || booking.created_at)}</td><td><span class="admin-status">${escapeHtml(booking.status)}</span></td></tr>`).join("") || "<tr><td colspan=\"6\">ไม่พบรายการ</td></tr>";
+      }
+
+      function renderCalendar() {
+        const calendar = document.querySelector("[data-course-calendar]");
+        const title = document.querySelector("[data-calendar-title]");
+        const monthLabel = new Intl.DateTimeFormat("th-TH", { month: "long", year: "numeric" }).format(calendarMonth);
+        title.textContent = `ปฏิทินคอร์ส · ${monthLabel}`;
+        const firstDay = new Date(calendarMonth.getFullYear(), calendarMonth.getMonth(), 1);
+        const start = new Date(firstDay);
+        start.setDate(1 - firstDay.getDay());
+        const weekday = ["อา", "จ", "อ", "พ", "พฤ", "ศ", "ส"].map((name) => `<div class="dashboard-calendar__weekday">${name}</div>`).join("");
+        const cells = Array.from({ length: 42 }, (_, index) => {
+          const day = new Date(start);
+          day.setDate(start.getDate() + index);
+          const dateKey = [day.getFullYear(), String(day.getMonth() + 1).padStart(2, "0"), String(day.getDate()).padStart(2, "0")].join("-");
+          const events = bookings.filter((booking) => booking.requested_date === dateKey).map((booking) => `<span class="dashboard-calendar__event" title="${escapeHtml(`${booking.customer_name} · ${booking.requested_time || ""} · ${booking.requested_location || ""}`)}">${escapeHtml(`${booking.requested_time || ""} ${booking.customer_name}`)}</span>`).join("");
+          return `<div class="dashboard-calendar__day${day.getMonth() === calendarMonth.getMonth() ? "" : " dashboard-calendar__day--outside"}"><span class="dashboard-calendar__date">${day.getDate()}</span>${events}</div>`;
+        }).join("");
+        calendar.innerHTML = weekday + cells;
+      }
+
+      function showDashboardView(view) {
+        document.querySelectorAll("[data-dashboard-view]").forEach((panel) => { panel.hidden = panel.dataset.dashboardView !== view; });
+        document.querySelectorAll("[data-dashboard-tab]").forEach((tab) => tab.classList.toggle("is-active", tab.dataset.dashboardTab === view));
+        if (view === "calendar") renderCalendar();
       }
 
       function renderDashboardInsights() {
@@ -226,7 +272,7 @@
         const revenueByDay = new Map(days.map((day) => [dayKey(day), 0]));
         bookings.forEach((booking) => {
           const key = dayKey(booking.paid_at || booking.created_at);
-          if (revenueByDay.has(key)) revenueByDay.set(key, revenueByDay.get(key) + Number(booking.amount_thb || 0));
+          if (revenueByDay.has(key)) revenueByDay.set(key, revenueByDay.get(key) + Number(booking.net_amount_thb || 0));
         });
         const peakRevenue = Math.max(...revenueByDay.values(), 1);
         revenueChart.innerHTML = days.map((day) => {
@@ -254,14 +300,15 @@
 
       async function loadBookings() {
         dashboardMessage.textContent = "กำลังโหลดข้อมูล...";
-        const query = new URLSearchParams({ select: "id,package_code,amount_thb,customer_name,customer_phone,customer_email,line_id,buddy_name,requested_slot,requested_location,customer_note,status,paid_at,created_at", status: "eq.paid", order: "paid_at.desc" });
+        const query = new URLSearchParams({ select: "id,package_code,amount_thb,net_amount_thb,stripe_fee_thb,customer_name,customer_phone,customer_email,customer_email_status,line_id,buddy_name,requested_date,requested_time,requested_location,customer_note,status,paid_at,created_at", status: "eq.paid", order: "paid_at.desc" });
         const response = await fetch(`${supabaseUrl}/rest/v1/bookings?${query}`, { headers: { apikey: supabaseKey, Authorization: `Bearer ${accessToken}` } });
         const result = await response.json();
         if (!response.ok) throw new Error(result.message || "ไม่สามารถโหลดรายการจองได้");
         bookings = result;
         document.querySelector("[data-count]").textContent = bookings.length;
-        document.querySelector("[data-total]").textContent = money(bookings.reduce((sum, booking) => sum + Number(booking.amount_thb || 0), 0));
+        document.querySelector("[data-total]").textContent = money(bookings.reduce((sum, booking) => sum + Number(booking.net_amount_thb || 0), 0));
         document.querySelector("[data-packages]").textContent = new Set(bookings.map((booking) => booking.package_code)).size;
+        document.querySelector("[data-fee-total]").textContent = money(bookings.reduce((sum, booking) => sum + Number(booking.stripe_fee_thb || 0), 0));
         dashboardMessage.textContent = "";
         renderDashboardInsights();
         render();
@@ -298,6 +345,10 @@
 
       searchInput.addEventListener("input", render);
       packageFilter.addEventListener("change", render);
+      document.querySelectorAll("[data-dashboard-tab]").forEach((tab) => tab.addEventListener("click", () => showDashboardView(tab.dataset.dashboardTab)));
+      document.querySelector("[data-calendar-previous]").addEventListener("click", () => { calendarMonth = new Date(calendarMonth.getFullYear(), calendarMonth.getMonth() - 1, 1); renderCalendar(); });
+      document.querySelector("[data-calendar-next]").addEventListener("click", () => { calendarMonth = new Date(calendarMonth.getFullYear(), calendarMonth.getMonth() + 1, 1); renderCalendar(); });
+      document.querySelector("[data-calendar-today]").addEventListener("click", () => { calendarMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1); renderCalendar(); });
       document.querySelector("[data-export]").addEventListener("click", downloadCsv);
       document.querySelector("[data-logout]").addEventListener("click", () => { accessToken = ""; bookings = []; dashboard.hidden = true; siteHeader.hidden = true; pageShell.classList.remove("admin-shell--dashboard"); pageShell.classList.add("admin-shell--auth"); loginPanel.hidden = false; loginForm.reset(); });
     </script>

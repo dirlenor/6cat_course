@@ -60,21 +60,31 @@
 
           <section class="booking-section" aria-labelledby="schedule-title">
             <h2 id="schedule-title">รายละเอียดการเรียน</h2>
-            <p class="booking-section__help" data-schedule-help>เลือกรอบที่คุณสะดวกจากรอบว่างที่เปิดรับ</p>
+            <p class="booking-section__help" data-schedule-help>เลือกวันที่และเวลาที่สะดวก แล้วทีมงานจะยืนยันรอบเรียนทางอีเมล</p>
             <div class="form-grid form-grid--schedule" data-schedule-fields>
               <div class="field">
-                <label for="slot">รอบเรียน</label>
-                <select id="slot" name="slot" required>
-                  <option value="">เลือกรอบเรียน</option>
+                <label for="course-date">วันที่เรียน</label>
+                <input id="course-date" name="courseDate" type="date" required />
+                <p class="field__help">เลือกวันล่วงหน้าอย่างน้อย 2 วัน</p>
+              </div>
+              <div class="field">
+                <label for="course-time">เวลาเรียน</label>
+                <select id="course-time" name="courseTime" required>
+                  <option value="">เลือกเวลาเรียน</option>
+                  <option value="10:00">10:00 น.</option>
+                  <option value="13:00">13:00 น.</option>
+                  <option value="16:00">16:00 น.</option>
                 </select>
-                <p class="field__help">รอบว่างจริงจะดึงจากระบบเมื่อเชื่อม Supabase</p>
+                <p class="field__help">เวลาเริ่มต้น ทีมงานจะยืนยันอีกครั้ง</p>
               </div>
               <div class="field" data-location-field>
                 <label for="location">สถานที่เรียน</label>
                 <select id="location" name="location" required>
                   <option value="">เลือกสถานที่เรียน</option>
+                  <option value="6CAT Academy">6CAT Academy</option>
+                  <option value="On-site (ระบุในหมายเหตุ)">On-site (ระบุในหมายเหตุ)</option>
                 </select>
-                <p class="field__help">ค่าเดินทางจะแสดงก่อนชำระเงิน</p>
+                <p class="field__help">หากเป็น On-site กรุณาแจ้งรายละเอียดในหมายเหตุ</p>
               </div>
             </div>
             <p class="booking-notice" data-online-notice hidden><img src="./assets/booking-icons/lightbulb.png" alt="" />คอร์สนี้เรียนได้ทันทีหลังชำระเงิน ระบบจะส่งสิทธิ์เข้าเรียนไปยังอีเมลที่ระบุ</p>

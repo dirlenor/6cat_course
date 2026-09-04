@@ -6,7 +6,7 @@ const LOCAL_ORIGINS = new Set(["http://localhost:4502", "http://127.0.0.1:4502"]
 
 const packages = {
   "online-course": { name: "ONLINE COURSE", amountThb: 990, needsSlot: false, needsLocation: false },
-  "live-online": { name: "PRIVATE LIVE ONLINE", amountThb: 2999, needsSlot: true, needsLocation: false },
+  "live-online": { name: "PRIVATE LIVE ONLINE", amountThb: 2999, needsSlot: true, needsLocation: false, defaultLocation: "Online — Google Meet / Zoom" },
   solo: { name: "SOLO", amountThb: 3999, needsSlot: true, needsLocation: true },
   buddy: { name: "BUDDY", amountThb: 5999, needsSlot: true, needsLocation: true },
 } as const;
@@ -17,6 +17,20 @@ function text(value: unknown, maxLength: number, required = false) {
   const result = typeof value === "string" ? value.trim() : "";
   if ((required && !result) || result.length > maxLength) throw new Error("ข้อมูลการจองไม่ถูกต้อง");
   return result || null;
+}
+
+function courseDate(value: unknown, required = false) {
+  const result = text(value, 10, required);
+  if (!result) return null;
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(result) || Number.isNaN(Date.parse(`${result}T00:00:00Z`))) throw new Error("วันที่เรียนไม่ถูกต้อง");
+  return result;
+}
+
+function courseTime(value: unknown, required = false) {
+  const result = text(value, 5, required);
+  if (!result) return null;
+  if (!new Set(["10:00", "13:00", "16:00"]).has(result)) throw new Error("เวลาเรียนไม่ถูกต้อง");
+  return result;
 }
 
 function createStripeClient() {
@@ -44,6 +58,11 @@ export default {
       const customerPhone = text(payload.phone, 40, true)!;
       const customerEmail = text(payload.email, 254, true)!;
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(customerEmail)) throw new Error("อีเมลไม่ถูกต้อง");
+      const requestedDate = courseDate(payload.courseDate, selected.needsSlot);
+      const requestedTime = courseTime(payload.courseTime, selected.needsSlot);
+      const requestedLocation = selected.needsLocation
+        ? text(payload.location, 160, true)
+        : packageCode === "live-online" ? "Online — Google Meet / Zoom" : null;
 
       const { data: booking, error: bookingError } = await ctx.supabaseAdmin
         .from("bookings")
@@ -55,8 +74,10 @@ export default {
           customer_email: customerEmail,
           line_id: text(payload.lineId, 120),
           buddy_name: text(payload.buddyName, 120),
-          requested_slot: text(payload.slot, 160, selected.needsSlot),
-          requested_location: text(payload.location, 160, selected.needsLocation),
+          requested_slot: requestedDate && requestedTime ? `${requestedDate} ${requestedTime}` : null,
+          requested_date: requestedDate,
+          requested_time: requestedTime,
+          requested_location: requestedLocation,
           customer_note: text(payload.note, 2000),
         })
         .select("id")
@@ -75,7 +96,7 @@ export default {
           quantity: 1,
         }],
         metadata: { booking_id: booking.id, package_code: packageCode },
-        payment_intent_data: { metadata: { booking_id: booking.id } },
+        payment_intent_data: { metadata: { booking_id: booking.id }, receipt_email: customerEmail },
         success_url: `${SITE_URL}/booking-success.html?session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${SITE_URL}/booking-cancel.html?booking_id=${booking.id}`,
       }, { idempotencyKey: booking.id });
