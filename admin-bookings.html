@@ -219,7 +219,7 @@
               <form class="slot-manager__form" data-slot-manager-form>
                 <label>แพ็กเกจ<select name="packageCode"><option value="live-online">Private Live Online</option><option value="solo">Solo</option><option value="buddy">Buddy</option></select></label>
                 <label>เริ่มดูวันที่<input name="weekAnchor" type="date" required /></label>
-                <label>สถานที่ / ช่องทาง<input name="location" value="Online — Google Meet / Zoom" maxlength="160" required /></label>
+                <label>สถานที่ / ช่องทาง<select name="location" data-slot-location required></select></label>
                 <label>รับได้<input name="capacity" type="number" min="1" max="20" value="1" required /></label>
                 <button class="admin-button" type="submit">สร้างรอบ</button>
                 <div class="slot-manager__days" data-slot-generator-days></div>
@@ -328,9 +328,10 @@
         const packageCode = slotManagerForm.elements.packageCode.value;
         const location = slotManagerForm.elements.location;
         const isOnline = packageCode === "live-online";
-        location.readOnly = isOnline;
-        if (isOnline) location.value = "Online — Google Meet / Zoom";
-        else if (location.value === "Online — Google Meet / Zoom") location.value = "6CAT Academy";
+        const locations = isOnline
+          ? ["Online — Google Meet / Zoom"]
+          : ["Central นอร์ทวิว", "Central เวสเกต", "Espanard แคลาย"];
+        location.innerHTML = locations.map((name) => `<option value="${escapeHtml(name)}">${escapeHtml(name)}</option>`).join("");
       }
 
       function generatorDates() {
