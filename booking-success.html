@@ -15,12 +15,13 @@
       </a>
       <section class="booking-return__card" aria-live="polite">
         <p class="booking-return__eyebrow">PAYMENT STATUS</p>
-        <h1>กำลังยืนยัน<br />การชำระเงิน</h1>
+        <h1 data-payment-heading>กำลังยืนยัน<br />การชำระเงิน</h1>
         <p data-payment-message>กำลังตรวจสอบกับระบบ โปรดรอสักครู่</p>
         <a class="button button--primary" href="./index.html">กลับหน้าแรก <span aria-hidden="true">→</span></a>
       </section>
     </main>
     <script>
+      const heading = document.querySelector("[data-payment-heading]");
       const message = document.querySelector("[data-payment-message]");
       const sessionId = new URLSearchParams(window.location.search).get("session_id");
       const endpoint = document.body.dataset.checkoutStatusEndpoint;
@@ -36,6 +37,7 @@
           const result = await response.json();
           if (result.status === "paid") {
             document.title = "ชำระเงินสำเร็จ | 6CAT Academy";
+            heading.innerHTML = "ชำระเงิน<br />สำเร็จแล้ว";
             message.textContent = "ชำระเงินสำเร็จแล้ว เราจะส่งรายละเอียดการเรียนให้ทางอีเมลเร็ว ๆ นี้";
             return;
           }
