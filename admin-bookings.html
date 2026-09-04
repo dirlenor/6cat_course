@@ -251,6 +251,7 @@
       const slotManagerList = document.querySelector("[data-slot-manager-list]");
       const slotGeneratorDays = document.querySelector("[data-slot-generator-days]");
       const slotGeneratorCount = document.querySelector("[data-slot-generator-count]");
+      const adminSessionKey = "6cat-admin-session";
       let accessToken = "";
       let bookings = [];
       let courseSlots = [];
@@ -271,6 +272,32 @@
         const result = await response.json();
         if (!response.ok) throw new Error(result.msg || result.message || "เข้าสู่ระบบไม่สำเร็จ");
         return result;
+      }
+
+      function rememberSession(session) {
+        if (session?.access_token && session?.refresh_token) sessionStorage.setItem(adminSessionKey, JSON.stringify(session));
+      }
+
+      function forgetSession() {
+        sessionStorage.removeItem(adminSessionKey);
+      }
+
+      async function restoreSession() {
+        const stored = sessionStorage.getItem(adminSessionKey);
+        if (!stored) return;
+        try {
+          const session = JSON.parse(stored);
+          const response = await fetch(`${supabaseUrl}/auth/v1/user`, { headers: { apikey: supabaseKey, Authorization: `Bearer ${session.access_token}` } });
+          if (response.ok) {
+            session.user = await response.json();
+            await openDashboard(session);
+            return;
+          }
+          if (!session.refresh_token) throw new Error("Session หมดอายุ");
+          await openDashboard(await auth("token?grant_type=refresh_token", { refresh_token: session.refresh_token }));
+        } catch (_) {
+          forgetSession();
+        }
       }
 
       function render() {
@@ -417,6 +444,7 @@
 
       async function openDashboard(session) {
         accessToken = session.access_token;
+        rememberSession(session);
         document.querySelector("[data-admin-email]").textContent = session.user.email;
         loginPanel.hidden = true;
         pageShell.classList.remove("admin-shell--auth");
@@ -488,9 +516,22 @@
         try { await courseSlotRequest(`?id=eq.${encodeURIComponent(slot.id)}`, { method: "PATCH", headers: { Prefer: "return=minimal" }, body: JSON.stringify({ is_open: !slot.is_open }) }); await loadCourseSlots(); }
         catch (error) { slotManagerMessage.textContent = error.message; button.disabled = false; }
       });
-      document.querySelector("[data-logout]").addEventListener("click", () => { accessToken = ""; bookings = []; courseSlots = []; dashboard.hidden = true; siteHeader.hidden = true; pageShell.classList.remove("admin-shell--dashboard"); pageShell.classList.add("admin-shell--auth"); loginPanel.hidden = false; loginForm.reset(); });
+      document.querySelector("[data-logout]").addEventListener("click", async () => {
+        if (accessToken) await fetch(`${supabaseUrl}/auth/v1/logout`, { method: "POST", headers: { apikey: supabaseKey, Authorization: `Bearer ${accessToken}` } }).catch(() => null);
+        forgetSession();
+        accessToken = "";
+        bookings = [];
+        courseSlots = [];
+        dashboard.hidden = true;
+        siteHeader.hidden = true;
+        pageShell.classList.remove("admin-shell--dashboard");
+        pageShell.classList.add("admin-shell--auth");
+        loginPanel.hidden = false;
+        loginForm.reset();
+      });
       syncSlotLocation();
       renderSlotGeneratorDays(true);
+      restoreSession();
     </script>
   </body>
 </html>
