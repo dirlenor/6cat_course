@@ -29,6 +29,43 @@ function invoiceNumber(value: unknown) {
   return `6CAT-${String(value || "").slice(-10).toUpperCase()}`;
 }
 
+async function sendLineAdminNotification(booking: Record<string, unknown>) {
+  const channelAccessToken = Deno.env.get("LINE_ADMIN_CHANNEL_ACCESS_TOKEN");
+  const recipientId = Deno.env.get("LINE_ADMIN_RECIPIENT_ID");
+  if (!channelAccessToken || !recipientId) return;
+
+  const total = `฿${Number(booking.amount_thb || 0).toLocaleString("th-TH")}`;
+  const sessionId = String(booking.stripe_checkout_session_id || "");
+  const message = [
+    "🔔 มีการจองใหม่ · ชำระเงินแล้ว",
+    "",
+    `ผู้เรียน: ${booking.customer_name || "-"}`,
+    `แพ็กเกจ: ${packageName(booking.package_code)}`,
+    `ยอดชำระ: ${total}`,
+    `วันเรียน: ${formatSchedule(booking)}`,
+    `ติดต่อ: ${booking.customer_phone || "-"}`,
+    `อีเมล: ${booking.customer_email || "-"}`,
+    "",
+    `ดูใบยืนยัน: ${SITE_URL}/booking-invoice.html?session_id=${encodeURIComponent(sessionId)}`,
+  ].join("\n");
+
+  try {
+    const response = await fetch("https://api.line.me/v2/bot/message/push", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${channelAccessToken}`,
+        "Content-Type": "application/json",
+        "X-Line-Retry-Key": crypto.randomUUID(),
+      },
+      body: JSON.stringify({ to: recipientId, messages: [{ type: "text", text: message }] }),
+    });
+    if (!response.ok) console.error("LINE admin notification failed", response.status, await response.text());
+  } catch (error) {
+    // ponytail: LINE outage must not make Stripe retry a payment webhook; inspect Edge Function logs for delivery errors.
+    console.error("LINE admin notification failed", error);
+  }
+}
+
 function customerInvoiceEmail(booking: Record<string, unknown>) {
   const total = `฿${Number(booking.amount_thb || 0).toLocaleString("th-TH")}`;
   const sessionId = String(booking.stripe_checkout_session_id || "");
@@ -114,10 +151,19 @@ export default {
       if (bookingId) {
         if ((event.type === "checkout.session.completed" || event.type === "checkout.session.async_payment_succeeded") && (session.payment_status === "paid" || event.type === "checkout.session.async_payment_succeeded")) {
           const paymentIntentId = typeof session.payment_intent === "string" ? session.payment_intent : null;
-          const { error } = await ctx.supabaseAdmin.from("bookings").update({ status: "paid", stripe_checkout_session_id: session.id, stripe_payment_intent_id: paymentIntentId, paid_at: new Date().toISOString(), updated_at: new Date().toISOString() }).eq("id", bookingId);
+          const { data: paidBooking, error } = await ctx.supabaseAdmin
+            .from("bookings")
+            .update({ status: "paid", stripe_checkout_session_id: session.id, stripe_payment_intent_id: paymentIntentId, paid_at: new Date().toISOString(), updated_at: new Date().toISOString() })
+            .eq("id", bookingId)
+            .eq("status", "pending_payment")
+            .select("id, package_code, amount_thb, customer_name, customer_email, customer_phone, buddy_name, requested_date, requested_time, requested_location, stripe_checkout_session_id")
+            .maybeSingle();
           if (error) return new Response("Could not update booking", { status: 500 });
-          if (paymentIntentId) await updateStripeFee(stripe, bookingId, paymentIntentId, ctx.supabaseAdmin);
-          await sendCustomerConfirmation(ctx.supabaseAdmin, bookingId);
+          if (paidBooking) {
+            if (paymentIntentId) await updateStripeFee(stripe, bookingId, paymentIntentId, ctx.supabaseAdmin);
+            await sendCustomerConfirmation(ctx.supabaseAdmin, bookingId);
+            await sendLineAdminNotification(paidBooking);
+          }
         } else if (event.type === "checkout.session.async_payment_failed" || event.type === "checkout.session.expired") {
           const status = event.type === "checkout.session.expired" ? "expired" : "payment_failed";
           const { data: cancelledBooking, error } = await ctx.supabaseAdmin
