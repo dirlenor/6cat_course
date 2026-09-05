@@ -50,6 +50,13 @@ button, input, select, textarea { font: inherit; }
 .course-slot-week-nav button { width: 28px; height: 28px; border: 1px solid var(--line); border-radius: 50%; background: var(--color-bg-white); color: var(--ink); cursor: pointer; font: inherit; }
 .course-slot-week-nav button:hover:not(:disabled), .course-slot-week-nav button:focus-visible { border-color: var(--orange); color: var(--orange); outline: 0; }
 .course-slot-week-nav button:disabled { cursor: not-allowed; opacity: .38; }
+.course-slot-week-nav [data-slot-week-label] { display: inline-block; min-width: 150px; text-align: center; }
+.course-slot-days.is-loading, .course-slot-times.is-loading { opacity: .45; pointer-events: none; }
+.course-slot-days.is-sliding-next, .course-slot-times.is-sliding-next, [data-slot-week-label].is-sliding-next { animation: course-slot-slide-next 360ms cubic-bezier(.22,.61,.36,1) both; }
+.course-slot-days.is-sliding-previous, .course-slot-times.is-sliding-previous, [data-slot-week-label].is-sliding-previous { animation: course-slot-slide-previous 360ms cubic-bezier(.22,.61,.36,1) both; }
+@keyframes course-slot-slide-next { from { opacity: .15; transform: translateX(26px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes course-slot-slide-previous { from { opacity: .15; transform: translateX(-26px); } to { opacity: 1; transform: translateX(0); } }
+@media (prefers-reduced-motion: reduce) { .course-slot-days.is-sliding-next, .course-slot-times.is-sliding-next, [data-slot-week-label].is-sliding-next, .course-slot-days.is-sliding-previous, .course-slot-times.is-sliding-previous, [data-slot-week-label].is-sliding-previous { animation: none; } }
 .course-slot-days { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 8px; }
 .course-slot-day { display: grid; justify-items: center; gap: 3px; min-height: 104px; padding: 11px 5px; border: 1px solid var(--line); border-radius: 12px; background: var(--color-bg-white); color: var(--ink); cursor: pointer; transition: transform 180ms ease, border-color 180ms ease, background 180ms ease; }
 .course-slot-day:hover:not(:disabled), .course-slot-day:focus-visible, .course-slot-day.is-selected { border-color: var(--orange); background: #fff3ec; outline: 0; transform: translateY(-2px); }

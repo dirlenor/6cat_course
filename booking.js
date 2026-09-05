@@ -25,6 +25,7 @@ let courseSlots = [];
 let selectedDate = "";
 let selectedSlot = null;
 let weekStart = startOfDay(new Date());
+let weekDirection = 0;
 
 function startOfDay(value) { const date = new Date(value); date.setHours(0, 0, 0, 0); return date; }
 function dateKey(date) { return [date.getFullYear(), String(date.getMonth() + 1).padStart(2, "0"), String(date.getDate()).padStart(2, "0")].join("-"); }
@@ -46,7 +47,7 @@ function updateSummaryDetails() {
   document.querySelector("[data-summary-location]").textContent = isWorkshop ? workshopLocationSelect.value || "ยังไม่ได้เลือก" : selectedSlot?.location || "ยังไม่ได้เลือก";
 }
 
-function renderSlots() {
+function renderSlots(direction = weekDirection) {
   const selected = selectedPackage();
   const isWorkshop = selected?.type === "workshop";
   const today = startOfDay(new Date());
@@ -56,7 +57,8 @@ function renderSlots() {
     const key = dateKey(date);
     const slots = courseSlots.filter((slot) => slot.course_date === key);
     const hasOpenSlot = slots.some(isAvailable);
-    const statusText = !slots.length ? "ไม่เปิดรอบ" : hasOpenSlot ? "ว่าง" : "เต็ม";
+    const hasBooking = slots.some((slot) => Number(slot.reserved_count) > 0);
+    const statusText = !slots.length ? "ไม่เปิดรอบ" : hasOpenSlot ? "ว่าง" : hasBooking ? "มีคนจองแล้ว" : "ปิดรับจอง";
     return `<button class="course-slot-day${selectedDate === key ? " is-selected" : ""}${hasOpenSlot ? "" : " is-unavailable"}" type="button" data-slot-date="${key}" ${hasOpenSlot ? "" : "disabled"}><strong>${new Intl.DateTimeFormat("th-TH", { weekday: "short" }).format(date)}</strong><span>${date.getDate()}</span><small>${statusText}</small></button>`;
   }).join("");
   const daySlots = courseSlots.filter((slot) => slot.course_date === selectedDate);
@@ -71,27 +73,38 @@ function renderSlots() {
   } else {
     slotTimes.innerHTML = "";
   }
+  if (direction) {
+    const animationClass = direction > 0 ? "is-sliding-next" : "is-sliding-previous";
+    [slotDays, slotTimes, weekLabel].forEach((element) => {
+      element.classList.remove("is-sliding-next", "is-sliding-previous");
+      void element.offsetWidth;
+      element.classList.add(animationClass);
+      element.addEventListener("animationend", () => element.classList.remove(animationClass), { once: true });
+    });
+  }
   updateSummaryDetails();
 }
 
-async function loadSlots() {
+async function loadSlots(direction = 0) {
   const packageCode = selectedPackageCode();
   if (!packages[packageCode]?.needsSlot) return;
   const endpoint = document.body.dataset.courseSlotsEndpoint;
   if (!endpoint) return;
-  courseSlots = [];
+  weekDirection = direction;
   selectedDate = "";
   selectedSlot = null;
   slotIdInput.value = "";
-  slotDays.innerHTML = '<p class="course-slot-loading">กำลังโหลดรอบเรียน...</p>';
+  slotDays.classList.toggle("is-loading", Boolean(direction));
   slotTimes.hidden = true;
   try {
     const response = await fetch(`${endpoint}?package=${encodeURIComponent(packageCode)}&week=${encodeURIComponent(dateKey(weekStart))}`);
     const result = await response.json();
     if (!response.ok) throw new Error(result.error || "ไม่สามารถโหลดรอบเรียนได้");
     courseSlots = Array.isArray(result.slots) ? result.slots : [];
-    renderSlots();
+    slotDays.classList.remove("is-loading");
+    renderSlots(direction);
   } catch (error) {
+    slotDays.classList.remove("is-loading");
     slotDays.innerHTML = `<p class="course-slot-loading">${escapeHtml(error instanceof Error ? error.message : "ไม่สามารถโหลดรอบเรียนได้")}</p>`;
   }
   updateSummaryDetails();
@@ -118,8 +131,8 @@ function updateBookingPage() {
 }
 
 packageInputs.forEach((input) => input.addEventListener("change", updateBookingPage));
-previousWeek.addEventListener("click", () => { weekStart.setDate(weekStart.getDate() - 7); loadSlots(); });
-nextWeek.addEventListener("click", () => { weekStart.setDate(weekStart.getDate() + 7); loadSlots(); });
+previousWeek.addEventListener("click", () => { weekStart.setDate(weekStart.getDate() - 7); loadSlots(-1); });
+nextWeek.addEventListener("click", () => { weekStart.setDate(weekStart.getDate() + 7); loadSlots(1); });
 slotDays.addEventListener("click", (event) => {
   const button = event.target.closest("[data-slot-date]");
   if (!button) return;
