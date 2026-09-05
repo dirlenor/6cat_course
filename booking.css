@@ -1,5 +1,6 @@
 :root { --orange: var(--color-accent); --paper: var(--color-bg-primary); --ink: var(--color-text-primary); --muted: var(--color-text-secondary); --line: var(--color-border-light); --dark-line: rgb(255 255 255 / .22); --radius: var(--radius-lg); }
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 body { min-width: 320px; margin: 0; background: var(--paper); color: var(--ink); font-family: "Noto Sans Thai", system-ui, sans-serif; }
 button, input, select, textarea { font: inherit; }
 .booking-page { width: calc(100% - 128px); max-width: var(--container-width); padding: 26px 0 80px; margin: auto; }
