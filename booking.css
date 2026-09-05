@@ -101,10 +101,22 @@ button, input, select, textarea { font: inherit; }
 
 .booking-pay:disabled { cursor: wait; opacity: .7; }
 .booking-return { display: grid; min-height: 100vh; align-content: center; justify-items: center; gap: 42px; padding: 48px 24px; background: var(--paper); }
-.booking-return__card { width: min(100%, 620px); padding: clamp(32px, 6vw, 72px); border: 1px solid var(--line); border-radius: var(--radius); background: var(--color-bg-white); text-align: center; }
+.booking-return__card { width: min(100%, 760px); padding: clamp(32px, 6vw, 72px); border: 1px solid var(--line); border-radius: var(--radius); background: var(--color-bg-white); text-align: center; }
 .booking-return__eyebrow { margin: 0; color: var(--orange); font-family: "Bangers", "Noto Sans Thai", sans-serif; font-size: 22px; letter-spacing: .05em; }
 .booking-return__card h1 { margin: 14px 0 20px; font-size: clamp(42px, 6vw, 66px); line-height: 1.05; letter-spacing: -.05em; }
 .booking-return__card p:not(.booking-return__eyebrow) { max-width: 36ch; margin: 0 auto 30px; color: var(--muted); line-height: 1.7; }
+.booking-return__details { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin: 36px 0 20px; text-align: left; }
+.booking-return__details[hidden] { display: none; }
+.booking-return__detail-group { padding: 20px; border: 1px solid var(--line); border-radius: 14px; background: #fffdfa; }
+.booking-return__detail-group h2 { margin: 0 0 13px; font-size: 16px; }
+.booking-return__detail-group dl { display: grid; gap: 10px; margin: 0; }
+.booking-return__detail-group dl > div { display: grid; gap: 2px; padding-bottom: 10px; border-bottom: 1px solid #eee8e2; }
+.booking-return__detail-group dl > div[hidden] { display: none; }
+.booking-return__detail-group dl > div:last-child { padding-bottom: 0; border-bottom: 0; }
+.booking-return__detail-group dt { color: var(--muted); font-size: 11px; font-weight: 800; }
+.booking-return__detail-group dd { margin: 0; color: var(--ink); font-size: 14px; font-weight: 800; overflow-wrap: anywhere; }
+.booking-return__email { max-width: none !important; margin: 0 auto 28px !important; padding: 12px 14px; border-radius: 10px; background: #fff3ec; color: #a33b10 !important; font-size: 13px; font-weight: 800; }
+.booking-return__email[hidden] { display: none; }
 .booking-help img { width: 29px; height: 29px; object-fit: contain; }
 .booking-help span { color: var(--orange); font-size: 14px; font-weight: 800; }
 .booking-help b { color: var(--orange); font-size: 26px; font-weight: 400; }
@@ -113,4 +125,5 @@ button, input, select, textarea { font: inherit; }
 @media (max-width: 920px) { .booking-layout { grid-template-columns: minmax(0, 1fr) 330px; gap: 32px; } .package-options { grid-template-columns: 1fr; } .package-option { min-height: 230px; } }
 @media (max-width: 767px) { .booking-page { width: calc(100% - 48px); padding-top: 18px; } .booking-header { min-height: 68px; } .booking-brand__logo { width: 106px; } .booking-back { font-size: 13px; } .booking-back::before { font-size: 22px; } .booking-layout { grid-template-columns: 1fr; padding-top: 0; } .booking-summary { position: static; grid-row: 2; } .booking-flow { grid-row: 1; } .booking-intro { padding-top: 48px; } .booking-section:not(.booking-section--packages) { padding-top: 30px; } .booking-form { gap: 34px; } }
 @media (max-width: 620px) { .course-slot-days { grid-template-columns: repeat(4, minmax(0, 1fr)); } .course-slot-picker__heading { align-items: flex-start; flex-direction: column; gap: 4px; } }
+@media (max-width: 620px) { .booking-return { gap: 26px; padding: 26px 18px; } .booking-return__details { grid-template-columns: 1fr; margin-top: 28px; } .booking-return__detail-group { padding: 17px; } }
 @media (max-width: 479px) { .booking-page { width: calc(100% - 40px); } .booking-intro h1 { font-size: clamp(51px, 16vw, 76px); } .booking-intro h1::after { height: 4px; margin-top: 18px; } .booking-intro p { margin-top: 18px; font-size: 16px; } .package-option { min-height: 250px; padding: 21px; } .package-option:has(input:checked) { padding: 20px; } .package-option strong { font-size: 32px; } .form-grid { grid-template-columns: 1fr; } .field--full { grid-column: auto; } .booking-summary__inner { padding: 26px 22px; } .course-slot-days { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
