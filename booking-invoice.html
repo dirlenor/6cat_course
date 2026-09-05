@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="ใบยืนยันการจอง 6CAT Academy" />
+    <title>ใบยืนยันการจอง | 6CAT Academy</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./booking.css?v=20260905-invoice" />
+  </head>
+  <body data-checkout-status-endpoint="https://qmayxfnadhqzilwrtepx.supabase.co/functions/v1/checkout-status">
+    <main class="invoice-page">
+      <section class="invoice-document" data-invoice-document aria-live="polite">
+        <header class="invoice-header">
+          <a class="invoice-brand" href="./index.html" aria-label="กลับไปหน้า 6CAT Academy"><img src="./assets/brand/6cat-academy-logo.png" alt="6CAT Academy" /></a>
+          <div>
+            <p>BOOKING CONFIRMATION</p>
+            <strong>ชำระเงินแล้ว</strong>
+          </div>
+        </header>
+
+        <div class="invoice-intro">
+          <p class="invoice-kicker">ขอบคุณที่เลือกเรียนกับเรา</p>
+          <h1>ยืนยันการจอง<br />เรียบร้อยแล้ว</h1>
+          <p data-invoice-message>กำลังตรวจสอบการชำระเงินของคุณ</p>
+          <span data-invoice-number hidden></span>
+        </div>
+
+        <section class="invoice-summary" data-invoice-summary hidden>
+          <div class="invoice-customer">
+            <p class="invoice-section-label">ผู้เรียน</p>
+            <h2 data-invoice-name>-</h2>
+            <p data-invoice-email>-</p>
+            <p data-invoice-phone>-</p>
+            <p data-invoice-buddy-row hidden>ผู้เรียนร่วม: <strong data-invoice-buddy>-</strong></p>
+          </div>
+          <div class="invoice-amount">
+            <p>ยอดชำระ</p>
+            <strong data-invoice-total>฿0</strong>
+            <span>ชำระเงินสำเร็จ</span>
+          </div>
+        </section>
+
+        <section class="invoice-items" data-invoice-items hidden>
+          <div class="invoice-item">
+            <div><p class="invoice-section-label">แพ็กเกจที่เลือก</p><h2 data-invoice-package>-</h2></div>
+            <strong data-invoice-item-total>฿0</strong>
+          </div>
+          <dl class="invoice-details">
+            <div><dt>วันเรียน</dt><dd data-invoice-schedule>-</dd></div>
+            <div data-invoice-location-row hidden><dt>สถานที่ / ช่องทาง</dt><dd data-invoice-location>-</dd></div>
+            <div data-invoice-line-row hidden><dt>LINE ID</dt><dd data-invoice-line>-</dd></div>
+          </dl>
+          <div class="invoice-total"><span>ยอดชำระทั้งหมด</span><strong data-invoice-grand-total>฿0</strong></div>
+        </section>
+
+        <div class="invoice-actions" data-invoice-actions hidden>
+          <button class="invoice-button invoice-button--quiet" type="button" data-invoice-print>พิมพ์ / บันทึก PDF</button>
+          <button class="invoice-button" type="button" data-invoice-download>ดาวน์โหลดใบยืนยัน</button>
+          <a class="invoice-line" href="https://line.me/R/ti/p/@6catacademy" target="_blank" rel="noreferrer"><img src="./assets/booking-icons/line.png" alt="" aria-hidden="true" />เพิ่มเพื่อนใน LINE</a>
+        </div>
+        <p class="invoice-email" data-invoice-email-status hidden></p>
+        <footer class="invoice-footer">เก็บใบยืนยันนี้ไว้สำหรับอ้างอิง หากต้องการความช่วยเหลือ ติดต่อ 6CAT Academy ผ่าน LINE ได้เลย</footer>
+      </section>
+    </main>
+    <script>
+      const sessionId = new URLSearchParams(window.location.search).get("session_id");
+      const endpoint = document.body.dataset.checkoutStatusEndpoint;
+      const message = document.querySelector("[data-invoice-message]");
+      const summary = document.querySelector("[data-invoice-summary]");
+      const items = document.querySelector("[data-invoice-items]");
+      const actions = document.querySelector("[data-invoice-actions]");
+      const emailStatus = document.querySelector("[data-invoice-email-status]");
+      let bookingForDownload = null;
+      let attempts = 0;
+
+      const packageNames = { "online-course": "Online Course", "live-online": "Private Live Online", solo: "Solo Workshop", buddy: "Buddy Workshop" };
+      const text = (value) => String(value || "-");
+      const money = (amount) => new Intl.NumberFormat("th-TH", { style: "currency", currency: "THB", maximumFractionDigits: 0 }).format(Number(amount || 0));
+      function schedule(booking) {
+        if (!booking.requested_date) return "เรียนได้ทันทีหลังชำระเงิน";
+        const date = new Intl.DateTimeFormat("th-TH", { weekday: "long", day: "numeric", month: "long", year: "numeric" }).format(new Date(`${booking.requested_date}T00:00:00+07:00`));
+        return booking.package_code === "live-online" ? `${date} เวลา ${String(booking.requested_time || "").slice(0, 5)} น. - เรียน 4 ชั่วโมง` : `${date} - เรียน 6 ชั่วโมง`;
+      }
+      function invoiceNumber(value) { return `6CAT-${String(value || "").slice(-10).toUpperCase()}`; }
+      function setText(selector, value) { document.querySelector(selector).textContent = value; }
+      function showInvoice(booking) {
+        bookingForDownload = booking;
+        const total = money(booking.amount_thb);
+        setText("[data-invoice-name]", text(booking.customer_name));
+        setText("[data-invoice-email]", text(booking.customer_email));
+        setText("[data-invoice-phone]", text(booking.customer_phone));
+        setText("[data-invoice-package]", packageNames[booking.package_code] || text(booking.package_code));
+        setText("[data-invoice-total]", total);
+        setText("[data-invoice-item-total]", total);
+        setText("[data-invoice-grand-total]", total);
+        setText("[data-invoice-schedule]", schedule(booking));
+        setText("[data-invoice-location]", text(booking.requested_location));
+        setText("[data-invoice-line]", text(booking.line_id));
+        setText("[data-invoice-buddy]", text(booking.buddy_name));
+        setText("[data-invoice-number]", invoiceNumber(sessionId));
+        document.querySelector("[data-invoice-location-row]").hidden = !booking.requested_location;
+        document.querySelector("[data-invoice-line-row]").hidden = !booking.line_id;
+        document.querySelector("[data-invoice-buddy-row]").hidden = !booking.buddy_name;
+        summary.hidden = false; items.hidden = false; actions.hidden = false; emailStatus.hidden = false;
+        emailStatus.textContent = booking.customer_email_status === "sent" ? `ส่งอีเมลใบยืนยันไปที่ ${booking.customer_email} แล้ว` : `กำลังส่งอีเมลใบยืนยันไปที่ ${booking.customer_email}`;
+      }
+      function downloadedInvoice() {
+        const source = document.querySelector("[data-invoice-document]").cloneNode(true);
+        source.querySelector("[data-invoice-actions]")?.remove();
+        const style = `body{margin:0;background:#f5f3f1;color:#151515;font-family:Arial,sans-serif}.invoice-document{box-sizing:border-box;max-width:760px;margin:32px auto;padding:42px;background:#fff}.invoice-header,.invoice-summary,.invoice-item,.invoice-total{display:flex;justify-content:space-between;gap:24px}.invoice-header{padding-bottom:24px;border-bottom:1px solid #ddd}.invoice-header img{width:150px}.invoice-header p,.invoice-section-label{margin:0;color:#746e68;font-size:12px;font-weight:bold}.invoice-header strong{display:block;margin-top:7px;color:#ff4d0a}.invoice-intro{padding:40px 0 28px;text-align:center}.invoice-intro h1{margin:8px 0;font-size:38px}.invoice-summary{padding:26px 28px;background:#f3f2f0}.invoice-summary h2{margin:6px 0;font-size:20px}.invoice-summary p{margin:5px 0}.invoice-amount{text-align:right}.invoice-amount strong,.invoice-total strong{display:block;font-size:30px}.invoice-amount span{color:#16803f;font-weight:bold}.invoice-items{padding-top:28px}.invoice-item{padding-bottom:22px;border-bottom:1px solid #ddd}.invoice-item h2{margin:6px 0 0;font-size:20px}.invoice-item strong{font-size:20px}.invoice-details{margin:0}.invoice-details div{display:flex;justify-content:space-between;gap:24px;padding:14px 0;border-bottom:1px solid #eee}.invoice-details dt{color:#746e68}.invoice-details dd{margin:0;text-align:right;font-weight:bold}.invoice-total{padding:22px 0;font-size:18px}.invoice-email,.invoice-footer{text-align:center;color:#746e68;font-size:13px}.invoice-footer{padding-top:28px;border-top:1px solid #ddd;line-height:1.6}@media(max-width:600px){.invoice-document{margin:0;padding:24px}.invoice-summary,.invoice-header{display:block}.invoice-amount{margin-top:20px;text-align:left}.invoice-details div{display:block}.invoice-details dd{text-align:left;margin-top:5px}}`;
+        return `<!doctype html><html lang="th"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>ใบยืนยันการจอง 6CAT Academy</title><style>${style}</style></head><body>${source.outerHTML}</body></html>`;
+      }
+      document.querySelector("[data-invoice-print]").addEventListener("click", () => window.print());
+      document.querySelector("[data-invoice-download]").addEventListener("click", () => {
+        if (!bookingForDownload) return;
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(new Blob([downloadedInvoice()], { type: "text/html;charset=utf-8" }));
+        link.download = `${invoiceNumber(sessionId)}.html`;
+        link.click();
+        URL.revokeObjectURL(link.href);
+      });
+      async function checkPayment() {
+        if (!sessionId) { message.textContent = "ไม่พบเลขรายการ กรุณาติดต่อเราผ่าน LINE"; return; }
+        try {
+          const response = await fetch(`${endpoint}?session_id=${encodeURIComponent(sessionId)}`);
+          const result = await response.json();
+          if (result.status === "paid" && result.booking) { document.title = "ใบยืนยันการจอง | 6CAT Academy"; message.textContent = "เราได้รับการชำระเงินของคุณเรียบร้อยแล้ว"; showInvoice(result.booking); return; }
+          attempts += 1;
+          if (attempts < 8) return window.setTimeout(checkPayment, 1500);
+          message.textContent = "เราได้รับรายการแล้วและกำลังยืนยันการชำระเงิน โปรดตรวจสอบอีเมลอีกครั้ง";
+        } catch { message.textContent = "ไม่สามารถโหลดใบยืนยันได้ในขณะนี้ กรุณาตรวจสอบอีเมล หรือติดต่อเราผ่าน LINE"; }
+      }
+      checkPayment();
+    </script>
+  </body>
+</html>

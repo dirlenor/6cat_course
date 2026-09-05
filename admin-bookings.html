@@ -52,6 +52,7 @@
       th { background: #faf7f3; color: #6c655f; font-size: .76rem; letter-spacing: .06em; text-transform: uppercase; }
       tr:last-child td { border-bottom: 0; }
       .admin-status { display: inline-block; border-radius: 999px; background: #dcfce7; color: #166534; padding: 5px 9px; font-size: .78rem; font-weight: 800; }
+      .admin-invoice-link { display: inline-flex; margin-top: 8px; color: #b9410f; font-size: .76rem; font-weight: 800; text-decoration: underline; text-underline-offset: 3px; }
       .admin-detail { display: block; color: #6c655f; font-size: .84rem; line-height: 1.5; }
       body:has(.admin-dashboard:not([hidden])) { background: #f7f5f2; }
       .admin-shell--dashboard { width: 100%; max-width: none; margin: 0; padding: 0; }
@@ -324,7 +325,10 @@
           const searchable = [booking.customer_name, booking.customer_email, booking.customer_phone, booking.line_id].join(" ").toLowerCase();
           return (!term || searchable.includes(term)) && (!selectedPackage || booking.package_code === selectedPackage);
         });
-        bookingsBody.innerHTML = visible.map((booking) => `<tr><td><strong>${escapeHtml(booking.customer_name)}</strong><span class="admin-detail">${escapeHtml(booking.customer_email)}<br />${escapeHtml(booking.customer_phone)}${booking.line_id ? `<br />LINE: ${escapeHtml(booking.line_id)}` : ""}</span></td><td><strong>${escapeHtml(packageLabel(booking.package_code))}</strong>${booking.buddy_name ? `<span class="admin-detail">คู่เรียน: ${escapeHtml(booking.buddy_name)}</span>` : ""}</td><td>${money(booking.amount_thb)}<span class="admin-detail">สุทธิ: ${booking.net_amount_thb == null ? "รอ Stripe" : money(booking.net_amount_thb)}</span></td><td><span class="admin-detail">${booking.requested_date ? `วันที่: ${escapeHtml(booking.requested_date)} ${escapeHtml(booking.requested_time || "")}<br />` : "-"}${booking.requested_location ? `สถานที่: ${escapeHtml(booking.requested_location)}<br />` : ""}อีเมล: ${escapeHtml(booking.customer_email_status)}</span></td><td>${dateTime(booking.paid_at || booking.created_at)}</td><td><span class="admin-status">${escapeHtml(booking.status)}</span></td></tr>`).join("") || "<tr><td colspan=\"6\">ไม่พบรายการ</td></tr>";
+        bookingsBody.innerHTML = visible.map((booking) => {
+          const invoiceLink = booking.stripe_checkout_session_id ? `<a class="admin-invoice-link" href="./booking-invoice.html?session_id=${encodeURIComponent(booking.stripe_checkout_session_id)}" target="_blank" rel="noreferrer">ดูใบยืนยัน</a>` : "";
+          return `<tr><td><strong>${escapeHtml(booking.customer_name)}</strong><span class="admin-detail">${escapeHtml(booking.customer_email)}<br />${escapeHtml(booking.customer_phone)}${booking.line_id ? `<br />LINE: ${escapeHtml(booking.line_id)}` : ""}</span></td><td><strong>${escapeHtml(packageLabel(booking.package_code))}</strong>${booking.buddy_name ? `<span class="admin-detail">คู่เรียน: ${escapeHtml(booking.buddy_name)}</span>` : ""}</td><td>${money(booking.amount_thb)}<span class="admin-detail">สุทธิ: ${booking.net_amount_thb == null ? "รอ Stripe" : money(booking.net_amount_thb)}</span></td><td><span class="admin-detail">${booking.requested_date ? `วันที่: ${escapeHtml(booking.requested_date)} ${escapeHtml(booking.requested_time || "")}<br />` : "-"}${booking.requested_location ? `สถานที่: ${escapeHtml(booking.requested_location)}<br />` : ""}อีเมล: ${escapeHtml(booking.customer_email_status)}</span></td><td>${dateTime(booking.paid_at || booking.created_at)}</td><td><span class="admin-status">${escapeHtml(booking.status)}</span>${invoiceLink}</td></tr>`;
+        }).join("") || "<tr><td colspan=\"6\">ไม่พบรายการ</td></tr>";
       }
 
       function renderCalendar() {
@@ -469,7 +473,7 @@
 
       async function loadBookings() {
         dashboardMessage.textContent = "กำลังโหลดข้อมูล...";
-        const query = new URLSearchParams({ select: "id,package_code,amount_thb,net_amount_thb,stripe_fee_thb,customer_name,customer_phone,customer_email,customer_email_status,line_id,buddy_name,requested_date,requested_time,requested_location,customer_note,status,paid_at,created_at", status: "eq.paid", order: "paid_at.desc" });
+        const query = new URLSearchParams({ select: "id,package_code,amount_thb,net_amount_thb,stripe_fee_thb,customer_name,customer_phone,customer_email,customer_email_status,line_id,buddy_name,requested_date,requested_time,requested_location,customer_note,stripe_checkout_session_id,status,paid_at,created_at", status: "eq.paid", order: "paid_at.desc" });
         const response = await fetch(`${supabaseUrl}/rest/v1/bookings?${query}`, { headers: { apikey: supabaseKey, Authorization: `Bearer ${accessToken}` } });
         const result = await response.json();
         if (!response.ok) throw new Error(result.message || "ไม่สามารถโหลดรายการจองได้");

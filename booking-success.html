@@ -6,7 +6,7 @@
     <meta name="description" content="ยืนยันการชำระเงิน 6CAT Academy" />
     <title>กำลังยืนยันการชำระเงิน | 6CAT Academy</title>
     <link rel="stylesheet" href="./styles.css" />
-    <link rel="stylesheet" href="./booking.css" />
+    <link rel="stylesheet" href="./booking.css?v=20260905" />
   </head>
   <body data-checkout-status-endpoint="https://qmayxfnadhqzilwrtepx.supabase.co/functions/v1/checkout-status">
     <main class="booking-return">
@@ -17,78 +17,15 @@
         <p class="booking-return__eyebrow">PAYMENT STATUS</p>
         <h1 data-payment-heading>กำลังยืนยัน<br />การชำระเงิน</h1>
         <p data-payment-message>กำลังตรวจสอบกับระบบ โปรดรอสักครู่</p>
-        <div class="booking-return__details" data-booking-details hidden>
-          <div class="booking-return__detail-group">
-            <h2>ข้อมูลผู้เรียน</h2>
-            <dl>
-              <div><dt>ชื่อ-นามสกุล</dt><dd data-booking-name>-</dd></div>
-              <div><dt>อีเมล</dt><dd data-booking-email>-</dd></div>
-              <div><dt>เบอร์โทรศัพท์</dt><dd data-booking-phone>-</dd></div>
-              <div data-booking-line-row hidden><dt>LINE ID</dt><dd data-booking-line>-</dd></div>
-              <div data-booking-buddy-row hidden><dt>ผู้เรียนร่วม</dt><dd data-booking-buddy>-</dd></div>
-            </dl>
-          </div>
-          <div class="booking-return__detail-group">
-            <h2>สรุปการจอง</h2>
-            <dl>
-              <div><dt>แพ็กเกจ</dt><dd data-booking-package>-</dd></div>
-              <div><dt>ยอดชำระ</dt><dd data-booking-total>-</dd></div>
-              <div><dt>วันเรียน</dt><dd data-booking-schedule>-</dd></div>
-              <div data-booking-location-row hidden><dt>สถานที่ / ช่องทาง</dt><dd data-booking-location>-</dd></div>
-            </dl>
-          </div>
-        </div>
-        <p class="booking-return__email" data-email-message hidden></p>
-        <a class="button button--primary" href="./index.html">กลับหน้าแรก <span aria-hidden="true">→</span></a>
+        <p class="booking-return__loading">กำลังเปิดใบยืนยันการจองของคุณ</p>
       </section>
     </main>
     <script>
       const heading = document.querySelector("[data-payment-heading]");
       const message = document.querySelector("[data-payment-message]");
-      const details = document.querySelector("[data-booking-details]");
-      const emailMessage = document.querySelector("[data-email-message]");
       const sessionId = new URLSearchParams(window.location.search).get("session_id");
       const endpoint = document.body.dataset.checkoutStatusEndpoint;
       let attempts = 0;
-
-      const packageNames = {
-        "online-course": "Online Course",
-        "live-online": "Private Live Online",
-        solo: "Solo Workshop",
-        buddy: "Buddy Workshop",
-      };
-      const text = (value) => String(value || "-");
-      const money = (amount) => new Intl.NumberFormat("th-TH", { style: "currency", currency: "THB", maximumFractionDigits: 0 }).format(Number(amount || 0));
-
-      function schedule(booking) {
-        if (!booking.requested_date) return "เรียนได้ทันทีหลังชำระเงิน";
-        const date = new Intl.DateTimeFormat("th-TH", { weekday: "long", day: "numeric", month: "long", year: "numeric" }).format(new Date(`${booking.requested_date}T00:00:00+07:00`));
-        if (booking.package_code === "live-online") return `${date} · ${String(booking.requested_time || "").slice(0, 5)} น. · 4 ชั่วโมง`;
-        return `${date} · เรียน 6 ชั่วโมง`;
-      }
-
-      function showBooking(booking) {
-        document.querySelector("[data-booking-name]").textContent = text(booking.customer_name);
-        document.querySelector("[data-booking-email]").textContent = text(booking.customer_email);
-        document.querySelector("[data-booking-phone]").textContent = text(booking.customer_phone);
-        document.querySelector("[data-booking-package]").textContent = packageNames[booking.package_code] || text(booking.package_code);
-        document.querySelector("[data-booking-total]").textContent = money(booking.amount_thb);
-        document.querySelector("[data-booking-schedule]").textContent = schedule(booking);
-        const lineRow = document.querySelector("[data-booking-line-row]");
-        const buddyRow = document.querySelector("[data-booking-buddy-row]");
-        const locationRow = document.querySelector("[data-booking-location-row]");
-        lineRow.hidden = !booking.line_id;
-        buddyRow.hidden = !booking.buddy_name;
-        locationRow.hidden = !booking.requested_location;
-        document.querySelector("[data-booking-line]").textContent = text(booking.line_id);
-        document.querySelector("[data-booking-buddy]").textContent = text(booking.buddy_name);
-        document.querySelector("[data-booking-location]").textContent = text(booking.requested_location);
-        details.hidden = false;
-        emailMessage.hidden = false;
-        emailMessage.textContent = booking.customer_email_status === "sent"
-          ? `ส่งอีเมลยืนยันไปที่ ${booking.customer_email} แล้ว`
-          : `กำลังส่งอีเมลยืนยันไปที่ ${booking.customer_email}`;
-      }
 
       async function checkPayment() {
         if (!sessionId) {
@@ -99,10 +36,7 @@
           const response = await fetch(`${endpoint}?session_id=${encodeURIComponent(sessionId)}`);
           const result = await response.json();
           if (result.status === "paid" && result.booking) {
-            document.title = "ชำระเงินสำเร็จ | 6CAT Academy";
-            heading.innerHTML = "ชำระเงิน<br />สำเร็จแล้ว";
-            message.textContent = "เราได้รับการชำระเงินของคุณเรียบร้อยแล้ว";
-            showBooking(result.booking);
+            window.location.replace(`./booking-invoice.html?session_id=${encodeURIComponent(sessionId)}`);
             return;
           }
           attempts += 1;
