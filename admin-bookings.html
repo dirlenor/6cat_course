@@ -80,6 +80,7 @@
       .admin-shell--dashboard .admin-stat:nth-child(4)::after { border-color: #f5f0fc; }
       .admin-shell--dashboard .admin-stat span { position: relative; z-index: 1; color: #716b65; }
       .admin-shell--dashboard .admin-stat strong { position: relative; z-index: 1; font-size: clamp(1.55rem, 2.4vw, 2.25rem); }
+      .admin-shell--dashboard .admin-stat small { position: relative; z-index: 1; display: block; margin-top: 5px; color: #8a837c; font-size: .72rem; font-weight: 700; }
       .dashboard-insights { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(280px, .65fr); gap: 18px; }
       .dashboard-card { min-width: 0; padding: 22px; border: 1px solid #e4ddd6; border-radius: 16px; background: #fffdfa; }
       .dashboard-card__heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 20px; }
@@ -203,12 +204,12 @@
           <div class="dashboard-view" data-dashboard-view="overview">
           <div class="admin-summary" aria-label="สรุปข้อมูลการขาย">
             <div class="admin-stat"><span>ชำระแล้ว</span><strong data-count>0</strong></div>
-            <div class="admin-stat"><span>ยอดสุทธิหลัง Stripe</span><strong data-total>฿0</strong></div>
+            <div class="admin-stat"><span>ยอดชำระทั้งหมด</span><strong data-gross-total>฿0</strong><small data-net-total>สุทธิหลัง Stripe ฿0</small></div>
             <div class="admin-stat"><span>แพ็กเกจที่ขาย</span><strong data-packages>0</strong></div>
-            <div class="admin-stat"><span>ค่าธรรมเนียม Stripe</span><strong data-fee-total>฿0</strong></div>
+            <div class="admin-stat"><span>ค่าธรรมเนียม Stripe</span><strong data-fee-total>฿0</strong><small data-fee-note>รอยืนยันจาก Stripe</small></div>
           </div>
           <div class="dashboard-insights" id="dashboard-insights">
-            <section class="dashboard-card dashboard-revenue"><div class="dashboard-card__heading"><div><h2>รายได้ 7 วันล่าสุด</h2><span>คำนวณจากรายการที่ชำระสำเร็จ</span></div></div><div class="dashboard-bars" data-revenue-chart></div></section>
+            <section class="dashboard-card dashboard-revenue"><div class="dashboard-card__heading"><div><h2>ยอดชำระ 7 วันล่าสุด</h2><span>คำนวณจากรายการที่ชำระสำเร็จทั้งหมด</span></div></div><div class="dashboard-bars" data-revenue-chart></div></section>
             <section class="dashboard-card"><div class="dashboard-card__heading"><div><h2>สัดส่วนแพ็กเกจ</h2><span>ตามจำนวนรายการชำระแล้ว</span></div></div><div class="dashboard-breakdown" data-package-breakdown></div></section>
             <section class="dashboard-card dashboard-recent"><div class="dashboard-card__heading"><div><h2>รายการชำระล่าสุด</h2><span>แสดง 4 รายการล่าสุด</span></div></div><div class="dashboard-recent-list" data-recent-bookings></div></section>
           </div>
@@ -446,7 +447,7 @@
         const revenueByDay = new Map(days.map((day) => [dayKey(day), 0]));
         bookings.forEach((booking) => {
           const key = dayKey(booking.paid_at || booking.created_at);
-          if (revenueByDay.has(key)) revenueByDay.set(key, revenueByDay.get(key) + Number(booking.net_amount_thb || 0));
+          if (revenueByDay.has(key)) revenueByDay.set(key, revenueByDay.get(key) + Number(booking.amount_thb || 0));
         });
         const peakRevenue = Math.max(...revenueByDay.values(), 1);
         revenueChart.innerHTML = days.map((day) => {
@@ -479,9 +480,16 @@
         if (!response.ok) throw new Error(result.message || "ไม่สามารถโหลดรายการจองได้");
         bookings = result;
         document.querySelector("[data-count]").textContent = bookings.length;
-        document.querySelector("[data-total]").textContent = money(bookings.reduce((sum, booking) => sum + Number(booking.net_amount_thb || 0), 0));
+        const grossTotal = bookings.reduce((sum, booking) => sum + Number(booking.amount_thb || 0), 0);
+        const feeConfirmed = bookings.filter((booking) => booking.net_amount_thb != null && booking.stripe_fee_thb != null);
+        const netTotal = feeConfirmed.reduce((sum, booking) => sum + Number(booking.net_amount_thb), 0);
+        document.querySelector("[data-gross-total]").textContent = money(grossTotal);
+        document.querySelector("[data-net-total]").textContent = feeConfirmed.length === bookings.length
+          ? `สุทธิหลัง Stripe ${money(netTotal)}`
+          : `สุทธิหลัง Stripe ${money(netTotal)} · ยืนยันแล้ว ${feeConfirmed.length}/${bookings.length}`;
         document.querySelector("[data-packages]").textContent = new Set(bookings.map((booking) => booking.package_code)).size;
-        document.querySelector("[data-fee-total]").textContent = money(bookings.reduce((sum, booking) => sum + Number(booking.stripe_fee_thb || 0), 0));
+        document.querySelector("[data-fee-total]").textContent = money(feeConfirmed.reduce((sum, booking) => sum + Number(booking.stripe_fee_thb), 0));
+        document.querySelector("[data-fee-note]").textContent = feeConfirmed.length === bookings.length ? "ยืนยันจาก Stripe ครบแล้ว" : `ยืนยันจาก Stripe ${feeConfirmed.length}/${bookings.length} รายการ`;
         dashboardMessage.textContent = "";
         renderDashboardInsights();
         render();
