@@ -5,6 +5,7 @@ const SITE_URL = "https://course.6cat.website";
 const LOCAL_ORIGINS = new Set(["http://localhost:4502", "http://127.0.0.1:4502"]);
 
 const packages = {
+  "payment-test": { name: "PAYMENT TEST (No course entitlement)", amountThb: 1, needsSlot: false, needsLocation: false },
   "online-course": { name: "ONLINE COURSE", amountThb: 990, needsSlot: false, needsLocation: false },
   "live-online": { name: "PRIVATE LIVE ONLINE", amountThb: 2999, needsSlot: true, needsLocation: false, defaultLocation: "Online — Google Meet / Zoom" },
   solo: { name: "SOLO", amountThb: 3999, needsSlot: true, needsLocation: true },
