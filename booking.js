@@ -1,5 +1,5 @@
 const packages = {
-  "payment-test": { name: "PAYMENT TEST", detail: "ทดสอบการชำระเงินจริงผ่าน Stripe (ไม่มีสิทธิ์เข้าเรียนหรือรับบริการ)", format: "ทดสอบระบบ", duration: "ไม่มีเวลาเรียน", price: 1, needsSlot: false },
+  "payment-test": { name: "PAYMENT TEST", detail: "ทดสอบการชำระเงินจริงผ่าน Stripe 10 บาท (ไม่มีสิทธิ์เข้าเรียนหรือรับบริการ)", format: "ทดสอบระบบ", duration: "ไม่มีเวลาเรียน", price: 10, needsSlot: false },
   "online-course": { name: "ONLINE COURSE", detail: "เรียนด้วยตัวเอง เข้าถึงคอร์สได้ตลอดเวลา", format: "เรียนด้วยตัวเอง", duration: "เข้าเรียนได้ตลอด 24 ชม.", price: 990, needsSlot: false },
   "live-online": { name: "PRIVATE LIVE ONLINE", detail: "เรียนสด 4 ชั่วโมง ผ่าน Meet หรือ Zoom", format: "Private 1:1 ออนไลน์", duration: "4 ชั่วโมง", price: 2999, needsSlot: true, type: "live" },
   solo: { name: "SOLO", detail: "Private Workshop 6 ชั่วโมง เลือกสถานที่ได้", format: "Private Workshop 1 คน", duration: "6 ชั่วโมง", price: 3999, needsSlot: true, type: "workshop" },

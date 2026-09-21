@@ -10,7 +10,7 @@ const LOCAL_ORIGINS = new Set([
 ]);
 
 const packages = {
-  "payment-test": { name: "PAYMENT TEST (No course entitlement)", amountThb: 1, needsSlot: false, needsLocation: false },
+  "payment-test": { name: "PAYMENT TEST (No course entitlement)", amountThb: 10, needsSlot: false, needsLocation: false },
   "online-course": { name: "ONLINE COURSE", amountThb: 990, needsSlot: false, needsLocation: false },
   "live-online": { name: "PRIVATE LIVE ONLINE", amountThb: 2999, needsSlot: true, needsLocation: false, defaultLocation: "Online — Google Meet / Zoom" },
   solo: { name: "SOLO", amountThb: 3999, needsSlot: true, needsLocation: true },

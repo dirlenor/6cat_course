@@ -22,7 +22,7 @@ function formatSchedule(booking: Record<string, unknown>) {
 }
 
 function packageName(value: unknown) {
-  return ({ "payment-test": "Payment Test (1 THB)", "online-course": "Online Course", "live-online": "Private Live Online", solo: "Solo Workshop", buddy: "Buddy Workshop" } as Record<string, string>)[String(value || "")] || String(value || "-");
+  return ({ "payment-test": "Payment Test (10 THB)", "online-course": "Online Course", "live-online": "Private Live Online", solo: "Solo Workshop", buddy: "Buddy Workshop" } as Record<string, string>)[String(value || "")] || String(value || "-");
 }
 
 function invoiceNumber(value: unknown) {
