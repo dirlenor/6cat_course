@@ -1,5 +1,4 @@
 const packages = {
-  "online-course": { name: "ONLINE COURSE", detail: "เรียนด้วยตัวเอง เข้าถึงคอร์สได้ตลอดเวลา", format: "เรียนด้วยตัวเอง", duration: "เข้าเรียนได้ตลอด 24 ชม.", price: 990, needsSlot: false },
   "live-online": { name: "PRIVATE LIVE ONLINE", detail: "เรียนสด 4 ชั่วโมง ผ่าน Meet หรือ Zoom", format: "Private 1:1 ออนไลน์", duration: "4 ชั่วโมง", price: 2999, needsSlot: true, type: "live" },
   solo: { name: "SOLO", detail: "Private Workshop 6 ชั่วโมง เลือกสถานที่ได้", format: "Private Workshop 1 คน", duration: "6 ชั่วโมง", price: 3999, needsSlot: true, type: "workshop" },
   buddy: { name: "BUDDY", detail: "Private Workshop 6 ชั่วโมง สำหรับ 2 คน", format: "Private Workshop 2 คน", duration: "6 ชั่วโมง", price: 5999, needsSlot: true, type: "workshop" },
@@ -9,7 +8,6 @@ const form = document.querySelector("#booking-form");
 const packageInputs = [...document.querySelectorAll('input[name="package"]')];
 const scheduleFields = document.querySelector("[data-schedule-fields]");
 const scheduleHelp = document.querySelector("[data-schedule-help]");
-const onlineNotice = document.querySelector("[data-online-notice]");
 const buddyField = document.querySelector("[data-buddy-field]");
 const slotDays = document.querySelector("[data-slot-days]");
 const slotTimes = document.querySelector("[data-slot-times]");
@@ -119,7 +117,6 @@ function updateBookingPage() {
   document.querySelector("[data-summary-duration]").textContent = selected.duration;
   document.querySelector("[data-summary-total]").textContent = money(selected.price);
   scheduleFields.hidden = !selected.needsSlot;
-  onlineNotice.hidden = selected.needsSlot;
   workshopLocation.hidden = selected.type !== "workshop";
   workshopLocationSelect.required = selected.type === "workshop";
   slotIdInput.required = selected.needsSlot;
