@@ -63,12 +63,6 @@
             </a>
             <a class="hero-about" href="#experience" lang="en">ABOUT THE COURSE</a>
           </div>
-          <ul class="hero-benefits">
-            <li><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="4" y="5" width="24" height="18" rx="1"/><path d="M16 23v5m-6 0h12"/></svg><strong>ออกแบบได้จริง</strong><span>ไม่ต้องจำ Prompt</span></li>
-            <li><svg viewBox="0 0 32 32" aria-hidden="true"><path d="m12 3-1 4-4 2-4-1-2 5 4 3v4l-2 3 4 4 4-2 4 1 2 4 5-2v-4l3-3 4-1-1-5-4-1-2-4 1-4-5-2-3 3Z"/><circle cx="16" cy="16" r="5"/></svg><strong>เรียนแบบลงมือทำ</strong><span>มีไฟล์ตัวอย่างให้</span></li>
-            <li><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="9" r="4"/><circle cx="5" cy="12" r="3"/><circle cx="27" cy="12" r="3"/><path d="M8 27v-3a8 8 0 0 1 16 0v3M1 25v-3a5 5 0 0 1 5-5m20 0a5 5 0 0 1 5 5v3"/></svg><strong>ตัวต่อตัว / กลุ่มเล็ก</strong><span>ถามได้ตลอด</span></li>
-            <li><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M12 21 7 16C13 5 22 3 29 3c0 8-3 16-13 22l-4-4Zm-5-5-4 1 3-7 7-1m3 16-1 4 7-3 1-7M8 24l-4 4"/><circle cx="22" cy="10" r="3"/></svg><strong>จบแล้วสร้างได้เลย</strong><span>พร้อมขึ้นออนไลน์</span></li>
-          </ul>
         </section>
 
         <section class="hero-visual" aria-label="ภาพรวมการสร้างเว็บไซต์ด้วย AI">
@@ -128,17 +122,6 @@
                 <p>นำเว็บไซต์<br />ขึ้นออนไลน์จริง</p>
               </li>
             </ol>
-          </div>
-        </section>
-
-        <section class="closing-message" aria-label="Workshop promise">
-          <div class="closing-message__banner">
-            <span class="closing-message__placeholder english-display" lang="en">[ BLACK BRUSH STROKE ]</span>
-            <p>
-              <span>ไม่ใช่แค่เรียนรู้....</span>
-              <strong>แต่คุณจะได้ทำมันจริง</strong>
-              <span>ไปพร้อมกัน</span>
-            </p>
           </div>
         </section>
 
@@ -525,9 +508,8 @@
             <!-- Left: Intro Column -->
             <div class="instructor-intro">
               <h2 id="instructor-title" class="instructor-title">
-                <span>ผมอยู่ตรงนี้</span>
-                <span>เพื่อช่วยให้คุณ</span>
-                <span class="instructor-title__accent">ไปไกลกว่าเดิม</span>
+                <span>เรียนและออกแบบไปพร้อมกัน</span>
+                <span class="instructor-title__accent">แล้วคุณจะไม่เชื่อว่าตัวเองก็ทำได้</span>
               </h2>
 
               <p class="instructor-description">
@@ -900,8 +882,7 @@
             .from(".hero-intro > *", { autoAlpha: 0, y: 32, stagger: 0.16 }, "intro")
             .from(".hero-visual", { autoAlpha: 0, y: 42, scale: 0.97 }, "intro+=0.18")
             .from(".workflow-step", { autoAlpha: 0, y: 24, stagger: 0.1 }, "intro+=0.5")
-            .from(".closing-message__banner", { autoAlpha: 0, y: 24 }, "intro+=0.82")
-            .from("#hero-booking-cta", { autoAlpha: 0, y: 20 }, "intro+=1.02");
+            .from("#hero-booking-cta", { autoAlpha: 0, y: 20 }, "intro+=0.82");
 
           gsap.timeline({
             defaults: { duration: 0.52, ease: "power3.out" },
