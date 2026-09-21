@@ -6,6 +6,8 @@
     <meta name="robots" content="noindex, nofollow" />
     <title>จัดการการจอง | 6CAT Academy</title>
     <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./admin-content.css" />
+    <link rel="stylesheet" href="./admin-learning.css" />
     <script>try { if (sessionStorage.getItem("6cat-admin-session")) document.documentElement.classList.add("admin-session-pending"); } catch (_) {}</script>
     <style>
       html.admin-session-pending [data-login-panel] { visibility: hidden; }
@@ -179,7 +181,7 @@
           <form data-login-form>
             <label class="admin-field">อีเมลแอดมิน<input name="email" type="email" autocomplete="username" required /></label>
             <label class="admin-field">รหัสผ่าน<input name="password" type="password" autocomplete="current-password" required /></label>
-            <div class="admin-actions"><button class="admin-button" type="submit">เข้าสู่ระบบ</button><button class="admin-button admin-button--quiet" type="button" data-signup>ยังไม่มีบัญชี? สร้างบัญชีครั้งแรก</button></div>
+            <div class="admin-actions"><button class="admin-button" type="submit">เข้าสู่ระบบแอดมิน</button><a class="admin-button admin-button--quiet" href="./student-login.html">เข้าสู่ระบบนักเรียน</a></div>
             <p class="admin-message" data-login-message aria-live="polite"></p>
           </form>
         </div>
@@ -192,6 +194,9 @@
             <button class="is-active" type="button" data-dashboard-tab="overview">ภาพรวม</button>
             <button type="button" data-dashboard-tab="bookings">รายการจอง</button>
             <button type="button" data-dashboard-tab="calendar">ปฏิทินคอร์ส</button>
+            <button type="button" data-dashboard-tab="courses">จัดการคอร์ส</button>
+            <button type="button" data-dashboard-tab="students">นักเรียน</button>
+            <button type="button" data-dashboard-tab="content">คอนเทนต์ Facebook</button>
           </nav>
           <div class="dashboard-sidebar__footer"><span>ลงชื่อเข้าใช้ในฐานะแอดมิน</span><strong data-admin-email></strong></div>
           <button class="admin-button dashboard-logout" type="button" data-logout>ออกจากระบบ</button>
@@ -246,6 +251,168 @@
               <div class="slot-manager__list" data-slot-manager-list></div>
             </section>
           </section>
+          <section class="dashboard-view content-studio" data-dashboard-view="content" hidden>
+            <div class="content-toolbar">
+              <div>
+                <p class="dashboard-kicker">FACEBOOK CONTENT</p>
+                <h2>แผนคอนเทนต์รายสัปดาห์</h2>
+                <p class="admin-subtitle">วางหัวข้อ แก้แคปชัน ใส่รูป และอนุมัติก่อนโพสต์จริงทุกครั้ง</p>
+              </div>
+              <div class="content-toolbar__actions">
+                <button class="dashboard-site-link" type="button" data-content-settings>ตั้งค่าคอนเทนต์</button>
+                <button class="admin-button admin-button--quiet" type="button" data-content-create-empty>สร้างตารางเปล่า</button>
+                <button class="admin-button" type="button" data-content-copy-prompt>คัดลอกโจทย์ไป ChatGPT</button>
+              </div>
+            </div>
+
+            <label class="content-week-note">โจทย์เพิ่มเติมสำหรับสัปดาห์นี้<input type="text" maxlength="3000" data-content-weekly-notes placeholder="เช่น เน้นโปรโมต Private Live Online แต่ยังคงโพสต์ความรู้เป็นหลัก" /></label>
+
+            <section class="dashboard-card content-week-card">
+              <div class="content-week-nav">
+                <button type="button" aria-label="สัปดาห์ก่อนหน้า" data-content-previous>←</button>
+                <div><strong data-content-week-label></strong><span data-content-week-summary></span></div>
+                <button type="button" data-content-today>สัปดาห์นี้</button>
+                <button type="button" aria-label="สัปดาห์ถัดไป" data-content-next>→</button>
+              </div>
+              <div class="content-week" data-content-week></div>
+              <p class="admin-message content-message" data-content-message aria-live="polite"></p>
+            </section>
+
+            <section class="content-status-grid" aria-label="สรุปสถานะคอนเทนต์">
+              <div><span>โพสต์ทั้งหมด</span><strong data-content-total>0</strong></div>
+              <div><span>รอตรวจ</span><strong data-content-draft>0</strong></div>
+              <div><span>ตั้งเวลาแล้ว</span><strong data-content-scheduled>0</strong></div>
+              <div><span>โพสต์สำเร็จ</span><strong data-content-published>0</strong></div>
+            </section>
+          </section>
+
+          <section class="dashboard-view learning-admin" data-dashboard-view="courses" hidden>
+            <div class="learning-admin__heading">
+              <div><p class="dashboard-kicker">COURSE MANAGEMENT</p><h2>จัดการคอร์ส</h2><p class="admin-subtitle">สร้างคอร์ส จัดบท และเพิ่มเนื้อหาบทเรียน</p></div>
+            </div>
+
+            <div class="learning-admin__layout">
+              <aside class="dashboard-card learning-course-list-card">
+                <div class="dashboard-card__heading"><div><h2>คอร์สเรียน</h2><span>เลือกคอร์สเพื่อจัดเนื้อหา</span></div></div>
+                <form class="learning-quick-form" data-learning-course-create><input name="title" maxlength="160" placeholder="ชื่อคอร์สใหม่" required /><button class="admin-button" type="submit">เพิ่มคอร์ส</button></form>
+                <div class="learning-course-list" data-learning-course-list></div>
+              </aside>
+
+              <section class="dashboard-card learning-editor-card">
+                <div class="learning-empty" data-learning-empty>เลือกคอร์สทางซ้าย หรือสร้างคอร์สใหม่</div>
+                <div data-learning-editor hidden>
+                  <form class="learning-course-form" data-learning-course-form>
+                    <input name="courseId" type="hidden" />
+                    <div class="dashboard-card__heading"><div><h2>ข้อมูลคอร์ส</h2><span>นักเรียนจะเห็นเฉพาะคอร์สและบทเรียนที่เผยแพร่แล้ว</span></div><button class="admin-button" type="submit">บันทึกคอร์ส</button></div>
+                    <div class="learning-fields">
+                      <label>ชื่อคอร์ส<input name="title" maxlength="160" required /></label>
+                      <label>Slug<input name="slug" pattern="[a-z0-9]+(?:-[a-z0-9]+)*" required /></label>
+                      <label class="learning-fields__wide">คำอธิบาย<textarea name="description" rows="3" maxlength="8000"></textarea></label>
+                      <label class="learning-fields__wide">URL รูปปก<input name="coverImageUrl" type="url" placeholder="https://..." /></label>
+                      <label>สถานะ<select name="status"><option value="draft">ฉบับร่าง</option><option value="published">เผยแพร่</option></select></label>
+                    </div>
+                  </form>
+                  <div class="learning-modules-head"><div><h3>บทและบทเรียน</h3><p>เรียงด้วยเลขลำดับ และเปิดเผยแพร่ทีละรายการ</p></div><button class="admin-button admin-button--quiet" type="button" data-learning-add-module>เพิ่มบท</button></div>
+                  <div class="learning-module-list" data-learning-module-list></div>
+                </div>
+                <p class="admin-message" data-learning-message aria-live="polite"></p>
+              </section>
+            </div>
+
+          </section>
+
+          <section class="dashboard-view learning-admin learning-students-view" data-dashboard-view="students" hidden>
+            <div class="learning-admin__heading">
+              <div><p class="dashboard-kicker">STUDENT MANAGEMENT</p><h2>นักเรียน</h2><p class="admin-subtitle">สร้างบัญชี เพิ่มสิทธิ์คอร์ส และจัดการสถานะเข้าเรียน</p></div>
+            </div>
+            <section class="dashboard-card learning-students-card">
+              <div class="dashboard-card__heading"><div><h2>นักเรียนและสิทธิ์เข้าเรียน</h2><span>สร้างบัญชีด้วยอีเมลและรหัสผ่านชั่วคราว</span></div></div>
+              <form class="learning-student-form" data-learning-student-form>
+                <label>ชื่อ–นามสกุล<input name="fullName" maxlength="120" required /></label>
+                <label>อีเมล<input name="email" type="email" maxlength="254" required /></label>
+                <label>รหัสผ่านชั่วคราว <small>(เว้นว่างได้ถ้ามีบัญชีแล้ว)</small><input name="password" type="text" minlength="10" maxlength="128" autocomplete="off" /></label>
+                <label>คอร์ส<select name="courseId" required></select></label>
+                <label>วันหมดอายุ (เว้นว่าง = ไม่หมดอายุ)<input name="expiresAt" type="date" /></label>
+                <button class="admin-button" type="submit">สร้างบัญชี / เพิ่มสิทธิ์คอร์ส</button>
+              </form>
+              <p class="admin-message" data-learning-student-message aria-live="polite"></p>
+              <div class="learning-student-list" data-learning-student-list></div>
+            </section>
+          </section>
+
+          <dialog class="content-dialog learning-dialog" data-learning-module-dialog>
+            <form class="content-form" data-learning-module-form>
+              <div class="content-dialog__head"><div><p class="dashboard-kicker">COURSE MODULE</p><h2>จัดการบท</h2></div><button type="button" class="content-dialog__close" data-learning-module-close aria-label="ปิด">×</button></div>
+              <input name="moduleId" type="hidden" /><input name="courseId" type="hidden" />
+              <div class="content-form__grid"><label class="content-form__wide">ชื่อบท<input name="title" maxlength="180" required /></label><label class="content-form__wide">คำอธิบาย<textarea name="description" rows="3" maxlength="4000"></textarea></label><label>ลำดับ<input name="position" type="number" min="1" max="10000" required /></label><label class="learning-checkbox"><input name="isPublished" type="checkbox" /> เผยแพร่บทนี้</label></div>
+              <p class="admin-message" data-learning-module-message></p><div class="content-dialog__actions"><button type="button" class="dashboard-site-link" data-learning-module-cancel>ยกเลิก</button><button type="submit" class="admin-button">บันทึกบท</button></div>
+            </form>
+          </dialog>
+
+          <dialog class="content-dialog learning-dialog" data-learning-lesson-dialog>
+            <form class="content-form" data-learning-lesson-form>
+              <div class="content-dialog__head"><div><p class="dashboard-kicker">COURSE LESSON</p><h2>จัดการบทเรียน</h2></div><button type="button" class="content-dialog__close" data-learning-lesson-close aria-label="ปิด">×</button></div>
+              <input name="lessonId" type="hidden" /><input name="moduleId" type="hidden" />
+              <div class="content-form__grid">
+                <label class="content-form__wide">ชื่อบทเรียน<input name="title" maxlength="180" required /></label>
+                <label class="content-form__wide">คำเกริ่น<textarea name="summary" rows="2" maxlength="4000"></textarea></label>
+                <label class="content-form__wide">เนื้อหาบทเรียน<textarea name="lessonContent" rows="10" maxlength="50000" placeholder="ใส่เนื้อหาเป็นข้อความ แยกย่อหน้าด้วยการขึ้นบรรทัดใหม่"></textarea></label>
+                <label class="content-form__wide">YouTube URL หรือ Video ID<input name="youtubeVideo" placeholder="https://youtu.be/..." /></label>
+                <label>ความยาว (นาที)<input name="durationMinutes" type="number" min="1" max="1440" /></label>
+                <label>ลำดับ<input name="position" type="number" min="1" max="10000" required /></label>
+                <label class="learning-checkbox"><input name="isPublished" type="checkbox" /> เผยแพร่บทเรียนนี้</label>
+              </div>
+              <p class="admin-message" data-learning-lesson-message></p><div class="content-dialog__actions"><button type="button" class="dashboard-site-link" data-learning-lesson-cancel>ยกเลิก</button><button type="submit" class="admin-button">บันทึกบทเรียน</button></div>
+            </form>
+          </dialog>
+
+          <dialog class="content-dialog" data-content-editor>
+            <form class="content-form" method="dialog" data-content-form>
+              <div class="content-dialog__head"><div><p class="dashboard-kicker">CONTENT EDITOR</p><h2>แก้ไขโพสต์</h2></div><button type="button" class="content-dialog__close" data-content-close aria-label="ปิด">×</button></div>
+              <input type="hidden" name="postId" />
+              <div class="content-form__grid">
+                <label>วันที่โพสต์<input name="plannedDate" type="date" required /></label>
+                <label>เวลาโพสต์<input name="plannedTime" type="time" required /></label>
+                <label class="content-form__wide">หัวเรื่อง<input name="title" type="text" maxlength="180" required /></label>
+                <label>ประเภท<select name="contentType"><option value="education">ให้ความรู้</option><option value="inspiration">ตัวอย่าง / แรงบันดาลใจ</option><option value="behind_the_scenes">เบื้องหลัง</option><option value="promotion">แนะนำคอร์ส</option><option value="engagement">ชวนพูดคุย</option></select></label>
+                <label>เป้าหมาย<input name="objective" type="text" maxlength="1000" /></label>
+                <label class="content-form__wide">แคปชัน<textarea name="caption" rows="8" maxlength="12000"></textarea></label>
+                <label class="content-form__wide">ข้อความชวนให้ทำต่อ (CTA)<textarea name="cta" rows="2" maxlength="1000"></textarea></label>
+                <label class="content-form__wide">แนวทางทำรูป<textarea name="imageBrief" rows="3" maxlength="4000"></textarea></label>
+                <label class="content-form__wide">Prompt สำหรับนำไปเจนรูป<textarea name="imagePrompt" rows="4" maxlength="8000"></textarea></label>
+              </div>
+              <div class="content-image-editor">
+                <div class="content-image-preview" data-content-image-preview><span>ยังไม่มีรูป</span></div>
+                <div><label class="content-upload">เลือกรูปใหม่<input name="contentImage" type="file" accept="image/jpeg,image/png,image/webp" /></label><p>JPG, PNG หรือ WebP ไม่เกิน 10MB</p><label class="content-check"><input name="imageRequired" type="checkbox" /> ต้องมีรูปก่อนอนุมัติ</label><button type="button" class="content-text-button" data-content-remove-image>นำรูปออกจากโพสต์</button></div>
+              </div>
+              <div class="content-preview"><span>ตัวอย่างข้อความที่จะโพสต์</span><p data-content-caption-preview>ยังไม่มีแคปชัน</p></div>
+              <p class="admin-message" data-content-form-message aria-live="polite"></p>
+              <div class="content-dialog__actions"><button type="button" class="dashboard-site-link" data-content-cancel>ยกเลิก</button><button type="submit" class="admin-button">บันทึกแบบร่าง</button></div>
+            </form>
+          </dialog>
+
+          <dialog class="content-dialog content-dialog--settings" data-content-settings-dialog>
+            <form class="content-form" method="dialog" data-content-settings-form>
+              <div class="content-dialog__head"><div><p class="dashboard-kicker">CONTENT SETTINGS</p><h2>ตั้งค่าการวางแผน</h2></div><button type="button" class="content-dialog__close" data-content-settings-close aria-label="ปิด">×</button></div>
+              <div class="content-form__grid">
+                <label>ชื่อแบรนด์<input name="brandName" maxlength="120" required /></label>
+                <label>จำนวนโพสต์ต่อวัน<select name="postsPerDay"><option value="1">1 โพสต์</option><option value="2">2 โพสต์</option></select></label>
+                <label>เวลารอบแรก<input name="morningTime" type="time" required /></label>
+                <label>เวลารอบที่สอง<input name="eveningTime" type="time" required /></label>
+                <label class="content-form__wide">กลุ่มเป้าหมาย<textarea name="audience" rows="3"></textarea></label>
+                <label class="content-form__wide">โทนภาษา<textarea name="brandVoice" rows="3"></textarea></label>
+                <label class="content-form__wide">ข้อมูลธุรกิจและข้อมูลคอร์สสำหรับใช้เป็นโจทย์<textarea name="businessContext" rows="4"></textarea></label>
+                <label class="content-form__wide">หัวข้อหลัก แยกหนึ่งหัวข้อต่อบรรทัด<textarea name="contentPillars" rows="5"></textarea></label>
+                <label class="content-form__wide">CTA เริ่มต้น<textarea name="defaultCta" rows="2"></textarea></label>
+                <label class="content-form__wide">สิ่งที่ห้ามพูดหรือห้ามแต่งเพิ่ม<textarea name="avoidTopics" rows="3"></textarea></label>
+                <label>Facebook Page ID<input name="facebookPageId" inputmode="numeric" pattern="[0-9]{5,30}" placeholder="เช่น 1234567890" /></label>
+                <label>ชื่อ Facebook Page<input name="facebookPageName" maxlength="160" placeholder="6CAT Academy" /></label>
+              </div>
+              <p class="content-secret-note">Page Access Token ต้องตั้งใน Supabase Secrets เท่านั้น ระบบจะไม่เก็บค่าลับไว้ในหน้าเว็บ</p>
+              <p class="admin-message" data-content-settings-message aria-live="polite"></p>
+              <div class="content-dialog__actions"><button type="button" class="dashboard-site-link" data-content-settings-cancel>ยกเลิก</button><button type="submit" class="admin-button">บันทึกการตั้งค่า</button></div>
+            </form>
+          </dialog>
         </main>
       </section>
     </main>
@@ -275,6 +442,12 @@
       let courseSlots = [];
       let selectedGeneratorDates = new Set();
       let calendarMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+      window.sixCatAdmin = {
+        getSupabaseUrl: () => supabaseUrl,
+        getSupabaseKey: () => supabaseKey,
+        getAccessToken: () => accessToken,
+        getSession: () => { try { return JSON.parse(sessionStorage.getItem("6cat-admin-session") || "null"); } catch (_) { return null; } },
+      };
 
       const money = (amount) => new Intl.NumberFormat("th-TH", { style: "currency", currency: "THB", maximumFractionDigits: 0 }).format(amount || 0);
       const dateTime = (value) => value ? new Intl.DateTimeFormat("th-TH", { dateStyle: "medium", timeStyle: "short" }).format(new Date(value)) : "-";
@@ -496,6 +669,8 @@
       }
 
       async function openDashboard(session) {
+        const isAdmin = session.user?.email === "admin@6cat.com" || session.user?.app_metadata?.role === "admin";
+        if (!isAdmin) throw new Error("บัญชีนี้ไม่มีสิทธิ์เข้าหลังบ้านแอดมิน");
         accessToken = session.access_token;
         rememberSession(session);
         document.querySelector("[data-admin-email]").textContent = session.user.email;
@@ -512,17 +687,6 @@
         const form = new FormData(loginForm);
         loginMessage.textContent = "กำลังเข้าสู่ระบบ...";
         try { await openDashboard(await auth("token?grant_type=password", { email: form.get("email"), password: form.get("password") })); } catch (error) { loginMessage.textContent = error.message; }
-      });
-
-      document.querySelector("[data-signup]").addEventListener("click", async () => {
-        const form = new FormData(loginForm);
-        if (!loginForm.reportValidity()) return;
-        loginMessage.textContent = "กำลังสร้างบัญชี...";
-        try {
-          const result = await auth("signup", { email: form.get("email"), password: form.get("password"), email_redirect_to: `${location.origin}/admin-bookings.html` });
-          if (result.session) await openDashboard(result.session);
-          else loginMessage.textContent = "สร้างบัญชีแล้ว กรุณายืนยันอีเมลก่อนเข้าสู่ระบบ";
-        } catch (error) { loginMessage.textContent = error.message; }
       });
 
       searchInput.addEventListener("input", render);
@@ -585,5 +749,7 @@
       renderSlotGeneratorDays(true);
       restoreSession();
     </script>
+    <script src="./admin-content.js"></script>
+    <script src="./admin-learning.js"></script>
   </body>
 </html>

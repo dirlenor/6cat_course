@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>เข้าสู่ระบบนักเรียน | 6CAT Academy</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./student-portal.css" />
+  </head>
+  <body class="student-page">
+    <main class="student-login-shell">
+      <section class="student-login-card">
+        <div class="student-login-visual">
+          <a href="./index.html"><img src="./assets/brand/6cat-academy-logo.png" alt="6CAT Academy" /></a>
+          <div><h1>LEARN.<br />BUILD.<br />SHIP.</h1><p>พื้นที่เรียนสำหรับนักเรียน 6CAT Academy ดูบทเรียนและติดตามความคืบหน้าได้ทุกเวลา</p></div>
+        </div>
+        <div class="student-login-form-wrap">
+          <p class="student-kicker">STUDENT PORTAL</p>
+          <h2>เข้าสู่ระบบนักเรียน</h2>
+          <p>ใช้ข้อมูลที่ได้รับจากผู้ดูแลหลังชำระเงิน</p>
+          <form class="student-form" data-student-login-form>
+            <label>อีเมล<input name="email" type="email" autocomplete="username" required /></label>
+            <label>รหัสผ่าน<input name="password" type="password" minlength="10" autocomplete="current-password" required /></label>
+            <button class="student-primary-button" type="submit">เข้าสู่บทเรียน</button>
+          </form>
+          <p class="student-message" data-student-login-message aria-live="polite"></p>
+          <a class="student-back-link" href="./index.html">← กลับหน้าเว็บไซต์</a>
+        </div>
+      </section>
+    </main>
+    <script src="./student-login.js"></script>
+  </body>
+</html>

@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>บทเรียนของฉัน | 6CAT Academy</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./student-portal.css" />
+  </head>
+  <body class="student-page">
+    <main class="student-app" data-student-app hidden>
+      <aside class="student-sidebar">
+        <a class="student-sidebar__logo" href="./index.html"><img src="./assets/brand/6cat-academy-logo.png" alt="6CAT Academy" /></a>
+        <div class="student-sidebar__profile"><strong data-student-name></strong><span data-student-code></span></div>
+        <select class="student-course-select" data-student-course aria-label="เลือกคอร์สเรียน"></select>
+        <nav class="student-module-nav" data-student-navigation aria-label="บทเรียน"></nav>
+        <div class="student-sidebar__actions"><button type="button" data-student-password>เปลี่ยนรหัสผ่าน</button><button type="button" data-student-logout>ออกจากระบบ</button></div>
+      </aside>
+      <section class="student-main">
+        <header class="student-topbar"><div><p class="student-kicker">MY LEARNING</p><h1 data-student-course-title>บทเรียนของฉัน</h1></div><div class="student-progress"><span><b>ความคืบหน้า</b><b data-student-progress-label>0%</b></span><div class="student-progress__track"><i data-student-progress-bar style="width:0%"></i></div></div></header>
+        <p class="student-message" data-student-message aria-live="polite"></p>
+        <div class="student-empty-state" data-student-empty hidden><div><strong>ยังไม่มีคอร์สที่เปิดให้เรียน</strong><p>กรุณาติดต่อผู้ดูแลเพื่อตรวจสอบสิทธิ์เข้าเรียน</p></div></div>
+        <article class="student-lesson-view" data-student-lesson hidden>
+          <div class="student-video" data-student-video hidden><iframe data-student-video-frame title="วิดีโอบทเรียน" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe><span class="student-video__watermark" data-student-watermark></span></div>
+          <div class="student-lesson-meta"><p class="student-kicker" data-student-module-label></p><h2 data-student-lesson-title></h2><p data-student-lesson-summary></p></div>
+          <div class="student-lesson-content" data-student-lesson-content></div>
+          <div class="student-lesson-actions"><button type="button" data-student-previous>← บทก่อนหน้า</button><button class="student-complete" type="button" data-student-complete>เรียนจบแล้ว</button><button type="button" data-student-next>บทถัดไป →</button></div>
+        </article>
+      </section>
+    </main>
+    <dialog class="student-password-dialog" data-student-password-dialog><form class="student-form" data-student-password-form><h2>เปลี่ยนรหัสผ่าน</h2><label>รหัสผ่านใหม่<input name="password" type="password" minlength="10" maxlength="128" autocomplete="new-password" required /></label><label>ยืนยันรหัสผ่าน<input name="confirmPassword" type="password" minlength="10" maxlength="128" autocomplete="new-password" required /></label><p class="student-message" data-student-password-message></p><div class="student-dialog-actions"><button type="button" data-student-password-cancel>ยกเลิก</button><button class="student-primary-button" type="submit">บันทึกรหัสผ่าน</button></div></form></dialog>
+    <script src="./student-dashboard.js"></script>
+  </body>
+</html>
