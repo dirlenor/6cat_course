@@ -1831,6 +1831,21 @@ select {
   margin-top: auto;
 }
 
+.pricing-package__cta--disabled {
+  border-color: #5c5c5c;
+  background: #5c5c5c;
+  cursor: not-allowed;
+  color: #d8d8d8;
+  opacity: 1;
+  pointer-events: none;
+  text-align: center;
+}
+
+.pricing-package__cta--disabled::before,
+.pricing-package__cta--disabled:hover::before {
+  transform: none;
+}
+
 @media (max-width: 1199px) {
   .pricing-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
