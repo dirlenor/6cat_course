@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Alata&display=swap");
+
 @font-face {
   font-family: "Noto Sans Thai";
   font-style: normal;
@@ -44,14 +46,6 @@
   font-weight: 800;
   font-display: swap;
   src: url("./assets/fonts/noto-sans-thai-800.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: "Bangers";
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("./assets/fonts/bangers-regular.ttf") format("truetype");
 }
 
 :root {
@@ -103,9 +97,9 @@ body {
 }
 
 .english-display {
-  font-family: "Bangers", "Noto Sans Thai", system-ui, sans-serif;
+  font-family: "Alata", "Noto Sans Thai", system-ui, sans-serif;
   font-synthesis: none;
-  letter-spacing: 0.035em;
+  letter-spacing: 0.02em;
 }
 
 .floating-actions {
@@ -235,13 +229,12 @@ body {
   }
 }
 
-/* Keep the expressive display face for headings only. */
+/* Inline English uses Alata while surrounding Thai retains Noto Sans Thai. */
 p .english-display,
 .problem-checklist .english-display,
 .experience-step__checklist .english-display,
 .pricing-package__features .english-display {
-  font-family: "Noto Sans Thai", "Noto Sans", system-ui, sans-serif;
-  font-synthesis: weight style;
+  font-family: "Alata", "Noto Sans Thai", system-ui, sans-serif;
   letter-spacing: inherit;
 }
 
@@ -627,7 +620,7 @@ select {
   padding-bottom: var(--space-1);
   border-bottom: 2px solid var(--color-text-primary);
   color: var(--color-text-primary);
-  font-family: "Bangers", "Noto Sans Thai", system-ui, sans-serif;
+  font-family: "Alata", "Noto Sans Thai", system-ui, sans-serif;
   font-size: 24px;
   font-weight: 400;
   letter-spacing: 0.035em;

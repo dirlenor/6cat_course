@@ -13,7 +13,7 @@ button, input, select, textarea { font: inherit; }
 .booking-layout { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(340px, .75fr); gap: clamp(36px, 5vw, 72px); align-items: start; padding-top: 20px; }
 .booking-flow { min-width: 0; }
 .booking-intro { padding: clamp(30px, 4vw, 60px) 0 56px; }
-.booking-intro h1 { margin: 0; font-family: "Bangers", Impact, sans-serif; font-size: clamp(62px, 8.6vw, 118px); font-weight: 400; letter-spacing: .015em; line-height: .8; }
+.booking-intro h1 { margin: 0; font-family: "Alata", "Noto Sans Thai", sans-serif; font-size: clamp(62px, 8.6vw, 118px); font-weight: 400; letter-spacing: .015em; line-height: .8; }
 .booking-intro h1::after { display: block; width: min(240px, 42%); height: 5px; margin-top: 24px; background: var(--orange); content: ""; transform: rotate(-1deg); transform-origin: left; }
 .booking-intro p { margin: 22px 0 0; font-size: clamp(17px, 1.8vw, 22px); font-weight: 700; }
 .booking-form { display: grid; gap: 42px; }
@@ -29,7 +29,7 @@ button, input, select, textarea { font: inherit; }
 .package-option__character { position: absolute; z-index: 1; right: 24px; bottom: 66px; width: 68px; height: auto; opacity: .9; pointer-events: none; }
 .package-option__character--solo { width: 55px; }
 .package-option__content { grid-column: 1 / -1; display: grid; align-content: start; gap: 3px; margin-top: 4px; }
-.package-option strong { font-family: "Bangers", "Noto Sans Thai", sans-serif; font-size: clamp(28px, 3vw, 39px); font-weight: 400; letter-spacing: .035em; line-height: .95; }
+.package-option strong { font-family: "Alata", "Noto Sans Thai", sans-serif; font-size: clamp(28px, 3vw, 39px); font-weight: 400; letter-spacing: .035em; line-height: .95; }
 .package-option small { color: var(--muted); font-size: 14px; font-weight: 700; }
 .package-option em { display: inline-block; padding: 4px 7px; margin-left: 5px; border-radius: 999px; background: var(--orange); color: white; font-family: "Noto Sans Thai", sans-serif; font-size: 10px; font-style: normal; font-weight: 800; letter-spacing: normal; vertical-align: middle; }
 .package-option__features { grid-column: 1 / -1; display: grid; align-content: start; gap: 6px; margin-top: 18px; color: #504b46; font-size: 13px; line-height: 1.45; }
@@ -85,7 +85,7 @@ button, input, select, textarea { font: inherit; }
 .booking-summary__heading { position: relative; padding: 0 22px 8px 0; border-bottom: 1px solid var(--dark-line); }
 .booking-summary__heading > img:first-child { display: block; width: min(100%, 300px); height: auto; }
 .booking-summary__star { position: absolute; top: -9px; right: -10px; width: 45px; height: 45px; object-fit: contain; }
-.booking-summary h2 { margin: 38px 0 5px; font-family: "Bangers", "Noto Sans Thai", sans-serif; font-size: 37px; font-weight: 400; letter-spacing: .04em; line-height: .95; }
+.booking-summary h2 { margin: 38px 0 5px; font-family: "Alata", "Noto Sans Thai", sans-serif; font-size: 37px; font-weight: 400; letter-spacing: .04em; line-height: .95; }
 .booking-summary__detail { min-height: 2.8em; margin: 0; color: #b9b3ad; font-size: 14px; line-height: 1.55; }
 .booking-summary__rows { display: grid; gap: 0; padding: 25px 0 8px; margin: 24px 0; border-top: 1px solid var(--dark-line); }
 .booking-summary__rows div { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; padding: 17px 0; border-bottom: 1px solid var(--dark-line); font-size: 14px; }
@@ -93,7 +93,7 @@ button, input, select, textarea { font: inherit; }
 .booking-summary__rows dt img { width: 27px; height: 27px; object-fit: contain; }
 .booking-summary__rows dd { margin: 0; color: var(--orange); text-align: right; }
 .booking-summary__total { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding: 24px 0; border-bottom: 1px solid var(--dark-line); }
-.booking-summary__total span { font-family: "Bangers", sans-serif; font-size: 33px; letter-spacing: .04em; }
+.booking-summary__total span { font-family: "Alata", "Noto Sans Thai", sans-serif; font-size: 33px; letter-spacing: .04em; }
 .booking-summary__total strong { color: var(--orange); font-size: clamp(34px, 4vw, 50px); letter-spacing: -.07em; white-space: nowrap; }
 .booking-pay { width: 100%; min-height: 60px; margin-top: 26px; border: 1px solid var(--orange); border-radius: var(--radius-md); background: var(--orange); color: var(--color-text-inverse); cursor: pointer; font-weight: 800; transition: background 220ms ease, color 220ms ease, transform 220ms ease; }
 .booking-pay:hover, .booking-pay:focus-visible { background: transparent; color: var(--orange); transform: translateY(-2px); }
@@ -103,7 +103,7 @@ button, input, select, textarea { font: inherit; }
 .booking-pay:disabled { cursor: wait; opacity: .7; }
 .booking-return { display: grid; min-height: 100vh; align-content: center; justify-items: center; gap: 30px; padding: 36px 24px; background: var(--paper); }
 .booking-return__card { width: min(100%, 860px); padding: clamp(30px, 4.5vw, 54px); border: 1px solid var(--line); border-radius: var(--radius); background: var(--color-bg-white); text-align: center; }
-.booking-return__eyebrow { margin: 0; color: var(--orange); font-family: "Bangers", "Noto Sans Thai", sans-serif; font-size: 22px; letter-spacing: .05em; }
+.booking-return__eyebrow { margin: 0; color: var(--orange); font-family: "Alata", "Noto Sans Thai", sans-serif; font-size: 22px; letter-spacing: .05em; }
 .booking-return__card h1 { margin: 12px 0 12px; font-size: clamp(42px, 5.5vw, 62px); line-height: 1.05; letter-spacing: -.05em; }
 .booking-return__card p:not(.booking-return__eyebrow) { max-width: 42ch; margin: 0 auto 24px; color: var(--muted); line-height: 1.7; }
 .booking-return__details { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: 30px 0 18px; text-align: left; }
@@ -140,7 +140,7 @@ button, input, select, textarea { font: inherit; }
 .invoice-header p, .invoice-section-label { margin: 0; color: #7b746d; font-size: 11px; font-weight: 800; letter-spacing: .08em; }
 .invoice-header strong { display: block; margin-top: 7px; color: #187243; font-size: 14px; }
 .invoice-intro { max-width: 470px; margin: 0 auto; padding: 46px 0 30px; text-align: center; }
-.invoice-kicker { margin: 0; color: var(--orange); font-family: "Bangers", "Noto Sans Thai", sans-serif; font-size: 22px; letter-spacing: .05em; }
+.invoice-kicker { margin: 0; color: var(--orange); font-family: "Alata", "Noto Sans Thai", sans-serif; font-size: 22px; letter-spacing: .05em; }
 .invoice-intro h1 { margin: 11px 0 12px; font-size: clamp(38px, 5vw, 58px); line-height: 1.04; letter-spacing: -.055em; }
 .invoice-intro > p:not(.invoice-kicker) { margin: 0; color: var(--muted); line-height: 1.7; }
 .invoice-intro span { display: block; margin-top: 16px; color: #8c837b; font-size: 12px; font-weight: 800; }
