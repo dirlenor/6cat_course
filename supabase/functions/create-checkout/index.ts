@@ -2,7 +2,12 @@ import Stripe from "npm:stripe@^22";
 import { withSupabase } from "npm:@supabase/server@^1";
 
 const SITE_URL = "https://course.6cat.website";
-const LOCAL_ORIGINS = new Set(["http://localhost:4502", "http://127.0.0.1:4502"]);
+const LOCAL_ORIGINS = new Set([
+  "http://localhost:3002",
+  "http://127.0.0.1:3002",
+  "http://localhost:4502",
+  "http://127.0.0.1:4502",
+]);
 
 const packages = {
   "payment-test": { name: "PAYMENT TEST (No course entitlement)", amountThb: 1, needsSlot: false, needsLocation: false },
